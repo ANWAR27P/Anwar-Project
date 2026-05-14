@@ -58,6 +58,7 @@
 
         function sendOrder() {
             let message = "طلب جديد من تطبيق URBAN CUP:\n" + cart.join('\n') + "\nالمجموع: " + total + " ريال";
+            // يمكنك تغيير الرقم أدناه لرقمك الخاص في جدة
             window.open("https://wa.me/966500000000?text=" + encodeURIComponent(message));
         }
     </script>
