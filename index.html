@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA COFFEE | Total Menu</title>
+    <title>RA COFFEE | Right-Aligned Menu</title>
     <style>
         body { 
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
@@ -16,7 +16,7 @@
             margin: 0;
             padding: 20px;
         }
-        /* خانة اكتمال الطلب العلوية الثابتة */
+        /* خانة اكتمال الطلب العلوية */
         .top-checkout {
             position: sticky;
             top: 10px;
@@ -38,36 +38,37 @@
             background: black;
             color: white;
             border: none;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 0.9rem;
         }
 
         .header { text-align: center; margin-bottom: 20px; }
         .logo-text { color: #d4af37; font-size: 3rem; font-weight: 900; letter-spacing: 5px; }
         
-        .section-title { color: #d4af37; font-size: 1.4rem; margin: 35px auto 15px; max-width: 500px; border-right: 4px solid #d4af37; padding-right: 15px; text-align: right; font-weight: bold; }
+        .section-title { color: #d4af37; font-size: 1.4rem; margin: 30px auto 15px; max-width: 500px; border-right: 4px solid #d4af37; padding-right: 15px; text-align: right; font-weight: bold; }
         
+        /* جعل محتوى المنيو محاذى لليمين */
         .menu-container { max-width: 500px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.04); padding: 10px; border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
         
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .item:last-child { border-bottom: none; }
         
-        .product-img { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; margin-left: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
         .product-info { display: flex; align-items: center; text-align: right; flex-grow: 1; }
+        .product-img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; margin-left: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
         
-        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-        .price-tag { color: #d4af37; font-weight: bold; font-size: 1rem; }
+        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 80px; }
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 0.9rem; }
         
-        .buy-btn { background: #d4af37; border: none; color: black; padding: 6px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .buy-btn { background: #d4af37; border: none; color: black; padding: 6px 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
         .buy-btn:hover { background: #fff; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
     <div class="top-checkout">
-        <div>إجمالي الطلب: <span id="cartTotal">0</span> SR</div>
+        <div>المجموع: <span id="cartTotal">0</span> SR</div>
         <button class="complete-btn" onclick="completeOrder()">اكتمال الطلب</button>
     </div>
 
@@ -98,21 +99,21 @@
                 <button class="buy-btn" onclick="addToCart(16)">شراء</button>
             </div>
         </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=200" class="product-img">
-                <div><strong>فلات وايت</strong><span>Flat White</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">18 SR</span>
-                <button class="buy-btn" onclick="addToCart(18)">شراء</button>
-            </div>
-        </div>
     </div>
 
-    <!-- القهوة الباردة -->
+    <!-- القهوة الباردة (تم إضافة V60 بارد) -->
     <div class="section-title">القهوة الباردة</div>
     <div class="menu-container">
+        <div class="item">
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=200" class="product-img">
+                <div><strong>V60 بارد</strong><span>V60 Iced</span></div>
+            </div>
+            <div class="price-btn-group">
+                <span class="price-tag">26 SR</span>
+                <button class="buy-btn" onclick="addToCart(26)">شراء</button>
+            </div>
+        </div>
         <div class="item">
             <div class="product-info">
                 <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200" class="product-img">
@@ -123,19 +124,9 @@
                 <button class="buy-btn" onclick="addToCart(21)">شراء</button>
             </div>
         </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200" class="product-img">
-                <div><strong>سبانيش لاتيه</strong><span>Spanish Latte</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">23 SR</span>
-                <button class="buy-btn" onclick="addToCart(23)">شراء</button>
-            </div>
-        </div>
     </div>
 
-    <!-- الحلى الكامل -->
+    <!-- الحلى الفاخر -->
     <div class="section-title">الحلى الفاخر</div>
     <div class="menu-container">
         <div class="item">
@@ -146,26 +137,6 @@
             <div class="price-btn-group">
                 <span class="price-tag">32 SR</span>
                 <button class="buy-btn" onclick="addToCart(32)">شراء</button>
-            </div>
-        </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1586788680451-3ad6b4353149?w=200" class="product-img">
-                <div><strong>كيكة الزعفران</strong><span>Saffron Cake</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">28 SR</span>
-                <button class="buy-btn" onclick="addToCart(28)">شراء</button>
-            </div>
-        </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200" class="product-img">
-                <div><strong>تشيز كيك</strong><span>Cheese Cake</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">25 SR</span>
-                <button class="buy-btn" onclick="addToCart(25)">شراء</button>
             </div>
         </div>
     </div>
@@ -185,4 +156,4 @@
         }
     </script>
 </body>
-</html>          
+</html>
