@@ -1,34 +1,104 @@
-<!-- المشروبات الباردة بأسعار مخفضة -->
-<div class="section-header">المشروبات الباردة</div>
-<div class="menu-box">
-    <div class="menu-item">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=400"></div>
-        <div class="info"><b>V60 بارد</b><small>Specialty V60</small></div>
-        <div class="price-area"><span class="price-tag">18 SR</span><button class="buy-btn" onclick="add(18)">شراء</button></div>
-    </div>
-    <div class="menu-item">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1553909489-eb2175af3f52?w=400"></div>
-        <div class="info"><b>سبانيش لاتيه</b><small>Iced Spanish</small></div>
-        <div class="price-area"><span class="price-tag">16 SR</span><button class="buy-btn" onclick="add(16)">شراء</button></div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RA COFFEE</title>
+    <style>
+        :root { --gold: #d4af37; }
+        body { 
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.95)), 
+                        url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-attachment: fixed;
+            color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; 
+        }
 
-<!-- القهوة الحارة بأسعار مخفضة -->
-<div class="section-header">القهوة الحارة</div>
-<div class="menu-box">
-    <div class="menu-item">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=400"></div>
-        <div class="info"><b>فلات وايت</b><small>Flat White</small></div>
-        <div class="price-area"><span class="price-tag">13 SR</span><button class="buy-btn" onclick="add(13)">شراء</button></div>
-    </div>
-</div>
+        #main-app { padding: 20px 15px; }
 
-<!-- الحلى بأسعار مخفضة -->
-<div class="section-header">الحلى الفاخر</div>
-<div class="menu-box">
-    <div class="menu-item">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400"></div>
-        <div class="info"><b>تيراميسو</b><small>Tiramisu</small></div>
-        <div class="price-area"><span class="price-tag">20 SR</span><button class="buy-btn" onclick="add(20)">شراء</button></div>
+        .top-bar {
+            position: sticky; top: 10px; background: var(--gold);
+            color: #000; padding: 15px; border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 450px; margin: 0 auto 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .logo-title { text-align: center; color: var(--gold); font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; margin: 20px 0; }
+        
+        .section-header { 
+            color: var(--gold); border-right: 4px solid var(--gold); 
+            padding-right: 10px; margin: 25px auto 15px; max-width: 450px; font-weight: bold;
+        }
+
+        .menu-box { 
+            background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            max-width: 450px; margin: 0 auto 15px; overflow: hidden;
+        }
+
+        .menu-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .img-container { width: 70px; height: 70px; margin-left: 15px; }
+        .img-container img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+
+        .info { flex-grow: 1; text-align: right; }
+        .info b { display: block; font-size: 1.1rem; }
+        .info small { color: #888; }
+
+        .price-box { text-align: left; }
+        .price-val { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
+        
+        .btn-buy { background: var(--gold); border: none; padding: 6px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="main-app">
+        <div class="top-bar">
+            <span>المجموع: <b id="totalPrice">0</b> SR</span>
+            <button style="background:#000; color:var(--gold); border:none; padding:8px 15px; border-radius:8px; font-weight:bold;">اتمام الطلب</button>
+        </div>
+
+        <div class="logo-title">RA COFFEE</div>
+
+        <div class="section-header">المشروبات الباردة</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=400"></div>
+                <div class="info"><b>V60 بارد</b><small>Specialty V60</small></div>
+                <div class="price-box"><span class="price-val">18 SR</span><button class="btn-buy" onclick="add(18)">شراء</button></div>
+            </div>
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1553909489-eb2175af3f52?w=400"></div>
+                <div class="info"><b>سبانيش لاتيه</b><small>Iced Spanish</small></div>
+                <div class="price-box"><span class="price-val">16 SR</span><button class="btn-buy" onclick="add(16)">شراء</button></div>
+            </div>
+        </div>
+
+        <div class="section-header">القهوة الحارة</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=400"></div>
+                <div class="info"><b>فلات وايت</b><small>Flat White</small></div>
+                <div class="price-box"><span class="price-val">13 SR</span><button class="btn-buy" onclick="add(13)">شراء</button></div>
+            </div>
+        </div>
+
+        <div class="section-header">الحلى الفاخر</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400"></div>
+                <div class="info"><b>تيراميسو</b><small>Tiramisu</small></div>
+                <div class="price-box"><span class="price-val">20 SR</span><button class="btn-buy" onclick="add(20)">شراء</button></div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script>
+        let count = 0;
+        function add(p) {
+            count += p;
+            document.getElementById('totalPrice').innerText = count;
+        }
+    </script>
+</body>
+</html>
