@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA COFFEE | Right-Aligned Menu</title>
+    <title>RA COFFEE | Live Tracking</title>
     <style>
         body { 
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
@@ -14,70 +14,86 @@
             color: white; 
             font-family: 'Segoe UI', sans-serif; 
             margin: 0;
-            padding: 20px;
-        }
-        /* خانة اكتمال الطلب العلوية */
-        .top-checkout {
-            position: sticky;
-            top: 10px;
-            z-index: 1000;
-            background: rgba(212, 175, 55, 0.95);
-            color: black;
-            padding: 15px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            font-weight: bold;
-        }
-        .complete-btn {
-            background: black;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
+            overflow-x: hidden;
         }
 
-        .header { text-align: center; margin-bottom: 20px; }
-        .logo-text { color: #d4af37; font-size: 3rem; font-weight: 900; letter-spacing: 5px; }
+        /* شاشة التحضير المخفية */
+        #prep-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .top-checkout {
+            position: sticky; top: 10px; z-index: 1000;
+            background: rgba(212, 175, 55, 0.95); color: black;
+            padding: 15px; border-radius: 20px;
+            max-width: 500px; margin: 10px auto;
+            display: flex; justify-content: space-around; align-items: center; font-weight: bold;
+        }
+
+        .complete-btn {
+            background: black; color: white; border: none;
+            padding: 8px 20px; border-radius: 12px; cursor: pointer;
+        }
+
+        .menu-container { max-width: 500px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.04); padding: 10px; border-radius: 25px; backdrop-filter: blur(15px); }
         
-        .section-title { color: #d4af37; font-size: 1.4rem; margin: 30px auto 15px; max-width: 500px; border-right: 4px solid #d4af37; padding-right: 15px; text-align: right; font-weight: bold; }
-        
-        /* جعل محتوى المنيو محاذى لليمين */
-        .menu-container { max-width: 500px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.04); padding: 10px; border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
-        
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .item:last-child { border-bottom: none; }
-        
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .product-info { display: flex; align-items: center; text-align: right; flex-grow: 1; }
-        .product-img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; margin-left: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .product-img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; margin-left: 15px; }
         
-        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 80px; }
-        .price-tag { color: #d4af37; font-weight: bold; font-size: 0.9rem; }
-        
-        .buy-btn { background: #d4af37; border: none; color: black; padding: 6px 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .buy-btn:hover { background: #fff; transform: scale(1.05); }
+        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+        .buy-btn { background: #d4af37; border: none; padding: 6px 15px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+
+        .section-title { color: #d4af37; font-size: 1.4rem; margin: 20px auto 10px; max-width: 500px; text-align: right; border-right: 4px solid #d4af37; padding-right: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="top-checkout">
-        <div>المجموع: <span id="cartTotal">0</span> SR</div>
-        <button class="complete-btn" onclick="completeOrder()">اكتمال الطلب</button>
+    <!-- شاشة العداد التنازلي -->
+    <div id="prep-screen">
+        <div class="timer-circle" id="timerDisplay">05:00</div>
+        <h2 style="color: #d4af37;">قهوتك يتم تحضيرها الآن...</h2>
+        <p style="opacity: 0.8;">ستكون جاهزة خلال 5 دقائق</p>
+        <button class="complete-btn" style="margin-top: 30px;" onclick="location.reload()">طلب جديد</button>
     </div>
 
-    <div class="header">
-        <div class="logo-text">RA COFFEE</div>
+    <div class="top-checkout">
+        <div>المجموع: <span id="cartTotal">0</span> SR</div>
+        <button class="complete-btn" onclick="startPreparation()">اكتمال الطلب</button>
     </div>
-    
-    <!-- القهوة الحارة -->
-    <div class="section-title">القهوة الحارة</div>
+
+    <h1 style="text-align: center; color: #d4af37; letter-spacing: 5px;">RA COFFEE</h1>
+
+    <div class="section-title">المشروبات</div>
     <div class="menu-container">
         <div class="item">
             <div class="product-info">
@@ -85,58 +101,18 @@
                 <div><strong>إسبريسو</strong><span>Espresso</span></div>
             </div>
             <div class="price-btn-group">
-                <span class="price-tag">12 SR</span>
+                <span style="color:#d4af37">12 SR</span>
                 <button class="buy-btn" onclick="addToCart(12)">شراء</button>
             </div>
         </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1534706936160-d5ee67737049?w=200" class="product-img">
-                <div><strong>كورتادو</strong><span>Cortado</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">16 SR</span>
-                <button class="buy-btn" onclick="addToCart(16)">شراء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- القهوة الباردة (تم إضافة V60 بارد) -->
-    <div class="section-title">القهوة الباردة</div>
-    <div class="menu-container">
         <div class="item">
             <div class="product-info">
                 <img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=200" class="product-img">
                 <div><strong>V60 بارد</strong><span>V60 Iced</span></div>
             </div>
             <div class="price-btn-group">
-                <span class="price-tag">26 SR</span>
+                <span style="color:#d4af37">26 SR</span>
                 <button class="buy-btn" onclick="addToCart(26)">شراء</button>
-            </div>
-        </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200" class="product-img">
-                <div><strong>آيس لاتيه</strong><span>Iced Latte</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">21 SR</span>
-                <button class="buy-btn" onclick="addToCart(21)">شراء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- الحلى الفاخر -->
-    <div class="section-title">الحلى الفاخر</div>
-    <div class="menu-container">
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200" class="product-img">
-                <div><strong>تيراميسو</strong><span>Tiramisu</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">32 SR</span>
-                <button class="buy-btn" onclick="addToCart(32)">شراء</button>
             </div>
         </div>
     </div>
@@ -147,12 +123,36 @@
             total += price;
             document.getElementById('cartTotal').innerText = total;
         }
-        function completeOrder() {
-            if(total > 0) {
-                alert('تم استلام طلبك في RA COFFEE! الإجمالي: ' + total + ' SR');
-            } else {
-                alert('يرجى اختيار صنف أولاً.');
+
+        function startPreparation() {
+            if(total === 0) {
+                alert("يرجى إضافة أصناف للسلة أولاً!");
+                return;
             }
+            
+            // إظهار شاشة التحضير
+            document.getElementById('prep-screen').style.display = 'flex';
+            
+            let time = 300; // 5 دقائق بالثواني
+            const display = document.getElementById('timerDisplay');
+            
+            const countdown = setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                
+                display.innerHTML = `${minutes}:${seconds}`;
+                
+                if (time <= 0) {
+                    clearInterval(countdown);
+                    display.innerHTML = "جاهز!";
+                    alert("بالعافية عليك! قهوتك جاهزة للاستلام.");
+                } else {
+                    time--;
+                }
+            }, 1000);
         }
     </script>
 </body>
