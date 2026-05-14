@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA COFFEE | Checkout</title>
+    <title>RA COFFEE | Total Menu</title>
     <style>
         body { 
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
                         url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
@@ -16,7 +16,7 @@
             margin: 0;
             padding: 20px;
         }
-        /* خانة اكتمال الطلب العلوية */
+        /* خانة اكتمال الطلب العلوية الثابتة */
         .top-checkout {
             position: sticky;
             top: 10px;
@@ -38,37 +38,36 @@
             background: black;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 12px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-weight: bold;
         }
 
-        .header { text-align: center; margin: 20px 0; }
+        .header { text-align: center; margin-bottom: 20px; }
         .logo-text { color: #d4af37; font-size: 3rem; font-weight: 900; letter-spacing: 5px; }
         
-        .section-title { color: #d4af37; font-size: 1.4rem; margin: 30px auto 15px; max-width: 500px; border-right: 4px solid #d4af37; padding-right: 15px; text-align: right; font-weight: bold; }
+        .section-title { color: #d4af37; font-size: 1.4rem; margin: 35px auto 15px; max-width: 500px; border-right: 4px solid #d4af37; padding-right: 15px; text-align: right; font-weight: bold; }
         
-        .menu-container { max-width: 500px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.03); padding: 10px; border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
+        .menu-container { max-width: 500px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.04); padding: 10px; border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
         
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .item:last-child { border-bottom: none; }
         
         .product-img { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; margin-left: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
         .product-info { display: flex; align-items: center; text-align: right; flex-grow: 1; }
         
-        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
-        .price-tag { color: #d4af37; font-weight: bold; }
+        .price-btn-group { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 1rem; }
         
-        .buy-btn { background: #d4af37; border: none; color: black; padding: 6px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .buy-btn { background: #d4af37; border: none; color: black; padding: 6px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .buy-btn:hover { background: #fff; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <!-- خانة اكتمال الطلب -->
     <div class="top-checkout">
-        <div>المجموع: <span id="cartTotal">0</span> SR</div>
+        <div>إجمالي الطلب: <span id="cartTotal">0</span> SR</div>
         <button class="complete-btn" onclick="completeOrder()">اكتمال الطلب</button>
     </div>
 
@@ -76,8 +75,8 @@
         <div class="logo-text">RA COFFEE</div>
     </div>
     
-    <!-- القهوة -->
-    <div class="section-title">القهوة</div>
+    <!-- القهوة الحارة -->
+    <div class="section-title">القهوة الحارة</div>
     <div class="menu-container">
         <div class="item">
             <div class="product-info">
@@ -99,9 +98,44 @@
                 <button class="buy-btn" onclick="addToCart(16)">شراء</button>
             </div>
         </div>
+        <div class="item">
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=200" class="product-img">
+                <div><strong>فلات وايت</strong><span>Flat White</span></div>
+            </div>
+            <div class="price-btn-group">
+                <span class="price-tag">18 SR</span>
+                <button class="buy-btn" onclick="addToCart(18)">شراء</button>
+            </div>
+        </div>
     </div>
 
-    <!-- الحلى المطور -->
+    <!-- القهوة الباردة -->
+    <div class="section-title">القهوة الباردة</div>
+    <div class="menu-container">
+        <div class="item">
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200" class="product-img">
+                <div><strong>آيس لاتيه</strong><span>Iced Latte</span></div>
+            </div>
+            <div class="price-btn-group">
+                <span class="price-tag">21 SR</span>
+                <button class="buy-btn" onclick="addToCart(21)">شراء</button>
+            </div>
+        </div>
+        <div class="item">
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200" class="product-img">
+                <div><strong>سبانيش لاتيه</strong><span>Spanish Latte</span></div>
+            </div>
+            <div class="price-btn-group">
+                <span class="price-tag">23 SR</span>
+                <button class="buy-btn" onclick="addToCart(23)">شراء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- الحلى الكامل -->
     <div class="section-title">الحلى الفاخر</div>
     <div class="menu-container">
         <div class="item">
@@ -134,16 +168,6 @@
                 <button class="buy-btn" onclick="addToCart(25)">شراء</button>
             </div>
         </div>
-        <div class="item">
-            <div class="product-info">
-                <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=200" class="product-img">
-                <div><strong>مولتن شوكلت</strong><span>Molten Cake</span></div>
-            </div>
-            <div class="price-btn-group">
-                <span class="price-tag">30 SR</span>
-                <button class="buy-btn" onclick="addToCart(30)">شراء</button>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -154,11 +178,11 @@
         }
         function completeOrder() {
             if(total > 0) {
-                alert('شكراً لثقتك بـ RA COFFEE. إجمالي طلبك هو: ' + total + ' ريال. تم إرسال الطلب للمطبخ!');
+                alert('تم استلام طلبك في RA COFFEE! الإجمالي: ' + total + ' SR');
             } else {
-                alert('فضلاً اختر صنفاً أولاً قبل إكمال الطلب.');
+                alert('يرجى اختيار صنف أولاً.');
             }
         }
     </script>
 </body>
-</html>
+</html>          
