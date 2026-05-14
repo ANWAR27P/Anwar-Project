@@ -2,74 +2,62 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>RA COFFEE | Official App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RA COFFEE | Anwar Edition</title>
     <style>
-        :root { --gold: #d4af37; --dark: #0a0a0a; }
-
+        :root { --gold: #d4af37; }
         body { 
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
                         url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0;
-            overflow-x: hidden;
+            background-size: cover; background-attachment: fixed;
+            color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; 
         }
 
-        /* 1. واجهة الدخول (Splash Screen) */
+        /* شاشة الدخول */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
         }
 
-        .welcome-logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
-        .slogan { color: #888; font-size: 0.9rem; margin-bottom: 40px; }
-        .enter-btn { 
-            background: transparent; color: var(--gold); border: 2px solid var(--gold);
-            padding: 12px 45px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .enter-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        /* الحاوية الرئيسية للمنيو - تأكدنا أنها تظهر بالكامل */
+        #main-app { display: none; padding: 20px 15px; }
 
-        /* 2. محتوى التطبيق الأساسي */
-        #app-content { display: none; opacity: 0; transition: opacity 1s; padding: 20px 15px; }
-
-        /* تنسيق بار المجموع */
-        .top-checkout {
-            position: sticky; top: 15px; z-index: 1000;
-            background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%); color: #000;
-            padding: 15px 20px; border-radius: 18px;
+        .top-bar {
+            position: sticky; top: 10px; background: var(--gold);
+            color: #000; padding: 15px; border-radius: 15px;
             display: flex; justify-content: space-between; align-items: center;
-            max-width: 450px; margin: 0 auto 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 450px; margin: 0 auto 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        .complete-btn { background: #000; color: var(--gold); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-
-        .logo-main { text-align: center; color: var(--gold); font-size: 2.5rem; font-weight: 900; margin: 20px 0; letter-spacing: 5px; }
-
-        .section-title { 
-            color: var(--gold); font-size: 1.2rem; margin: 30px auto 15px; font-weight: bold;
-            border-right: 5px solid var(--gold); padding-right: 12px; max-width: 450px;
-        }
-
-        .menu-container { 
-            background: rgba(255, 255, 255, 0.03); border-radius: 25px; padding: 5px;
-            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
-            max-width: 450px; margin: 0 auto 20px;
-        }
-
-        .item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .item:last-child { border-bottom: none; }
-        .product-img { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; margin-left: 15px; }
-        .product-info { flex-grow: 1; text-align: right; }
-        .product-info strong { display: block; font-size: 1.05rem; }
-        .product-info span { font-size: 0.8rem; color: #888; }
+        .logo-title { text-align: center; color: var(--gold); font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; margin: 20px 0; }
         
-        .action-area { text-align: left; min-width: 85px; }
-        .price-tag { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; font-size: 1rem; }
-        .buy-btn { background: var(--gold); color: #000; border: none; padding: 6px 16px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .section-header { 
+            color: var(--gold); border-right: 4px solid var(--gold); 
+            padding-right: 10px; margin: 25px auto 15px; max-width: 450px; font-weight: bold;
+        }
 
-        /* شاشة العداد التنازلي */
+        .menu-box { 
+            background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            max-width: 450px; margin: 0 auto 15px; overflow: hidden;
+        }
+
+        .menu-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .menu-item:last-child { border-bottom: none; }
+        
+        .img-container { width: 70px; height: 70px; margin-left: 15px; }
+        .img-container img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+
+        .info { flex-grow: 1; text-align: right; }
+        .info b { display: block; font-size: 1.1rem; }
+        .info small { color: #888; }
+
+        .price-box { text-align: left; }
+        .price-val { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; direction: ltr; }
+        
+        .btn-buy { background: var(--gold); border: none; padding: 6px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; flex-direction: column; justify-content: center; align-items: center;
@@ -78,80 +66,81 @@
 </head>
 <body>
 
-    <!-- 1. واجهة الدخول -->
+    <!-- شاشة الترحيب -->
     <div id="splash-screen">
-        <div class="welcome-logo">RA COFFEE</div>
-        <div class="slogan">Luxury Coffee Experience</div>
-        <button class="enter-btn" onclick="enterApp()">دخول</button>
+        <h1 style="color:var(--gold); font-size: 3rem; letter-spacing: 5px;">RA COFFEE</h1>
+        <button class="btn-buy" style="padding: 15px 40px;" onclick="showApp()">دخول للمنيو</button>
     </div>
 
-    <!-- 2. محتوى التطبيق -->
-    <div id="app-content">
-        <div class="top-checkout">
-            <span>المجموع: <strong id="cartTotal">0</strong> SR</span>
-            <button class="complete-btn" onclick="startPreparation()">اكتمال الطلب</button>
+    <!-- التطبيق الرئيسي -->
+    <div id="main-app">
+        <div class="top-bar">
+            <span>المجموع: <b id="totalPrice">0</b> SR</span>
+            <button onclick="pay()" style="background:#000; color:var(--gold); border:none; padding:8px 15px; border-radius:8px; font-weight:bold;">اتمام الطلب</button>
         </div>
 
-        <div class="logo-main">RA COFFEE</div>
+        <div class="logo-title">RA COFFEE</div>
 
-        <div class="section-title">المشروبات الباردة</div>
-        <div class="menu-container">
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200" class="product-img">
-                <div class="product-info"><strong>V60 بارد</strong><span>Specialty Coffee</span></div>
-                <div class="action-area"><span class="price-tag">26 SR</span><button class="buy-btn" onclick="addToCart(26)">شراء</button></div>
+        <!-- البارد -->
+        <div class="section-header">المشروبات الباردة</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=200"></div>
+                <div class="info"><b>V60 بارد</b><small>Specialty V60</small></div>
+                <div class="price-box"><span class="price-val">26 SR</span><button class="btn-buy" onclick="add(26)">شراء</button></div>
             </div>
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200" class="product-img">
-                <div class="product-info"><strong>سبانيش لاتيه</strong><span>Iced Spanish</span></div>
-                <div class="action-area"><span class="price-tag">24 SR</span><button class="buy-btn" onclick="addToCart(24)">شراء</button></div>
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200"></div>
+                <div class="info"><b>سبانيش لاتيه</b><small>Iced Spanish</small></div>
+                <div class="price-box"><span class="price-val">24 SR</span><button class="btn-buy" onclick="add(24)">شراء</button></div>
             </div>
         </div>
 
-        <div class="section-title">الحلى</div>
-        <div class="menu-container">
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200" class="product-img">
-                <div class="product-info"><strong>تيراميسو</strong><span>Tiramisu</span></div>
-                <div class="action-area"><span class="price-tag">32 SR</span><button class="buy-btn" onclick="addToCart(32)">شراء</button></div>
+        <!-- الحار -->
+        <div class="section-header">القهوة الحارة</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200"></div>
+                <div class="info"><b>فلات وايت</b><small>Flat White</small></div>
+                <div class="price-box"><span class="price-val">18 SR</span><button class="btn-buy" onclick="add(18)">شراء</button></div>
+            </div>
+        </div>
+
+        <!-- الحلى -->
+        <div class="section-header">الحلى</div>
+        <div class="menu-box">
+            <div class="menu-item">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200"></div>
+                <div class="info"><b>تيراميسو</b><small>Tiramisu</small></div>
+                <div class="price-box"><span class="price-val">32 SR</span><button class="btn-buy" onclick="add(32)">شراء</button></div>
             </div>
         </div>
     </div>
 
-    <!-- 3. شاشة التحضير -->
     <div id="prep-screen">
-        <div style="font-size: 4rem; color: var(--gold); margin-bottom: 20px;" id="timerDisplay">05:00</div>
-        <h2 style="color: var(--gold);">جاري تحضير طلبك...</h2>
-        <button class="complete-btn" style="margin-top:40px;" onclick="location.reload()">طلب جديد</button>
+        <div id="timer" style="font-size: 4rem; color: var(--gold);">05:00</div>
+        <h2 style="color: var(--gold);">جاري التحضير...</h2>
+        <button class="btn-buy" onclick="location.reload()">طلب جديد</button>
     </div>
 
     <script>
-        // دالة الدخول للتطبيق
-        function enterApp() {
-            document.getElementById('splash-screen').style.transform = 'translateY(-100%)';
-            const content = document.getElementById('app-content');
-            content.style.display = 'block';
-            setTimeout(() => { content.style.opacity = '1'; }, 100);
+        let count = 0;
+        function showApp() {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
         }
-
-        // دالة السلة
-        let total = 0;
-        function addToCart(price) {
-            total += price;
-            document.getElementById('cartTotal').innerText = total;
+        function add(p) {
+            count += p;
+            document.getElementById('totalPrice').innerText = count;
         }
-
-        // دالة العداد التنازلي
-        function startPreparation() {
-            if(total === 0) return alert("السلة فارغة!");
+        function pay() {
+            if(count === 0) return alert("السلة فارغة");
             document.getElementById('prep-screen').style.display = 'flex';
-            let time = 300;
-            const display = document.getElementById('timerDisplay');
-            const countdown = setInterval(() => {
-                let mins = Math.floor(time/60);
-                let secs = time%60;
-                display.innerHTML = `${mins}:${secs<10?'0':''}${secs}`;
-                if (time-- <= 0) { clearInterval(countdown); display.innerHTML = "جاهز!"; }
+            let t = 300;
+            setInterval(() => {
+                let m = Math.floor(t/60); let s = t%60;
+                document.getElementById('timer').innerHTML = m + ":" + (s<10?'0':'') + s;
+                if(t>0) t--;
             }, 1000);
         }
     </script>
