@@ -3,18 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URBAN CUP | المنيو الرقمي</title>
+    <title>تطبيق URBAN CUP</title>
     <style>
-        body { background-color: #121212; color: white; font-family: sans-serif; text-align: center; padding: 40px 20px; }
-        .logo { color: #c5a059; font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; border-bottom: 2px solid #c5a059; display: inline-block; padding: 0 20px 10px; }
-        .item { background: #1e1e1e; margin: 15px auto; padding: 20px; border-radius: 15px; max-width: 400px; border: 1px solid #333; display: flex; justify-content: space-between; }
-        .price { color: #c5a059; font-weight: bold; }
+        body { background-color: #121212; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .logo { color: #c5a059; font-size: 2.5rem; font-weight: bold; margin-bottom: 30px; }
+        .menu-container { max-width: 500px; margin: 0 auto; }
+        .item { background: #1e1e1e; margin: 10px 0; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        button { background-color: #c5a059; border: none; color: black; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .cart-section { margin-top: 40px; padding: 20px; background: #c5a059; color: black; border-radius: 15px; display: none; }
     </style>
 </head>
 <body>
     <div class="logo">URBAN CUP</div>
-    <div class="item"><div>كورتادو</div><div class="price">16 SR</div></div>
-    <div class="item"><div>فلات وايت</div><div class="price">18 SR</div></div>
-    <div class="item"><div>آيس لاتيه</div><div class="price">21 SR</div></div>
+    
+    <div class="menu-container">
+        <div class="item">
+            <span>كورتادو (16 SR)</span>
+            <button onclick="addToCart('كورتادو', 16)">إضافة +</button>
+        </div>
+        <div class="item">
+            <span>فلات وايت (18 SR)</span>
+            <button onclick="addToCart('فلات وايت', 18)">إضافة +</button>
+        </div>
+        <div class="item">
+            <span>آيس لاتيه (21 SR)</span>
+            <button onclick="addToCart('آيس لاتيه', 21)">إضافة +</button>
+        </div>
+    </div>
+
+    <div id="cart" class="cart-section">
+        <h3>سلة الطلبات</h3>
+        <div id="cart-items"></div>
+        <hr>
+        <strong>المجموع: <span id="total">0</span> SR</strong>
+        <br><br>
+        <button onclick="sendOrder()" style="background: black; color: white; width: 100%;">إتمام الطلب (WhatsApp)</button>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            cart.push(name);
+            total += price;
+            document.getElementById('cart').style.display = 'block';
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-items').innerText = cart.join(' ، ');
+            document.getElementById('total').innerText = total;
+        }
+
+        function sendOrder() {
+            let message = "طلب جديد من تطبيق URBAN CUP:\n" + cart.join('\n') + "\nالمجموع: " + total + " ريال";
+            window.open("https://wa.me/966500000000?text=" + encodeURIComponent(message));
+        }
+    </script>
 </body>
 </html>
