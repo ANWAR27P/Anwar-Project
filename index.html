@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA COFFEE | Full Menu</title>
+    <title>RA COFFEE | Menu with Photos</title>
     <style>
         body { 
             background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), 
@@ -19,14 +19,19 @@
         .header { text-align: center; margin-top: 40px; margin-bottom: 30px; }
         .logo-text { color: #d4af37; font-size: 3.5rem; font-weight: 900; letter-spacing: 6px; text-shadow: 2px 4px 20px rgba(0,0,0,0.8); }
         
-        .section-title { color: #d4af37; font-size: 1.4rem; margin: 35px 0 15px 0; border-right: 4px solid #d4af37; padding-right: 10px; text-align: right; max-width: 480px; margin-right: auto; margin-left: auto; font-weight: bold; }
+        .section-title { color: #d4af37; font-size: 1.4rem; margin: 35px 0 15px 0; border-right: 4px solid #d4af37; padding-right: 10px; text-align: right; max-width: 500px; margin-right: auto; margin-left: auto; font-weight: bold; }
         
-        .menu-container { max-width: 480px; margin: 0 auto; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 25px; backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .menu-container { max-width: 500px; margin: 0 auto; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 25px; backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
         .item:last-child { border-bottom: none; }
-        .price-tag { color: #d4af37; font-weight: bold; font-size: 1.1rem; margin-left: 10px; }
         
-        .add-btn { background: #d4af37; border: none; color: black; padding: 8px 12px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.85rem; }
+        .product-img { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; margin-left: 15px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        .product-info { display: flex; align-items: center; text-align: right; flex-grow: 1; }
+        
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 1.1rem; margin-left: 10px; white-space: nowrap; }
+        
+        .add-btn { background: #d4af37; border: none; color: black; padding: 8px 12px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.8rem; white-space: nowrap; }
         .add-btn:hover { background: #fff; transform: scale(1.05); }
 
         .cart-overlay { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; background: #d4af37; color: black; padding: 20px; border-radius: 25px; display: none; text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,0.6); z-index: 1000; }
@@ -36,83 +41,70 @@
 <body>
     <div class="header">
         <div class="logo-text">RA COFFEE</div>
-        <div style="font-size: 0.8rem; letter-spacing: 3px; opacity: 0.8;">THE ART OF COFFEE</div>
+        <div style="font-size: 0.8rem; letter-spacing: 3px; opacity: 0.8;">PREMIUM EXPERIENCE</div>
     </div>
     
     <!-- القهوة الحارة -->
-    <div class="section-title">القهوة الحارة (Hot)</div>
+    <div class="section-title">القهوة الحارة</div>
     <div class="menu-container">
         <div class="item">
-            <div><strong>إسبريسو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Espresso</div></div>
-            <div><span class="price-tag">12 SR</span> <button class="add-btn" onclick="saveToCart('إسبريسو', 12)">حفظ في السلة</button></div>
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200" class="product-img" alt="Espresso">
+                <div><strong>إسبريسو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Espresso</div></div>
+            </div>
+            <div><span class="price-tag">12 SR</span> <button class="add-btn" onclick="saveToCart('إسبريسو', 12)">حفظ</button></div>
         </div>
         <div class="item">
-            <div><strong>كورتادو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Cortado</div></div>
-            <div><span class="price-tag">16 SR</span> <button class="add-btn" onclick="saveToCart('كورتادو', 16)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>فلات وايت</strong><div style="font-size: 0.7rem; opacity: 0.6;">Flat White</div></div>
-            <div><span class="price-tag">18 SR</span> <button class="add-btn" onclick="saveToCart('فلات وايت', 18)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>كابتشينو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Cappuccino</div></div>
-            <div><span class="price-tag">19 SR</span> <button class="add-btn" onclick="saveToCart('كابتشينو', 19)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>V60 حار</strong><div style="font-size: 0.7rem; opacity: 0.6;">V60 Hot</div></div>
-            <div><span class="price-tag">24 SR</span> <button class="add-btn" onclick="saveToCart('V60 حار', 24)">حفظ في السلة</button></div>
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1534706936160-d5ee67737049?q=80&w=200" class="product-img" alt="Flat White">
+                <div><strong>فلات وايت</strong><div style="font-size: 0.7rem; opacity: 0.6;">Flat White</div></div>
+            </div>
+            <div><span class="price-tag">18 SR</span> <button class="add-btn" onclick="saveToCart('فلات وايت', 18)">حفظ</button></div>
         </div>
     </div>
 
     <!-- القهوة الباردة -->
-    <div class="section-title">القهوة الباردة (Iced)</div>
+    <div class="section-title">القهوة الباردة</div>
     <div class="menu-container">
         <div class="item">
-            <div><strong>آيس أمريكانو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Iced Americano</div></div>
-            <div><span class="price-tag">15 SR</span> <button class="add-btn" onclick="saveToCart('آيس أمريكانو', 15)">حفظ في السلة</button></div>
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=200" class="product-img" alt="Iced Latte">
+                <div><strong>آيس لاتيه</strong><div style="font-size: 0.7rem; opacity: 0.6;">Iced Latte</div></div>
+            </div>
+            <div><span class="price-tag">21 SR</span> <button class="add-btn" onclick="saveToCart('آيس لاتيه', 21)">حفظ</button></div>
         </div>
         <div class="item">
-            <div><strong>آيس لاتيه</strong><div style="font-size: 0.7rem; opacity: 0.6;">Iced Latte</div></div>
-            <div><span class="price-tag">21 SR</span> <button class="add-btn" onclick="saveToCart('آيس لاتيه', 21)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>سبانيش لاتيه بارد</strong><div style="font-size: 0.7rem; opacity: 0.6;">Iced Spanish Latte</div></div>
-            <div><span class="price-tag">23 SR</span> <button class="add-btn" onclick="saveToCart('سبانيش لاتيه بارد', 23)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>V60 بارد</strong><div style="font-size: 0.7rem; opacity: 0.6;">V60 Iced</div></div>
-            <div><span class="price-tag">26 SR</span> <button class="add-btn" onclick="saveToCart('V60 بارد', 26)">حفظ في السلة</button></div>
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?q=80&w=200" class="product-img" alt="Iced Spanish">
+                <div><strong>سبانيش لاتيه بارد</strong><div style="font-size: 0.7rem; opacity: 0.6;">Iced Spanish</div></div>
+            </div>
+            <div><span class="price-tag">23 SR</span> <button class="add-btn" onclick="saveToCart('سبانيش لاتيه بارد', 23)">حفظ</button></div>
         </div>
     </div>
 
     <!-- الحلى -->
-    <div class="section-title">الحلى الفاخر (Dessert)</div>
+    <div class="section-title">الحلى الفاخر</div>
     <div class="menu-container" style="margin-bottom: 120px;">
         <div class="item">
-            <div><strong>كيكة الزعفران</strong><div style="font-size: 0.7rem; opacity: 0.6;">Saffron Cake</div></div>
-            <div><span class="price-tag">28 SR</span> <button class="add-btn" onclick="saveToCart('كيكة الزعفران', 28)">حفظ في السلة</button></div>
-        </div>
-        <div class="item">
-            <div><strong>تيراميسو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Tiramisu</div></div>
-            <div><span class="price-tag">32 SR</span> <button class="add-btn" onclick="saveToCart('تيراميسو', 32)">حفظ في السلة</button></div>
+            <div class="product-info">
+                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?q=80&w=200" class="product-img" alt="Tiramisu">
+                <div><strong>تيراميسو</strong><div style="font-size: 0.7rem; opacity: 0.6;">Tiramisu</div></div>
+            </div>
+            <div><span class="price-tag">32 SR</span> <button class="add-btn" onclick="saveToCart('تيراميسو', 32)">حفظ</button></div>
         </div>
     </div>
 
     <!-- سلة الطلبات -->
     <div id="cartStatus" class="cart-overlay">
-        <div style="font-size: 1rem;">تم إضافة <span id="itemCount">0</span> أصناف</div>
-        <div style="font-weight: bold; font-size: 1.4rem;">المجموع: <span id="cartTotal">0</span> SR</div>
-        <button class="save-btn" onclick="alert('تم تأكيد الطلب بنجاح!')">إتمام الطلب</button>
+        <div style="font-weight: bold; font-size: 1.3rem;">المجموع: <span id="cartTotal">0</span> SR</div>
+        <button class="save-btn" onclick="alert('تم حفظ طلبك بنجاح!')">تأكيد الحفظ</button>
     </div>
 
     <script>
-        let count = 0;
         let total = 0;
         function saveToCart(name, price) {
-            count++;
             total += price;
             document.getElementById('cartStatus').style.display = 'block';
-            document.getElementById('itemCount').innerText = count;
             document.getElementById('cartTotal').innerText = total;
         }
     </script>
