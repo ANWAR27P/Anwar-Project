@@ -12,7 +12,7 @@
             background-size: cover; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0;
         }
 
-        /* اللوغو الفخم بدون تاريخ */
+        /* اللوغو الفخم */
         .header { text-align: center; padding: 40px 0; }
         .logo-box {
             width: 80px; height: 80px; border: 2px solid var(--gold); border-radius: 50%;
@@ -27,14 +27,14 @@
             font-weight: 900; border-radius: 0 0 20px 20px;
         }
 
-        .order-btn { background: #000; color: var(--gold); border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; }
+        .order-btn { background: #000; color: var(--gold); border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
         /* الأقسام والمنتجات */
         .section-title { color: var(--gold); margin: 30px 20px 10px; font-weight: bold; border-right: 4px solid var(--gold); padding-right: 10px; }
 
         .menu-grid { padding: 0 15px; }
         .product-card {
-            background: var(--card-bg); border-radius: 20px; display: flex; align-items: center;
+            background: var(--card-bg); border-radius: 22px; display: flex; align-items: center;
             padding: 15px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
         }
@@ -45,97 +45,100 @@
         
         .price-area { text-align: left; }
         .price { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
-        .buy-button { background: var(--gold); color: #000; border: none; padding: 6px 20px; border-radius: 50px; font-weight: bold; }
+        .buy-button { background: var(--gold); color: #000; border: none; padding: 6px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
-        /* شاشة التحضير */
+        /* شاشة التحضير والوقت */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 2000; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.95); z-index: 2000; flex-direction: column; justify-content: center; align-items: center;
+            backdrop-filter: blur(20px);
         }
+
+        .back-btn {
+            margin-top: 40px; background: transparent; color: var(--gold); border: 1px solid var(--gold);
+            padding: 10px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold); color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="checkout-bar">
-        <span>Total: <span id="total-val">0</span> SR</span>
-        <button class="order-btn" onclick="startPrep()">Order Now</button>
-    </div>
+    <div id="main-app">
+        <div class="checkout-bar">
+            <span>Total: <span id="total-val">0</span> SR</span>
+            <button class="order-btn" onclick="startPrep()">Order Now</button>
+        </div>
 
-    <div class="header">
-        <div class="logo-box">ASC</div>
-        <div style="color:var(--gold); letter-spacing:4px; font-weight:bold;">SPECIALTY COFFEE</div>
-    </div>
+        <div class="header">
+            <div class="logo-box">ASC</div>
+            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold;">SPECIALTY COFFEE</div>
+        </div>
 
-    <div class="section-title">Iced Coffee</div>
-    <div class="menu-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200">
-            <div class="product-info"><b>Iced V60</b><small>Single Origin</small></div>
-            <div class="price-area"><span class="price">18 SR</span><button class="buy-button" onclick="add(18)">Buy</button></div>
+        <div class="section-title">Iced Coffee</div>
+        <div class="menu-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200">
+                <div class="product-info"><b>Iced V60</b><small>Single Origin</small></div>
+                <div class="price-area"><span class="price">18 SR</span><button class="buy-button" onclick="add(18)">Buy</button></div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200">
+                <div class="product-info"><b>Spanish Latte</b><small>Sweet & Creamy</small></div>
+                <div class="price-area"><span class="price">16 SR</span><button class="buy-button" onclick="add(16)">Buy</button></div>
+            </div>
         </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200">
-            <div class="product-info"><b>Spanish Latte</b><small>Sweet & Creamy</small></div>
-            <div class="price-area"><span class="price">16 SR</span><button class="buy-button" onclick="add(16)">Buy</button></div>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1517950412631-f92683794300?w=200">
-            <div class="product-info"><b>Cold Brew</b><small>12h Steeping</small></div>
-            <div class="price-area"><span class="price">19 SR</span><button class="buy-button" onclick="add(19)">Buy</button></div>
-        </div>
-    </div>
 
-    <div class="section-title">Hot Coffee</div>
-    <div class="menu-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=200">
-            <div class="product-info"><b>Flat White</b><small>Silky Milk</small></div>
-            <div class="price-area"><span class="price">13 SR</span><button class="buy-button" onclick="add(13)">Buy</button></div>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200">
-            <div class="product-info"><b>Cortado</b><small>Perfect Balance</small></div>
-            <div class="price-area"><span class="price">14 SR</span><button class="buy-button" onclick="add(14)">Buy</button></div>
-        </div>
-    </div>
-
-    <div class="section-title">Desserts</div>
-    <div class="menu-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200">
-            <div class="product-info"><b>Tiramisu</b><small>Italian Classic</small></div>
-            <div class="price-area"><span class="price">20 SR</span><button class="buy-button" onclick="add(20)">Buy</button></div>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200">
-            <div class="product-info"><b>Cheese Cake</b><small>Blueberry</small></div>
-            <div class="price-area"><span class="price">19 SR</span><button class="buy-button" onclick="add(19)">Buy</button></div>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1559622214-f8a9850965bb?w=200">
-            <div class="product-info"><b>Cookies</b><small>Chocolate Chip</small></div>
-            <div class="price-area"><span class="price">12 SR</span><button class="buy-button" onclick="add(12)">Buy</button></div>
+        <div class="section-title">Desserts</div>
+        <div class="menu-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200">
+                <div class="product-info"><b>Tiramisu</b><small>Italian Classic</small></div>
+                <div class="price-area"><span class="price">20 SR</span><button class="buy-button" onclick="add(20)">Buy</button></div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200">
+                <div class="product-info"><b>Cheese Cake</b><small>Blueberry</small></div>
+                <div class="price-area"><span class="price">19 SR</span><button class="buy-button" onclick="add(19)">Buy</button></div>
+            </div>
         </div>
     </div>
 
     <div id="prep-screen">
-        <h1 id="timer" style="font-size: 4rem; color: var(--gold); margin:0;">05:00</h1>
-        <p id="quote" style="font-style:italic; color:#ccc; margin-top:20px; text-align:center; padding:0 30px;">"Life begins after coffee."</p>
+        <h1 id="timer" style="font-size: 5rem; color: var(--gold); margin:0; font-weight: 900;">05:00</h1>
+        <p id="quote" style="font-style:italic; color:#ccc; margin-top:20px; text-align:center; padding:0 30px; font-size: 1.2rem;">"Life begins after coffee."</p>
+        
+        <button class="back-btn" onclick="closePrep()">Back to Menu</button>
     </div>
 
     <script>
         let total = 0;
-        function add(p) { total += p; document.getElementById('total-val').innerText = total; }
+        let timerInterval;
+        let timeLeft = 300;
+
+        function add(p) { 
+            total += p; 
+            document.getElementById('total-val').innerText = total; 
+        }
         
         function startPrep() {
             if(total === 0) return;
             document.getElementById('prep-screen').style.display = 'flex';
-            let t = 300;
-            const iv = setInterval(() => {
-                let m = Math.floor(t/60), s = t%60;
-                document.getElementById('timer').innerText = m + ":" + (s < 10 ? '0' : '') + s;
-                if(t-- <= 0) { clearInterval(iv); document.getElementById('timer').innerText = "Enjoy!"; }
-            }, 1000);
+            
+            // يبدأ المؤقت فقط إذا لم يكن يعمل مسبقاً
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    let m = Math.floor(timeLeft/60), s = timeLeft%60;
+                    document.getElementById('timer').innerText = m + ":" + (s < 10 ? '0' : '') + s;
+                    if(timeLeft-- <= 0) { 
+                        clearInterval(timerInterval); 
+                        document.getElementById('timer').innerText = "Enjoy!"; 
+                    }
+                }, 1000);
+            }
+        }
+
+        function closePrep() {
+            document.getElementById('prep-screen').style.display = 'none';
         }
     </script>
 </body>
