@@ -1,124 +1,44 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA COFFEE</title>
-    <style>
-        :root { --gold: #d4af37; }
-        body { 
-            background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; 
-        }
-
-        /* شريط الحالة العلوي (الوقت والشبكة) */
-        .status-bar {
-            display: flex; justify-content: space-between; padding: 5px 20px;
-            font-size: 0.9rem; font-weight: bold; background: #000;
-        }
-
-        #main-app { display: none; padding: 10px 15px; }
-
-        .top-bar {
-            background: var(--gold); color: #000; padding: 15px; border-radius: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-            max-width: 450px; margin: 10px auto 20px;
-        }
-
-        .logo-title { text-align: center; color: var(--gold); font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; margin: 20px 0; }
+<div id="prep-screen">
+        <div id="timer" style="font-size: 5rem; color: var(--gold); font-weight: 900; text-shadow: 0 0 20px rgba(212,175,55,0.3);">05:00</div>
         
-        .section-header { color: var(--gold); border-right: 4px solid var(--gold); padding-right: 10px; margin: 25px auto 10px; max-width: 450px; }
+        <h2 id="prep-message" style="color: #fff; margin-top: 20px; font-style: italic; text-align: center; max-width: 80%; line-height: 1.6;">
+            لحظات ونستخلص لك السعادة...
+        </h2>
 
-        .menu-box { 
-            background: rgba(255,255,255,0.05); border-radius: 20px; 
-            max-width: 450px; margin: 0 auto 15px; overflow: hidden;
-        }
-
-        .menu-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .img-container { width: 70px; height: 70px; margin-left: 15px; }
-        .img-container img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
-
-        .price-val { color: var(--gold); font-weight: bold; display: block; }
-        .btn-buy { background: var(--gold); border: none; padding: 6px 20px; border-radius: 20px; font-weight: bold; }
-
-        #prep-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:#000; flex-direction:column; justify-content:center; align-items:center; z-index:10000; }
-    </style>
-</head>
-<body onload="updateClock()">
-
-    <!-- شريط الساعة العلوي -->
-    <div class="status-bar">
-        <div id="live-clock">00:00</div>
-        <div>5G 📶 🔋</div>
-    </div>
-
-    <!-- شاشة الدخول -->
-    <div id="splash-screen" style="height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-        <h1 style="color:var(--gold); font-size: 3rem; letter-spacing: 5px;">RA COFFEE</h1>
-        <button class="btn-buy" style="padding: 15px 40px;" onclick="showApp()">دخول</button>
-    </div>
-
-    <!-- التطبيق الرئيسي -->
-    <div id="main-app">
-        <div class="top-bar">
-            <span>المجموع: <b id="totalPrice">0</b> SR</span>
-            <button onclick="pay()" style="background:#000; color:var(--gold); border:none; padding:8px 15px; border-radius:8px; font-weight:bold;">اتمام الطلب</button>
-        </div>
-
-        <div class="logo-title">RA COFFEE</div>
-
-        <div class="section-header">المشروبات الباردة</div>
-        <div class="menu-box">
-            <div class="menu-item">
-                <div class="img-container"><img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=400"></div>
-                <div style="flex-grow:1"><b>V60 بارد</b></div>
-                <div style="text-align:left"><span class="price-val">18 SR</span><button class="btn-buy" onclick="add(18)">شراء</button></div>
-            </div>
-        </div>
-
-        <div class="section-header">الحلى</div>
-        <div class="menu-box">
-            <div class="menu-item">
-                <div class="img-container"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400"></div>
-                <div style="flex-grow:1"><b>تيراميسو</b></div>
-                <div style="text-align:left"><span class="price-val">20 SR</span><button class="btn-buy" onclick="add(20)">شراء</button></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- شاشة التحضير -->
-    <div id="prep-screen">
-        <div id="timer" style="font-size: 4rem; color: var(--gold);">05:00</div>
-        <h2 style="color: var(--gold);">جاري التحضير...</h2>
+        <button class="btn-buy" style="margin-top:50px; opacity: 0.7;" onclick="location.reload()">إلغاء الطلب</button>
     </div>
 
     <script>
-        let count = 0;
-
-        // تحديث الساعة الحقيقية
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
-            document.getElementById('live-clock').innerText = timeStr;
-            setTimeout(updateClock, 1000);
-        }
-
-        function showApp() {
-            document.getElementById('splash-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-        }
-
-        function add(p) { count += p; document.getElementById('totalPrice').innerText = count; }
+        // مصفوفة العبارات الحلوة
+        const phrases = [
+            "لحظات ونستخلص لك السعادة...",
+            "قهوتك تُحضر بكل حب وإتقان...",
+            "رائحة البن بدأت تملأ المكان...",
+            "الدقة في الاستخلاص هي سر طعمنا...",
+            "قربت تجهز أجمل قهوة ليومك..."
+        ];
 
         function pay() {
             if(count === 0) return;
             document.getElementById('prep-screen').style.display = 'flex';
             let t = 300;
+            let phraseIndex = 0;
+
             const iv = setInterval(() => {
                 let m = Math.floor(t/60), s = t%60;
                 document.getElementById('timer').innerHTML = m + ":" + (s<10?'0':'')+s;
-                if(t-- <= 0) clearInterval(iv);
+                
+                // تغيير العبارة كل دقيقة (60 ثانية)
+                if (t % 60 === 0 && t !== 300) {
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    document.getElementById('prep-message').innerText = phrases[phraseIndex];
+                }
+
+                if(t-- <= 0) {
+                    clearInterval(iv);
+                    document.getElementById('timer').innerHTML = "استمتع!";
+                    document.getElementById('prep-message').innerText = "قهوتك جاهزة لاستلامها ☕";
+                }
             }, 1000);
         }
     </script>
-</body>
-</html>
