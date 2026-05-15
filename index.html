@@ -12,7 +12,7 @@
             background-size: cover; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0;
         }
 
-        /* شريط الطلب العلوي - مثل الصورة تماماً */
+        /* الشريط العلوي الذهبي */
         .top-bar {
             position: sticky; top: 0; z-index: 1000; background: var(--gold); color: #000;
             padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
@@ -20,23 +20,23 @@
         }
         .order-now-btn { background: #000; color: var(--gold); border: none; padding: 10px 22px; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-        /* الشعار - دائرة ASC الفخمة */
+        /* الشعار الدائري بدون تاريخ */
         .logo-section { text-align: center; padding: 40px 0; }
         .logo-circle {
             width: 85px; height: 85px; border: 2.5px solid var(--gold); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
             font-weight: 900; font-size: 1.6rem; color: var(--gold);
-            box-shadow: 0 0 25px rgba(212,175,55,0.3); text-shadow: 0 0 5px var(--gold);
+            box-shadow: 0 0 25px rgba(212,175,55,0.3);
         }
 
-        /* عناوين الأقسام بالذهبي */
+        /* الأقسام */
         .section-title { 
             color: var(--gold); margin: 30px 20px 15px; font-weight: bold; 
             text-align: right; border-right: 4px solid var(--gold); padding-right: 12px;
-            font-size: 1.1rem; text-transform: uppercase;
+            font-size: 1.1rem;
         }
 
-        /* تصميم بطاقات المنتجات - مثل الصورة */
+        /* البطاقات الشفافة المضيئة */
         .menu-container { padding: 0 15px 40px; }
         .item-card {
             background: var(--card-bg); border-radius: 25px; display: flex; align-items: center;
@@ -46,14 +46,13 @@
         .item-img { width: 85px; height: 85px; border-radius: 18px; object-fit: cover; }
         .item-info { flex: 1; margin-right: 18px; text-align: right; }
         .item-info b { display: block; font-size: 1.15rem; margin-bottom: 4px; }
-        .item-info small { color: #aaa; font-size: 0.85rem; letter-spacing: 0.5px; }
+        .item-info small { color: #aaa; font-size: 0.85rem; }
         
         .price-side { text-align: left; min-width: 80px; }
         .price-val { color: var(--gold); font-weight: 900; display: block; margin-bottom: 8px; font-size: 1.1rem; }
-        .buy-button { background: var(--gold); color: #000; border: none; padding: 7px 22px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .buy-button:active { transform: scale(0.95); }
+        .buy-button { background: var(--gold); color: #000; border: none; padding: 7px 22px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
-        /* شاشة التحضير والرجوع */
+        /* شاشة التحضير */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 2000; flex-direction: column; 
@@ -67,7 +66,7 @@
     <div id="main-ui">
         <div class="top-bar">
             <button class="order-now-btn" onclick="openPrep()">Order Now</button>
-            <span style="font-size: 1.1rem;">Total: <span id="total-val">0</span> SR</span>
+            <span>Total: <span id="total-val">0</span> SR</span>
         </div>
 
         <div class="logo-section">
@@ -107,17 +106,17 @@
 
             <div class="section-title">Desserts |</div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=400" class="item-img">
+                <img src="https://images.pexels.com/photos/10313596/pexels-photo-10313596.jpeg?auto=compress&cs=tinysrgb&w=400" class="item-img">
                 <div class="item-info"><b>Tiramisu</b><small>Italian Classic</small></div>
                 <div class="price-side"><span class="price-val">SR 20</span><button class="buy-button" onclick="add(20)">Buy</button></div>
             </div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=400" class="item-img">
+                <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=400" class="item-img">
                 <div class="item-info"><b>Cheese Cake</b><small>Blueberry Fresh</small></div>
                 <div class="price-side"><span class="price-val">SR 19</span><button class="buy-button" onclick="add(19)">Buy</button></div>
             </div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=400" class="item-img">
+                <img src="https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=400" class="item-img">
                 <div class="item-info"><b>Cookies</b><small>Chocolate Chip</small></div>
                 <div class="price-side"><span class="price-val">SR 12</span><button class="buy-button" onclick="add(12)">Buy</button></div>
             </div>
@@ -126,7 +125,7 @@
 
     <div id="prep-screen">
         <h1 id="clock" style="font-size: 5rem; color: var(--gold); margin:0;">05:00</h1>
-        <p style="font-style:italic; color:#ccc; margin-top:25px; padding:0 40px; text-align:center;">"Great ideas start with great coffee."</p>
+        <p style="font-style:italic; color:#ccc; margin-top:25px;">"Great ideas start with great coffee."</p>
         <button class="back-menu" onclick="closePrep()">Back to Menu</button>
     </div>
 
@@ -148,7 +147,6 @@
                 }, 1000);
             }
         }
-
         function closePrep() { document.getElementById('prep-screen').style.display = 'none'; }
     </script>
 </body>
