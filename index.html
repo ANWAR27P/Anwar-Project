@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>ASC | Specialty Coffee</title>
     <style>
-        :root { --gold: #d4af37; --card-bg: rgba(20, 20, 20, 0.95); }
+        :root { --gold: #d4af37; --card-bg: rgba(25, 25, 25, 0.95); }
         
         body { 
             background: #000 url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000') no-repeat center center fixed;
@@ -13,52 +13,51 @@
         }
 
         /* اللوغو الفخم */
-        .header { text-align: center; padding: 40px 0; }
+        .header { text-align: center; padding: 30px 0; }
         .logo-box {
-            width: 80px; height: 80px; border: 2px solid var(--gold); border-radius: 50%;
+            width: 70px; height: 70px; border: 2px solid var(--gold); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
-            font-weight: 900; font-size: 1.5rem; color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,0.2);
+            font-weight: 900; font-size: 1.4rem; color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,0.2);
         }
 
-        /* شريط الطلب العلوي */
+        /* شريط المجموع العلوي */
         .checkout-bar {
             position: sticky; top: 0; z-index: 1000; background: var(--gold); color: #000;
             padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
-            font-weight: 900; border-radius: 0 0 20px 20px;
+            font-weight: 900; border-radius: 0 0 20px 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .order-btn { background: #000; color: var(--gold); border: none; padding: 8px 18px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
         /* الأقسام والمنتجات */
-        .section-title { color: var(--gold); margin: 30px 20px 10px; font-weight: bold; border-right: 4px solid var(--gold); padding-right: 10px; }
+        .section-title { color: var(--gold); margin: 25px 20px 10px; font-weight: bold; border-right: 4px solid var(--gold); padding-right: 10px; }
 
         .menu-grid { padding: 0 15px; }
         .product-card {
             background: var(--card-bg); border-radius: 22px; display: flex; align-items: center;
-            padding: 15px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
         }
-        .product-card img { width: 80px; height: 80px; border-radius: 15px; object-fit: cover; }
+        .product-card img { width: 75px; height: 75px; border-radius: 15px; object-fit: cover; }
         .product-info { flex: 1; margin-right: 15px; text-align: right; }
-        .product-info b { display: block; font-size: 1.1rem; }
-        .product-info small { color: #888; font-size: 0.8rem; }
+        .product-info b { display: block; font-size: 1.05rem; }
+        .product-info small { color: #888; font-size: 0.75rem; }
         
-        .price-area { text-align: left; }
+        .price-area { text-align: left; min-width: 80px; }
         .price { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
-        .buy-button { background: var(--gold); color: #000; border: none; padding: 6px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .buy-button { background: var(--gold); color: #000; border: none; padding: 6px 15px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
-        /* شاشة التحضير والوقت */
+        /* شاشة التحضير */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 2000; flex-direction: column; justify-content: center; align-items: center;
-            backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.98); z-index: 2000; flex-direction: column; justify-content: center; align-items: center;
+            backdrop-filter: blur(25px);
         }
 
         .back-btn {
             margin-top: 40px; background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 10px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            padding: 10px 35px; border-radius: 50px; font-weight: bold; cursor: pointer;
         }
-        .back-btn:hover { background: var(--gold); color: #000; }
     </style>
 </head>
 <body>
@@ -71,7 +70,7 @@
 
         <div class="header">
             <div class="logo-box">ASC</div>
-            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold;">SPECIALTY COFFEE</div>
+            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold; font-size:0.9rem;">SPECIALTY COFFEE</div>
         </div>
 
         <div class="section-title">Iced Coffee</div>
@@ -86,6 +85,25 @@
                 <div class="product-info"><b>Spanish Latte</b><small>Sweet & Creamy</small></div>
                 <div class="price-area"><span class="price">16 SR</span><button class="buy-button" onclick="add(16)">Buy</button></div>
             </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1517950412631-f92683794300?w=200">
+                <div class="product-info"><b>Cold Brew</b><small>12h Steeping</small></div>
+                <div class="price-area"><span class="price">19 SR</span><button class="buy-button" onclick="add(19)">Buy</button></div>
+            </div>
+        </div>
+
+        <div class="section-title">Hot Coffee</div>
+        <div class="menu-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=200">
+                <div class="product-info"><b>Flat White</b><small>Velvety Milk</small></div>
+                <div class="price-area"><span class="price">13 SR</span><button class="buy-button" onclick="add(13)">Buy</button></div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200">
+                <div class="product-info"><b>Cortado</b><small>Perfect Balance</small></div>
+                <div class="price-area"><span class="price">14 SR</span><button class="buy-button" onclick="add(14)">Buy</button></div>
+            </div>
         </div>
 
         <div class="section-title">Desserts</div>
@@ -97,16 +115,20 @@
             </div>
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200">
-                <div class="product-info"><b>Cheese Cake</b><small>Blueberry</small></div>
+                <div class="product-info"><b>Cheese Cake</b><small>Blueberry Fresh</small></div>
                 <div class="price-area"><span class="price">19 SR</span><button class="buy-button" onclick="add(19)">Buy</button></div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1559622214-f8a9850965bb?w=200">
+                <div class="product-info"><b>Cookies</b><small>Chocolate Chip</small></div>
+                <div class="price-area"><span class="price">12 SR</span><button class="buy-button" onclick="add(12)">Buy</button></div>
             </div>
         </div>
     </div>
 
     <div id="prep-screen">
         <h1 id="timer" style="font-size: 5rem; color: var(--gold); margin:0; font-weight: 900;">05:00</h1>
-        <p id="quote" style="font-style:italic; color:#ccc; margin-top:20px; text-align:center; padding:0 30px; font-size: 1.2rem;">"Life begins after coffee."</p>
-        
+        <p id="quote" style="font-style:italic; color:#ccc; margin-top:20px; text-align:center; padding:0 40px; font-size: 1.2rem;">"Life begins after coffee."</p>
         <button class="back-btn" onclick="closePrep()">Back to Menu</button>
     </div>
 
@@ -123,8 +145,6 @@
         function startPrep() {
             if(total === 0) return;
             document.getElementById('prep-screen').style.display = 'flex';
-            
-            // يبدأ المؤقت فقط إذا لم يكن يعمل مسبقاً
             if (!timerInterval) {
                 timerInterval = setInterval(() => {
                     let m = Math.floor(timeLeft/60), s = timeLeft%60;
