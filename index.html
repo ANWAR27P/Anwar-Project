@@ -3,160 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>RA COFFEE - Anwar's Cup</title>
+    <title>ASC | Specialty Coffee</title>
     <style>
-        :root { --gold: #d4af37; --dark: #0a0a0a; --darker: #000; }
-
+        :root { --gold: #d4af37; --bg: #000; --card: rgba(25, 25, 25, 0.9); }
         body { 
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                        url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0;
-            overflow-x: hidden;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-attachment: fixed;
+            color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; 
         }
 
-        /* 1. واجهة الدخول (Splash Screen) */
+        /* ASC Logo */
+        .brand-header { text-align: center; padding: 40px 0; }
+        .logo-circle {
+            width: 80px; height: 80px; border: 2px solid var(--gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 10px; font-weight: 900; font-size: 1.5rem; color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
         }
 
-        .welcome-logo { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: 8px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
-        .slogan { color: #888; font-size: 0.9rem; margin-bottom: 40px; }
-        .enter-btn { 
-            background: transparent; color: var(--gold); border: 2px solid var(--gold);
-            padding: 12px 45px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .enter-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(212,175,55,0.4); }
-
-        /* 2. محتوى التطبيق الأساسي */
-        #app-content { display: none; opacity: 0; transition: opacity 1s; padding: 20px 15px; }
-
-        /* تنسيق بار المجموع العلوي */
-        .top-checkout {
-            position: sticky; top: 15px; z-index: 1000;
-            background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%); color: #000;
-            padding: 15px 20px; border-radius: 18px;
-            display: flex; justify-content: space-between; align-items: center;
-            max-width: 450px; margin: 0 auto 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .top-bar {
+            position: sticky; top: 0; z-index: 1000; background: var(--gold);
+            color: #000; padding: 15px 20px; display: flex; justify-content: space-between;
+            align-items: center; font-weight: 900;
         }
 
-        .complete-btn { background: #000; color: var(--gold); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+        .section-title { color: var(--gold); margin: 30px 20px 10px; font-weight: bold; border-right: 3px solid var(--gold); padding-right: 10px; }
 
-        .logo-main { text-align: center; color: var(--gold); font-size: 2.5rem; font-weight: 900; margin: 20px 0; letter-spacing: 5px; }
-
-        .section-title { 
-            color: var(--gold); font-size: 1.2rem; margin: 30px auto 15px; font-weight: bold;
-            border-right: 5px solid var(--gold); padding-right: 12px; max-width: 450px;
+        .menu-list { padding: 0 15px; }
+        .item-card { 
+            background: var(--card); border-radius: 20px; display: flex; align-items: center;
+            padding: 12px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
         }
-
-        .menu-container { 
-            background: rgba(255, 255, 255, 0.03); border-radius: 25px; padding: 5px;
-            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08);
-            max-width: 450px; margin: 0 auto 20px;
-        }
-
-        .item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .item:last-child { border-bottom: none; }
-        .product-img { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; margin-left: 15px; }
-        .product-info { flex-grow: 1; text-align: right; }
-        .product-info strong { display: block; font-size: 1.05rem; }
-        .product-info span { font-size: 0.8rem; color: #888; }
+        .item-card img { width: 75px; height: 75px; border-radius: 15px; object-fit: cover; }
+        .item-info { flex: 1; margin-right: 15px; text-align: right; }
+        .item-info b { display: block; font-size: 1.1rem; }
+        .item-info small { color: #888; font-size: 0.8rem; }
         
-        .action-area { text-align: left; min-width: 85px; }
-        .price-tag { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; font-size: 1rem; }
-        .buy-btn { background: var(--gold); color: #000; border: none; padding: 6px 16px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .item-price { text-align: left; }
+        .price-val { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
+        .buy-btn { background: var(--gold); color: #000; border: none; padding: 6px 18px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
-        /* 3. شاشة تحضير الطلب مع العبارة السعيدة */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000; flex-direction: column; justify-content: center; align-items: center;
-            padding: 30px; text-align: center;
+            background: #000; z-index: 10000; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
         }
-
-        .prep-phrase {
-            color: #eee; font-size: 1.3rem; line-height: 1.6; margin-top: 30px; max-width: 90%;
-            font-weight: 500; font-style: italic; opacity: 0; transition: opacity 0.5s;
-        }
-        
-        .timer-display {
-            font-size: 4rem; color: var(--gold); font-weight: 900; margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(212,175,55,0.4);
-        }
+        .quote { font-style: italic; color: #ccc; margin-top: 20px; padding: 0 30px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
-        <div class="welcome-logo">RA COFFEE</div>
-        <div class="slogan">التجربة المثالية لقهوتك المختصة</div>
-        <button class="enter-btn" onclick="enterApp()">دخول</button>
+        <div class="logo-circle">ASC</div>
+        <h2 style="color:var(--gold); letter-spacing:3px;">SPECIALTY COFFEE</h2>
+        <button class="buy-btn" style="margin-top:30px; padding: 12px 40px;" onclick="startApp()">Enter Shop</button>
     </div>
 
-    <div id="app-content">
-        <div class="top-checkout">
-            <span>المجموع: <strong id="cartTotal">0</strong> SR</span>
-            <button class="complete-btn" onclick="startPreparation()">اكتمال الطلب</button>
+    <div id="main-content" style="display:none;">
+        <div class="top-bar">
+            <span>Total: <span id="total-val">0</span> SR</span>
+            <button onclick="goPrep()" style="background:#000; color:var(--gold); border:none; padding:8px 15px; border-radius:10px; font-weight:bold;">Order Now</button>
         </div>
 
-        <div class="logo-main">RA COFFEE</div>
+        <div class="brand-header">
+            <div class="logo-circle">ASC</div>
+            <div style="letter-spacing:5px; color:var(--gold); font-weight:bold;">EST. 2024</div>
+        </div>
 
-        <div class="section-title">المشروبات الباردة</div>
-        <div class="menu-container">
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1499961024600-ad094db305cc?w=200" class="product-img">
-                <div class="product-info"><strong>V60 بارد</strong><span>إثيوبية</span></div>
-                <div class="action-area"><span class="price-tag">26 SR</span><button class="buy-btn" onclick="addToCart(26)">شراء</button></div>
+        <div class="section-title">Iced Coffee</div>
+        <div class="menu-list">
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=200">
+                <div class="item-info"><b>Iced V60</b><small>Single Origin</small></div>
+                <div class="item-price"><span class="price-val">18 SR</span><button class="buy-btn" onclick="add(18)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=200">
+                <div class="item-info"><b>Spanish Latte</b><small>Sweet & Creamy</small></div>
+                <div class="item-price"><span class="price-val">16 SR</span><button class="buy-btn" onclick="add(16)">Buy</button></div>
+            </div>
+        </div>
+
+        <div class="section-title">Hot Coffee</div>
+        <div class="menu-list">
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=200">
+                <div class="item-info"><b>Flat White</b><small>Silky Texture</small></div>
+                <div class="item-price"><span class="price-val">13 SR</span><button class="buy-btn" onclick="add(13)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200">
+                <div class="item-info"><b>Cortado</b><small>Balanced Espresso</small></div>
+                <div class="item-price"><span class="price-val">14 SR</span><button class="buy-btn" onclick="add(14)">Buy</button></div>
+            </div>
+        </div>
+
+        <div class="section-title">Desserts</div>
+        <div class="menu-list">
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200">
+                <div class="item-info"><b>Tiramisu</b><small>Authentic Italian</small></div>
+                <div class="item-price"><span class="price-val">20 SR</span><button class="buy-btn" onclick="add(20)">Buy</button></div>
             </div>
         </div>
     </div>
 
     <div id="prep-screen">
-        <div class="timer-display" id="timerDisplay">05:00</div>
-        
-        <h2 id="prepPhrase" class="prep-phrase">أنور.. لحظات ويجهز كوبك السعيد من RA COFFEE ☕</h2>
-        
-        <button class="complete-btn" style="margin-top:40px;" onclick="location.reload()">طلب جديد</button>
+        <h1 id="timer" style="font-size: 4.5rem; color: var(--gold); margin: 0;">05:00</h1>
+        <p id="quote-text" class="quote">"Life begins after coffee."</p>
+        <button class="buy-btn" style="margin-top:40px; background:transparent; color:#555; border:1px solid #333;" onclick="location.reload()">Cancel</button>
     </div>
 
     <script>
-        // دالة الدخول للتطبيق
-        function enterApp() {
-            document.getElementById('splash-screen').style.transform = 'translateY(-100%)';
-            const content = document.getElementById('app-content');
-            content.style.display = 'block';
-            setTimeout(() => { content.style.opacity = '1'; }, 100);
-        }
-
-        // دالة السلة
         let total = 0;
-        function addToCart(price) {
-            total += price;
-            document.getElementById('cartTotal').innerText = total;
+        const quotes = [
+            "Life begins after coffee.",
+            "Coffee is a hug in a mug.",
+            "Stressed, blessed, and coffee obsessed.",
+            "Great ideas start with great coffee.",
+            "Freshly roasted, freshly brewed, just for you."
+        ];
+
+        function startApp() {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
         }
 
-        // دالة تحضير الطلب
-        function startPreparation() {
-            if(total === 0) return alert("اختر قهوتك أولاً!");
-            
-            document.getElementById('prep-screen').style.display = 'flex';
-            const phrase = document.getElementById('prepPhrase');
-            setTimeout(() => phrase.style.opacity = '1', 300); // ظهور العبارة بنعومة
+        function add(p) { total += p; document.getElementById('total-val').innerText = total; }
 
-            let time = 300;
-            const display = document.getElementById('timerDisplay');
-            const countdown = setInterval(() => {
-                let mins = Math.floor(time/60);
-                let secs = time%60;
-                display.innerHTML = `${mins}:${secs<10?'0':''}${secs}`;
-                
-                if (time-- <= 0) { 
-                    clearInterval(countdown); 
-                    display.innerHTML = "جاهز!"; 
-                    phrase.innerText = "استمتع بكوبك السعيد! 😎";
+        function goPrep() {
+            if(total === 0) return;
+            document.getElementById('prep-screen').style.display = 'flex';
+            let t = 300;
+            setInterval(() => {
+                let m = Math.floor(t/60), s = t%60;
+                document.getElementById('timer').innerHTML = m + ":" + (s<10?'0':'')+s;
+                if(t % 60 === 0) {
+                    document.getElementById('quote-text').innerText = quotes[Math.floor(Math.random()*quotes.length)];
                 }
+                if(t-- <= 0) document.getElementById('timer').innerHTML = "Ready!";
             }, 1000);
         }
     </script>
