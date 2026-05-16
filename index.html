@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ASC | Luxury Clothing Brand</title>
+    <title>ASC | Men's Luxury Brand</title>
     <style>
         :root { --gold: #d4af37; --card-bg: rgba(20, 20, 20, 0.92); }
         
@@ -65,7 +65,7 @@
         .price-val { color: var(--gold); font-weight: 900; display: block; margin-bottom: 8px; font-size: 1.1rem; }
         .buy-button { background: var(--gold); color: #000; border: none; padding: 7px 22px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
-        /* شاشة التجهيز */
+        /* شاشة تأكيد الطلب الفورية */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.97); z-index: 2000; flex-direction: column; 
@@ -89,84 +89,84 @@
 
         <div class="logo-section">
             <div class="logo-circle">ASC</div>
-            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold; font-size:0.85rem;">LUXURY BRAND</div>
+            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold; font-size:0.85rem;">MEN'S LUXURY BRAND</div>
         </div>
 
         <div class="menu-container">
-            <div class="section-title">WINTER COLLECTION |</div>
+            <div class="section-title">MEN'S APPAREL |</div>
             <div class="item-card">
                 <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" class="item-img">
                 <div class="item-info">
                     <b>Oversized Hoodie</b>
-                    <small>Premium Cotton - Black</small>
+                    <small>Premium Heavy Cotton - Black</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
                 </div>
                 <div class="price-side"><span class="price-val">SR 180</span><button class="buy-button" onclick="add(180)">Buy</button></div>
             </div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" class="item-img">
+                <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Luxury Jacket</b>
-                    <small>Winter Collection</small>
-                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
-                </div>
-                <div class="price-side"><span class="price-val">SR 250</span><button class="buy-button" onclick="add(250)">Buy</button></div>
-            </div>
-            <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400" class="item-img">
-                <div class="item-info">
-                    <b>Knitwear Sweater</b>
-                    <small>Beige Classic</small>
-                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.7)</span></div>
-                </div>
-                <div class="price-side"><span class="price-val">SR 140</span><button class="buy-button" onclick="add(140)">Buy</button></div>
-            </div>
-
-            <div class="section-title">SUMMER COLLECTION |</div>
-            <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400" class="item-img">
-                <div class="item-info">
-                    <b>Graphic T-Shirt</b>
-                    <small>100% Organic Cotton</small>
+                    <b>Modern Casual Suit</b>
+                    <small>Slim Fit Blazer - Charcoal</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(5.0)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 95</span><button class="buy-button" onclick="add(95)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 320</span><button class="buy-button" onclick="add(320)">Buy</button></div>
             </div>
             <div class="item-card">
                 <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Classic White Tee</b>
-                    <small>Slim Fit</small>
+                    <b>Streetwear T-Shirt</b>
+                    <small>Relaxed Fit - White</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.7)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 95</span><button class="buy-button" onclick="add(95)">Buy</button></div>
+            </div>
+
+            <div class="section-title">MEN'S FOOTWEAR |</div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Sporty Sneakers</b>
+                    <small>Ultra Lightweight - Red Edition</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 240</span><button class="buy-button" onclick="add(240)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Luxury Suede Sneakers</b>
+                    <small>Classic Streetwear - Beige</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 290</span><button class="buy-button" onclick="add(290)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Casual Leather Shoes</b>
+                    <small>Premium Eco-Leather</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.6)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 80</span><button class="buy-button" onclick="add(80)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 210</span><button class="buy-button" onclick="add(210)">Buy</button></div>
             </div>
 
             <div class="section-title">ACCESSORIES |</div>
             <div class="item-card">
                 <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400" class="item-img">
                 <div class="item-info">
-                    <b>ASC Cap</b>
-                    <small>Adjustable Strap</small>
-                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
+                    <b>ASC Sports Cap</b>
+                    <small>Adjustable Strap - Black</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
                 </div>
                 <div class="price-side"><span class="price-val">SR 65</span><button class="buy-button" onclick="add(65)">Buy</button></div>
             </div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" class="item-img">
-                <div class="item-info">
-                    <b>Luxury Perfume</b>
-                    <small>Signature Scent 50ml</small>
-                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(5.0)</span></div>
-                </div>
-                <div class="price-side"><span class="price-val">SR 190</span><button class="buy-button" onclick="add(190)">Buy</button></div>
-            </div>
-            <div class="item-card">
                 <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Socks Pack</b>
-                    <small>3 Pairs - Sports</small>
-                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
+                    <b>Socks Premium Pack</b>
+                    <small>3 Pairs - Athletic Cotton</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
                 </div>
                 <div class="price-side"><span class="price-val">SR 40</span><button class="buy-button" onclick="add(40)">Buy</button></div>
             </div>
@@ -174,16 +174,14 @@
     </div>
 
     <div id="prep-screen">
-        <h1 id="clock" style="font-size: 5.5rem; color: var(--gold); margin:0; font-weight: 900;">05:00</h1>
-        <p style="font-style:italic; color:#ccc; margin-top:20px; font-size: 1.2rem;">"Elegance is the only beauty that never fades."</p>
+        <h1 style="font-size: 3.5rem; color: var(--gold); margin:0; font-weight: 900; text-align: center;">Order Confirmed!</h1>
+        <p style="font-style:italic; color:#ccc; margin-top:20px; font-size: 1.2rem; text-align: center;">"Elegance is the only beauty that never fades."</p>
         <button class="back-menu" onclick="closePrep()">Back to Brand</button>
     </div>
 
     <script>
         let sum = 0;
         let count = 0;
-        let timer;
-        let sec = 300;
 
         function add(p) { 
             sum += p; 
@@ -195,15 +193,11 @@
         function openPrep() {
             if(sum === 0) return;
             document.getElementById('prep-screen').style.display = 'flex';
-            if(!timer) {
-                timer = setInterval(() => {
-                    let m = Math.floor(sec/60), s = sec%60;
-                    document.getElementById('clock').innerText = m + ":" + (s < 10 ? '0' : '') + s;
-                    if(sec-- <= 0) { clearInterval(timer); document.getElementById('clock').innerText = "Order Ready!"; }
-                }, 1000);
-            }
         }
-        function closePrep() { document.getElementById('prep-screen').style.display = 'none'; }
+        
+        function closePrep() { 
+            document.getElementById('prep-screen').style.display = 'none'; 
+        }
     </script>
 </body>
 </html>
