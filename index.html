@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ASC | Men's Fashion House</title>
+    <title>ASC | لوحة التحكم المتكاملة</title>
     <style>
         :root { 
             --gold: #e5c158; 
@@ -12,8 +12,7 @@
         }
         
         body { 
-            background: var(--dark-bg) url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=2000') no-repeat center center fixed;
-            background-size: cover; 
+            background: var(--dark-bg);
             color: #fff; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
@@ -21,14 +20,7 @@
             overflow-x: hidden;
         }
 
-        /* غطاء داكن فخم فوق الخلفية */
-        body::before {
-            content: '';
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 12, 0.88); z-index: -1;
-        }
-
-        /* شريط العناوين العلوي الحديث */
+        /* بار التنقل العلوي */
         .top-navbar {
             position: sticky; top: 0; z-index: 1000; 
             background: rgba(10, 10, 12, 0.9);
@@ -41,63 +33,67 @@
         .checkout-top-btn { 
             background: var(--gold); color: #000; border: none; 
             padding: 8px 20px; border-radius: 30px; font-weight: bold; 
-            cursor: pointer; transition: 0.3s;
+            cursor: pointer;
         }
-        .checkout-top-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* سلة المشتريات العائمة المتطورة */
+        /* السلة العائمة */
         .floating-cart-bag {
             position: fixed; bottom: 30px; left: 30px; 
             background: #fff; color: #000; width: 60px; height: 60px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 999;
             font-weight: 900; font-size: 1.2rem; cursor: pointer;
-            border: 2px solid var(--gold); transition: 0.3s;
+            border: 2px solid var(--gold);
         }
-        .floating-cart-bag:active { transform: scale(0.9); }
 
         /* عناوين المجموعات */
         .category-title { 
             margin: 40px 25px 20px; text-align: right; font-size: 1.3rem;
-            font-weight: 800; color: var(--gold); letter-spacing: 1px;
-            display: flex; align-items: center; gap: 10px;
+            font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 10px;
         }
-        .category-title::after {
-            content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1);
-        }
+        .category-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
 
-        /* حاوية المنيو */
-        .store-container { padding: 0 20px 120px; max-width: 600px; margin: 0 auto; }
+        .store-container { padding: 0 20px 40px; max-width: 600px; margin: 0 auto; }
 
-        /* كروت الملابس الجديدة */
+        /* كروت المنتجات */
         .clothing-card {
             background: var(--card-bg); border-radius: 20px; display: flex; align-items: center;
             padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        .clothing-card:hover { transform: translateY(-3px); border-color: rgba(229, 193, 88, 0.3); }
-        
         .clothing-img { width: 100px; height: 110px; border-radius: 14px; object-fit: cover; background: #1a1a22; }
-        
         .clothing-details { flex: 1; margin-right: 18px; text-align: right; }
-        .clothing-details h3 { margin: 0 0 6px 0; font-size: 1.15rem; font-weight: 700; color: #fff; }
+        .clothing-details h3 { margin: 0 0 6px 0; font-size: 1.15rem; color: #fff; }
         .clothing-details p { margin: 0 0 8px 0; color: #999; font-size: 0.85rem; }
-        
         .rating-stars { color: var(--gold); font-size: 0.75rem; }
 
-        /* منطقة السعر والطلب داخل الكرت */
         .action-side { text-align: left; min-width: 90px; }
         .item-price { color: #fff; font-weight: 800; display: block; margin-bottom: 12px; font-size: 1.15rem; }
         .add-to-bag-btn { 
             background: transparent; color: var(--gold); border: 1.5px solid var(--gold); 
-            padding: 7px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; 
-            transition: 0.2s; width: 100%;
-        }
-        .add-to-bag-btn:compressed, .add-to-bag-btn:active { 
-            background: var(--gold); color: #000; 
+            padding: 7px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%;
         }
 
-        /* شاشة الاستلام وتأكيد الطلب الفخمة */
+        /* لوحة إضافة المنتجات الجديدة في الأسفل */
+        .admin-panel {
+            background: #121214; padding: 25px; margin: 40px 20px 120px; border-radius: 25px;
+            border: 1px dashed var(--gold); max-width: 550px; margin-left: auto; margin-right: auto;
+        }
+        .admin-panel h2 { margin-top: 0; color: var(--gold); font-size: 1.4rem; text-align: center; }
+        .form-group { margin-bottom: 15px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 5px; color: #ccc; font-size: 0.9rem; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #333;
+            background: #1a1a22; color: #fff; box-sizing: border-box; font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--gold); outline: none; }
+        .add-product-btn {
+            width: 100%; background: var(--gold); color: #000; border: none; padding: 14px;
+            border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s;
+        }
+        .add-product-btn:active { transform: scale(0.98); }
+
+        /* شاشة تأكيد الطلب السريعة */
         .confirmation-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0a0a0c; z-index: 2000; flex-direction: column; 
@@ -105,15 +101,12 @@
         }
         .success-icon {
             width: 80px; height: 80px; border: 3px solid var(--gold); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; color: var(--gold); margin-bottom: 25px;
-            box-shadow: 0 0 30px rgba(229, 193, 88, 0.3);
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--gold); margin-bottom: 25px;
         }
         .close-overlay-btn { 
             margin-top: 40px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); 
-            padding: 12px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            padding: 12px 40px; border-radius: 30px; font-weight: bold; cursor: pointer;
         }
-        .close-overlay-btn:hover { background: #fff; color: #000; }
     </style>
 </head>
 <body>
@@ -123,134 +116,109 @@
     </div>
 
     <div class="top-navbar">
-        <div class="brand-name">ASC <span>STUDIOS</span></div>
+        <div class="brand-name">ASC <span>STORES</span></div>
         <button class="checkout-top-btn" onclick="showSuccessScreen()">تأكيد (<span id="total-price">0</span> RS)</button>
     </div>
 
     <div class="store-container">
-        
-        <div class="category-title">CASUAL WEAR</div>
-        
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Oversized Tee</h3>
-                <p>قطن ثقيل 100% - أبيض كلاسيك</p>
-                <div class="rating-stars">★★★★★ <span>(4.9)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">95 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(95)">شراء</button>
-            </div>
+        <div id="section-apparel" style="display: none;"><div class="category-title">الملابس الرجالية</div></div>
+        <div id="container-apparel"></div>
+
+        <div id="section-footwear" style="display: none;"><div class="category-title">الأحذية والشوزات</div></div>
+        <div id="container-footwear"></div>
+
+        <div id="section-accessories" style="display: none;"><div class="category-title">الإكسسوارات</div></div>
+        <div id="container-accessories"></div>
+    </div>
+
+    <div class="admin-panel">
+        <h2>🛠️ لوحة إضافة المنتجات</h2>
+        <div class="form-group">
+            <label>اسم المنتج:</label>
+            <input type="text" id="prod-name" placeholder="مثال: هودي أسود فاخر">
         </div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Minimalist Black Tee</h3>
-                <p>تيشرت أسود فاخر بقصة مريحة</p>
-                <div class="rating-stars">★★★★★ <span>(4.8)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">95 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(95)">شراء</button>
-            </div>
+        <div class="form-group">
+            <label>وصف قصير:</label>
+            <input type="text" id="prod-desc" placeholder="مثال: قطن 100% مريح جداً">
         </div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Casual Linen Shirt</h3>
-                <p>قميص كتان بارد وصيفي - بيج</p>
-                <div class="rating-stars">★★★★★ <span>(4.7)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">140 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(140)">شراء</button>
-            </div>
+        <div class="form-group">
+            <label>السعر (ريال سعودي):</label>
+            <input type="number" id="prod-price" placeholder="مثال: 150">
         </div>
-
-        <div class="category-title">WINTER & OUTERWEAR</div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Heavyweight Hoodie</h3>
-                <p>هودي شتوي مبطن - أسود داكن</p>
-                <div class="rating-stars">★★★★★ <span>(5.0)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">180 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(180)">شراء</button>
-            </div>
+        <div class="form-group">
+            <label>اختر القسم:</label>
+            <select id="prod-category">
+                <option value="apparel">ملابس رجالية</option>
+                <option value="footwear">أحذية وشوزات</option>
+                <option value="accessories">إكسسوارات</option>
+            </select>
         </div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Bomber Jacket</h3>
-                <p>جاكيت كاجوال عصري مقاوم للرياح</p>
-                <div class="rating-stars">★★★★★ <span>(4.9)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">260 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(260)">شراء</button>
-            </div>
-        </div>
-
-        <div class="category-title">MEN'S FOOTWEAR</div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Retro Sport Sneakers</h3>
-                <p>شوز رياضي مريح وخفيف - إصدار خاص</p>
-                <div class="rating-stars">★★★★★ <span>(4.9)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">240 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(240)">شراء</button>
-            </div>
-        </div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Suede Urban Sneakers</h3>
-                <p>حذاء شمواه كاجوال فاخر - رمادي</p>
-                <div class="rating-stars">★★★★★ <span>(4.8)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">290 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(290)">شراء</button>
-            </div>
-        </div>
-
-        <div class="clothing-card">
-            <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=400" class="clothing-img">
-            <div class="clothing-details">
-                <h3>Classic Leather Boots</h3>
-                <p>بوت جلدي متين للمناسبات واليوميات</p>
-                <div class="rating-stars">★★★★★ <span>(4.7)</span></div>
-            </div>
-            <div class="action-side">
-                <span class="item-price">310 SR</span>
-                <button class="add-to-bag-btn" onclick="buyItem(310)">شراء</button>
-            </div>
-        </div>
-
+        <button class="add-product-btn" onclick="addNewProduct()">إضافة المنتج إلى المتجر الحين ✨</button>
     </div>
 
     <div class="confirmation-overlay" id="success-screen">
         <div class="success-icon">✓</div>
         <h1 style="font-size: 2.5rem; margin: 0 0 15px 0;">تم تأكيد طلبك!</h1>
-        <p style="color: #aaa; font-size: 1.1rem; padding: 0 30px;">"الأناقة لا تكتمل إلا باختياراتك الرائعة."</p>
         <button class="close-overlay-btn" onclick="closeSuccessScreen()">العودة للمتجر</button>
     </div>
 
     <script>
         let totalPrice = 0;
         let totalItems = 0;
+
+        // مصفوفة صور افتراضية ذكية يتم سحبها بالترتيب لتعطي مظهر فخم بدون علامات استفهام
+        const defaultImages = [
+            "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400",
+            "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400",
+            "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400"
+        ];
+        let imgIndex = 0;
+
+        function addNewProduct() {
+            const name = document.getElementById('prod-name').value;
+            const desc = document.getElementById('prod-desc').value;
+            const price = parseInt(document.getElementById('prod-price').value);
+            const category = document.getElementById('prod-category').value;
+
+            // التحقق من تعبئة الحقول
+            if(!name || !desc || !price) {
+                alert("تكفى عبّي كل البيانات أول عشان تضيف المنتج!");
+                return;
+            }
+
+            // إظهار عنوان القسم إذا كان مخفي
+            document.getElementById(`section-${category}`).style.display = "block";
+
+            // اختيار صورة تلقائية فخمة
+            const currentImg = defaultImages[imgIndex % defaultImages.length];
+            imgIndex++;
+
+            // إنشاء كرت المنتج الجديد ديناميكياً بنفس الديزاين المعتمد
+            const cardHTML = `
+                <div class="clothing-card">
+                    <img src="${currentImg}" class="clothing-img">
+                    <div class="clothing-details">
+                        <h3>${name}</h3>
+                        <p>${desc}</p>
+                        <div class="rating-stars">★★★★★ <span>(5.0)</span></div>
+                    </div>
+                    <div class="action-side">
+                        <span class="item-price">${price} SR</span>
+                        <button class="add-to-bag-btn" onclick="buyItem(${price})">شراء</button>
+                    </div>
+                </div>
+            `;
+
+            // إضافة المنتج داخل الحاوية المناسبة له
+            document.getElementById(`container-${category}`).insertAdjacentHTML('beforeend', cardHTML);
+
+            // تصفية الحقول بعد الإضافة
+            document.getElementById('prod-name').value = '';
+            document.getElementById('prod-desc').value = '';
+            document.getElementById('prod-price').value = '';
+        }
 
         function buyItem(price) {
             totalPrice += price;
