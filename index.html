@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ASC | Specialty Coffee</title>
+    <title>ASC | Luxury Clothing Brand</title>
     <style>
         :root { --gold: #d4af37; --card-bg: rgba(20, 20, 20, 0.92); }
         
         body { 
-            background: #000 url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=2000') no-repeat center center fixed;
+            background: #000 url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000') no-repeat center center fixed;
             background-size: cover; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0;
         }
 
@@ -16,53 +16,56 @@
         .top-bar {
             position: sticky; top: 0; z-index: 1000; background: var(--gold); color: #000;
             padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            font-weight: 900; border-radius: 0 0 25px 25px;
+            font-weight: 900; border-radius: 0 0 25px 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
         .order-now-btn { background: #000; color: var(--gold); border: none; padding: 10px 22px; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-        /* السلة العائمة الجديدة */
+        /* السلة العائمة */
         .floating-cart {
             position: fixed; bottom: 30px; left: 30px; background: var(--gold);
             color: #000; width: 65px; height: 65px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); z-index: 999;
             font-weight: bold; flex-direction: column; border: 3px solid #000;
+            cursor: pointer;
         }
         .cart-count { font-size: 1.2rem; margin-top: -2px; }
         .cart-label { font-size: 0.6rem; text-transform: uppercase; }
 
+        /* اللوغو الفخم للبراند */
         .logo-section { text-align: center; padding: 40px 0 20px; }
         .logo-circle {
-            width: 85px; height: 85px; border: 2.5px solid var(--gold); border-radius: 50%;
+            width: 90px; height: 90px; border: 2.5px solid var(--gold); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
-            font-weight: 900; font-size: 1.6rem; color: var(--gold);
-            box-shadow: 0 0 30px rgba(212,175,55,0.3);
+            font-weight: 900; font-size: 1.4rem; color: var(--gold);
+            box-shadow: 0 0 30px rgba(212,175,55,0.3); text-shadow: 0 0 5px var(--gold);
         }
 
         .section-title { 
-            color: var(--gold); margin: 30px 20px 15px; font-weight: bold; 
+            color: var(--gold); margin: 35px 20px 15px; font-weight: bold; 
             text-align: right; border-right: 4px solid var(--gold); padding-right: 12px;
+            font-size: 1.1rem; letter-spacing: 1px;
         }
 
-        /* البطاقات */
-        .menu-container { padding: 0 15px 100px; } /* زيادة padding أسفل عشان السلة */
+        /* البطاقات الشفافة */
+        .menu-container { padding: 0 15px 120px; }
         .item-card {
             background: var(--card-bg); border-radius: 25px; display: flex; align-items: center;
             padding: 15px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.08);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
-        .item-img { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; }
+        .item-img { width: 95px; height: 95px; border-radius: 20px; object-fit: cover; background: #222; }
         .item-info { flex: 1; margin-right: 18px; text-align: right; }
-        .item-info b { display: block; font-size: 1.1rem; margin-bottom: 2px; }
+        .item-info b { display: block; font-size: 1.1rem; margin-bottom: 4px; }
         .item-info small { color: #aaa; font-size: 0.8rem; display: block; margin-bottom: 5px; }
         
-        /* النجوم الذهبية */
         .stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; }
 
-        .price-side { text-align: left; min-width: 80px; }
+        .price-side { text-align: left; min-width: 85px; }
         .price-val { color: var(--gold); font-weight: 900; display: block; margin-bottom: 8px; font-size: 1.1rem; }
         .buy-button { background: var(--gold); color: #000; border: none; padding: 7px 22px; border-radius: 50px; font-weight: bold; cursor: pointer; }
 
+        /* شاشة التجهيز */
         #prep-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.97); z-index: 2000; flex-direction: column; 
@@ -80,64 +83,100 @@
 
     <div id="main-ui">
         <div class="top-bar">
-            <button class="order-now-btn" onclick="openPrep()">Order Now</button>
+            <button class="order-now-btn" onclick="openPrep()">Checkout</button>
             <span style="font-size: 1.1rem;">Total: <span id="total-val">0</span> SR</span>
         </div>
 
         <div class="logo-section">
             <div class="logo-circle">ASC</div>
-            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold; font-size:0.9rem;">SPECIALTY COFFEE</div>
+            <div style="color:var(--gold); letter-spacing:4px; font-weight:bold; font-size:0.85rem;">LUXURY BRAND</div>
         </div>
 
         <div class="menu-container">
-            <div class="section-title">ICED COFFEE |</div>
+            <div class="section-title">WINTER COLLECTION |</div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=300" class="item-img">
+                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Iced V60</b>
-                    <small>Ethiopian G1</small>
+                    <b>Oversized Hoodie</b>
+                    <small>Premium Cotton - Black</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 18</span><button class="buy-button" onclick="add(18)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 180</span><button class="buy-button" onclick="add(180)">Buy</button></div>
             </div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1551046710-18b230e3f330?w=300" class="item-img">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Spanish Latte</b>
-                    <small>Sweet & Creamy</small>
+                    <b>Luxury Jacket</b>
+                    <small>Winter Collection</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 16</span><button class="buy-button" onclick="add(16)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 250</span><button class="buy-button" onclick="add(250)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Knitwear Sweater</b>
+                    <small>Beige Classic</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.7)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 140</span><button class="buy-button" onclick="add(140)">Buy</button></div>
             </div>
 
-            <div class="section-title">HOT COFFEE |</div>
+            <div class="section-title">SUMMER COLLECTION |</div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?w=300" class="item-img">
+                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Flat White</b>
-                    <small>Double Shot</small>
+                    <b>Graphic T-Shirt</b>
+                    <small>100% Organic Cotton</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(5.0)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 13</span><button class="buy-button" onclick="add(13)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 95</span><button class="buy-button" onclick="add(95)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Classic White Tee</b>
+                    <small>Slim Fit</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.6)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 80</span><button class="buy-button" onclick="add(80)">Buy</button></div>
             </div>
 
-            <div class="section-title">DESSERTS |</div>
+            <div class="section-title">ACCESSORIES |</div>
             <div class="item-card">
-                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=300" class="item-img">
+                <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400" class="item-img">
                 <div class="item-info">
-                    <b>Tiramisu</b>
-                    <small>Classic Italian</small>
+                    <b>ASC Cap</b>
+                    <small>Adjustable Strap</small>
                     <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.9)</span></div>
                 </div>
-                <div class="price-side"><span class="price-val">SR 20</span><button class="buy-button" onclick="add(20)">Buy</button></div>
+                <div class="price-side"><span class="price-val">SR 65</span><button class="buy-button" onclick="add(65)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Luxury Perfume</b>
+                    <small>Signature Scent 50ml</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(5.0)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 190</span><button class="buy-button" onclick="add(190)">Buy</button></div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400" class="item-img">
+                <div class="item-info">
+                    <b>Socks Pack</b>
+                    <small>3 Pairs - Sports</small>
+                    <div class="stars">★★★★★ <span style="color:#666; font-size:0.7rem;">(4.8)</span></div>
+                </div>
+                <div class="price-side"><span class="price-val">SR 40</span><button class="buy-button" onclick="add(40)">Buy</button></div>
             </div>
         </div>
     </div>
 
     <div id="prep-screen">
         <h1 id="clock" style="font-size: 5.5rem; color: var(--gold); margin:0; font-weight: 900;">05:00</h1>
-        <p style="font-style:italic; color:#ccc; margin-top:20px;">"Life begins after coffee."</p>
-        <button class="back-menu" onclick="closePrep()">Back to Menu</button>
+        <p style="font-style:italic; color:#ccc; margin-top:20px; font-size: 1.2rem;">"Elegance is the only beauty that never fades."</p>
+        <button class="back-menu" onclick="closePrep()">Back to Brand</button>
     </div>
 
     <script>
@@ -160,7 +199,7 @@
                 timer = setInterval(() => {
                     let m = Math.floor(sec/60), s = sec%60;
                     document.getElementById('clock').innerText = m + ":" + (s < 10 ? '0' : '') + s;
-                    if(sec-- <= 0) { clearInterval(timer); document.getElementById('clock').innerText = "Ready!"; }
+                    if(sec-- <= 0) { clearInterval(timer); document.getElementById('clock').innerText = "Order Ready!"; }
                 }, 1000);
             }
         }
