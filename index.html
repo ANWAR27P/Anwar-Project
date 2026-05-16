@@ -31,10 +31,17 @@
             margin: 0; padding: 0; overflow-x: hidden; transition: background 0.3s, color 0.3s;
         }
         .top-navbar { position: sticky; top: 0; z-index: 999; background: var(--bg-dark); padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
-        .brand-name { font-weight: 700; font-size: 1.3rem; }
+        .brand-name { font-weight: 700; font-size: 1.3rem; cursor: pointer; }
         .brand-name span { color: var(--accent); font-weight: 400; font-size: 1rem; margin-right: 5px; }
-        .mode-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        
+        /* أزرار الهيدر */
+        .nav-controls { display: flex; gap: 10px; align-items: center; }
+        .mode-toggle, .admin-toggle-btn { background: none; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .admin-toggle-btn { border-color: var(--accent); color: var(--accent); }
+
         .floating-cart-bag { position: fixed; bottom: 30px; left: 30px; background: var(--accent); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 1001; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+        
+        /* السلة الجانبية */
         .cart-drawer { position: fixed; top: 0; left: -350px; width: 320px; height: 100%; background: var(--card-bg); z-index: 1002; border-right: 1px solid var(--border-color); box-shadow: 10px 0 30px rgba(0,0,0,0.2); transition: left 0.3s ease; padding: 25px; box-sizing: border-box; display: flex; flex-direction: column; }
         .cart-drawer.open { left: 0; }
         .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -45,9 +52,12 @@
         .drawer-footer { border-top: 1px solid var(--border-color); padding-top: 15px; }
         .checkout-btn { width: 100%; background: var(--text-main); color: var(--bg-dark); border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; }
         .drawer-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; }
-        .category-title { margin: 40px 25px 15px; text-align: right; font-size: 1.15rem; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+        
+        /* عرض المنتجات */
+        .category-title { margin: 30px 0 15px; text-align: right; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 12px; color: var(--text-main); }
         .category-title::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
-        .store-container { padding: 0 20px 20px; max-width: 600px; margin: 0 auto; }
+        .store-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        
         .clothing-card { background: var(--card-bg); border-radius: 14px; display: flex; align-items: center; padding: 14px; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative; }
         .badge-stock { position: absolute; top: 12px; left: 14px; font-size: 0.7rem; background: rgba(92, 158, 173, 0.15); color: var(--accent); padding: 3px 8px; border-radius: 4px; }
         .clothing-img { width: 85px; height: 105px; border-radius: 8px; object-fit: cover; background: #141416; }
@@ -60,12 +70,17 @@
         .action-side { text-align: left; min-width: 85px; margin-top: auto; }
         .item-price { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 10px; font-size: 1.05rem; }
         .add-to-bag-btn { background: var(--border-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 16px; border-radius: 8px; font-weight: 500; font-size: 0.85rem; cursor: pointer; width: 100%; }
-        .admin-panel { background: var(--panel-bg); padding: 22px; margin: 40px 20px 100px; border-radius: 16px; border: 1px solid var(--border-color); max-width: 550px; margin-left: auto; margin-right: auto; }
+        
+        /* لوحة التحكم (مخفية تلقائياً وتظهر عند الضغط على الزر) */
+        .admin-panel { display: none; background: var(--panel-bg); padding: 22px; margin: 20px auto 100px; border-radius: 16px; border: 1px solid var(--border-color); max-width: 550px; }
+        .admin-panel.visible { display: block; }
         .admin-panel h2 { margin-top: 0; font-size: 1.2rem; font-weight: 600; text-align: center; margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; text-align: right; }
         .form-group label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.85rem; }
         .form-group input, .form-group select { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); box-sizing: border-box; font-size: 0.95rem; }
         .add-product-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+        
+        /* بوابات الدفع */
         .payment-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
         .payment-box { background: var(--card-bg); border: 1px solid var(--border-color); width: 90%; max-width: 420px; padding: 25px; border-radius: 16px; box-sizing: border-box; color: var(--text-main); }
         .payment-methods { display: flex; justify-content: space-around; margin: 20px 0; gap: 10px; }
@@ -92,22 +107,30 @@
         </div>
     </div>
 
-    <div class="top-navbar"><div class="brand-name">ASC<span>STUDIO</span></div><button class="mode-toggle" onclick="toggleMode()">الوضع الفاتح/الداكن</button></div>
+    <div class="top-navbar">
+        <div class="brand-name" onclick="location.reload()">ASC<span>STUDIO</span></div>
+        <div class="nav-controls">
+            <button class="admin-toggle-btn" onclick="toggleAdminPanel()">🛠️ اللوحة</button>
+            <button class="mode-toggle" onclick="toggleMode()">🌓</button>
+        </div>
+    </div>
 
     <div class="store-container">
         <div id="section-apparel" style="display: none;"><div class="category-title">الملابس</div></div>
         <div id="container-apparel"></div>
+        
         <div id="section-footwear" style="display: none;"><div class="category-title">الأحذية</div></div>
         <div id="container-footwear"></div>
+        
         <div id="section-accessories" style="display: none;"><div class="category-title">الإكسسوارات</div></div>
         <div id="container-accessories"></div>
     </div>
 
-    <div class="admin-panel">
-        <h2>🛠️ لوحة تحكم متجر ASC STUDIO</h2>
+    <div class="admin-panel" id="admin-panel">
+        <h2>🛠️ إضافة منتج جديد لـ ASC STUDIO</h2>
         <div class="form-group"><label>اسم المنتج:</label><input type="text" id="prod-name" placeholder="مثال: هودي أسود فاخر"></div>
         <div class="form-group"><label>وصف قصير:</label><input type="text" id="prod-desc" placeholder="مثال: قطن 100% تصميم عصري"></div>
-        <div class="form-group"><label>رابط الصورة من الإنترنت:</label><input type="text" id="prod-img" placeholder="انسخ رابط صورة المنتج هنا"></div>
+        <div class="form-group"><label>رابط الصورة من الإنترنت:</label><input type="text" id="prod-img" placeholder="ضع رابط صورة المنتج هنا"></div>
         <div class="form-group"><label>السعر (RS):</label><input type="number" id="prod-price" placeholder="مثال: 220"></div>
         <div class="form-group"><label>حالة التوفر:</label><select id="prod-stock"><option value="متوفر فوراً">متوفر فوراً</option><option value="قطعة واحدة متبقية">قطعة واحدة متبقية</option><option value="طلب مسبق">طلب مسبق</option></select></div>
         <div class="form-group"><label>القسم:</label><select id="prod-category"><option value="apparel">ملابس</option><option value="footwear">أحذية</option><option value="accessories">إكسسوارات</option></select></div>
@@ -142,7 +165,7 @@
     </div>
 
     <script>
-        // دمج بيانات Firebase الحقيقية والمستخرجة من لابتوب أنور 🛠️
+        // إعدادات Firebase الحقيقية الخاصة بأنور
         const firebaseConfig = {
             apiKey: "AIzaSyCdDzXJ-Qvbj2IoCWLQfaMK5IR6Q_gVdpY",
             authDomain: "asc-studio-5272d.firebaseapp.com",
@@ -150,17 +173,16 @@
             projectId: "asc-studio-5272d",
             storageBucket: "asc-studio-5272d.firebasestorage.app",
             messagingSenderId: "809855684821",
-            appId: "1:809855684821:web:dd6bc79fa69be290de25ca" // تم استنتاجه بناء على رقم المشروع وبداية الرابط
+            appId: "1:809855684821:web:dd6bc79fa69be290de25ca"
         };
         
-        // تشغيل ربط قاعدة البيانات
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
         let cart = [];
         let currentTotal = 0;
 
-        // الاستماع الفوري لقاعدة البيانات وعرض بضاعتك الجديدة بمجرد إضافتها
+        // قراءة المنتجات وعرضها في الواجهة فوراً
         database.ref('products').on('value', (snapshot) => {
             document.getElementById('container-apparel').innerHTML = '';
             document.getElementById('container-footwear').innerHTML = '';
@@ -200,7 +222,7 @@
             }
         });
 
-        // دالة إرسال وحفظ المنتج الجديد في سيرفر جوجل للأبد
+        // حفظ صنف جديد
         function saveProductToFirebase() {
             const name = document.getElementById('prod-name').value;
             const desc = document.getElementById('prod-desc').value;
@@ -209,20 +231,20 @@
             const stock = document.getElementById('prod-stock').value;
             const category = document.getElementById('prod-category').value;
 
-            if(!name || !desc || !price) { alert("تنبيه: يرجى تعبئة الاسم والوصف والسعر."); return; }
+            if(!name || !desc || !price) { alert("يرجى إدخال اسم المنتج والوصف والسعر الحقيقي."); return; }
 
             database.ref('products').push({
                 name: name, desc: desc, img: img, price: price, stock: stock, category: category
             }).then(() => {
-                alert("تم رفع منتجك بنجاح وحفظه في السيرفر! 🎉");
+                alert("تم الحفظ في السيرفر وإطلاقه بالمتجر فوراً! 🎉");
                 document.getElementById('prod-name').value = ''; document.getElementById('prod-desc').value = '';
                 document.getElementById('prod-img').value = ''; document.getElementById('prod-price').value = '';
-            }).catch((error) => {
-                alert("حدث خطأ أثناء الرفع: " + error.message);
+                toggleAdminPanel(); // إخفاء اللوحة بعد الحفظ لرؤية المنتج
             });
         }
 
-        // تفاعلات المتجر والسلة
+        // تفاعلات التحكم والمظهر
+        function toggleAdminPanel() { document.getElementById('admin-panel').classList.toggle('visible'); }
         function toggleMode() { document.body.classList.toggle('light-mode'); }
         function toggleCart(open) { const drawer = document.getElementById('cart-drawer'); const overlay = document.getElementById('overlay'); if(open) { drawer.classList.add('open'); overlay.style.display = 'block'; } else { drawer.classList.remove('open'); overlay.style.display = 'none'; } }
         function selectSize(btn) { btn.parentElement.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); }
