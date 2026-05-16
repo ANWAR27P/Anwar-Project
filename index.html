@@ -3,125 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ASC | Casual Store</title>
+    <title>ASC | Luxury Studio</title>
     <style>
         :root { 
-            --accent: #5c9ead; /* لون سماوي رايق وهادي */
+            --accent: #5c9ead; 
             --bg-dark: #121214;
             --card-bg: #1e1e22; 
+            --text-main: #ffffff;
             --text-muted: #a0a0ab;
+            --border-color: #27272a;
+            --panel-bg: #19191c;
+        }
+
+        /* تنسيقات الوضع الفاتح */
+        body.light-mode {
+            --bg-dark: #f4f4f5;
+            --card-bg: #ffffff;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --border-color: #e4e4e7;
+            --panel-bg: #f4f4f5;
         }
         
         body { 
             background: var(--bg-dark);
-            color: #ffffff; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
             margin: 0; 
             padding: 0;
             overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* بار علوي بسيط ورايق */
+        /* بار علوي رايق */
         .top-navbar {
-            position: sticky; top: 0; z-index: 1000; 
-            background: rgba(18, 18, 20, 0.95);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 999; 
+            background: var(--bg-dark);
             padding: 18px 25px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #27272a;
+            border-bottom: 1px solid var(--border-color);
         }
-        .brand-name { font-weight: 700; font-size: 1.3rem; color: #fff; letter-spacing: 0.5px; }
+        .brand-name { font-weight: 700; font-size: 1.3rem; }
         .brand-name span { color: var(--accent); font-weight: 400; font-size: 1rem; margin-right: 5px; }
         
-        .checkout-top-btn { 
-            background: #fff; color: #000; border: none; 
-            padding: 8px 18px; border-radius: 8px; font-weight: 600; 
-            cursor: pointer; font-size: 0.9rem; transition: background 0.2s;
+        .nav-actions { display: flex; gap: 15px; align-items: center; }
+        .mode-toggle {
+            background: none; border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
         }
-        .checkout-top-btn:hover { background: #e4e4e7; }
 
-        /* سلة مشتريات عائمة دائرية بسيطة */
+        /* السلة العائمة */
         .floating-cart-bag {
             position: fixed; bottom: 30px; left: 30px; 
             background: var(--accent); color: #fff; width: 55px; height: 55px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 999;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 1001;
             font-weight: 700; font-size: 1.1rem; cursor: pointer;
             transition: transform 0.2s;
         }
         .floating-cart-bag:active { transform: scale(0.95); }
 
-        /* عناوين المجموعات الهادية */
+        /* السلة الجانبية المنزلقة (Drawer) */
+        .cart-drawer {
+            position: fixed; top: 0; left: -350px; width: 320px; height: 100%;
+            background: var(--card-bg); z-index: 1002; border-right: 1px solid var(--border-color);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+            transition: left 0.3s ease; padding: 25px; box-sizing: border-box;
+            display: flex; flex-direction: column;
+        }
+        .cart-drawer.open { left: 0; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close-drawer { background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+        .cart-items-list { flex: 1; overflow-y: auto; margin-bottom: 20px; }
+        
+        /* عناصر السلة الجانبية */
+        .cart-drawer-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+        .remove-item-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.85rem; }
+
+        .drawer-footer { border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .checkout-btn {
+            width: 100%; background: var(--text-main); color: var(--bg-dark); border: none;
+            padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px;
+        }
+
+        /* الخلفية المظلمة عند فتح السلة */
+        .drawer-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 1000;
+        }
+
+        /* المجموعات والكروت */
         .category-title { 
             margin: 40px 25px 15px; text-align: right; font-size: 1.15rem;
-            font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px;
+            font-weight: 600; display: flex; align-items: center; gap: 12px;
         }
-        .category-title::after { content: ''; flex: 1; height: 1px; background: #27272a; }
+        .category-title::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 
         .store-container { padding: 0 20px 20px; max-width: 600px; margin: 0 auto; }
 
-        /* كروت المنتجات بتصميم عادي ومريح */
         .clothing-card {
             background: var(--card-bg); border-radius: 14px; display: flex; align-items: center;
-            padding: 14px; margin-bottom: 15px; border: 1px solid #27272a;
+            padding: 14px; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative;
         }
-        .clothing-img { width: 85px; height: 95px; border-radius: 8px; object-fit: cover; background: #141416; }
+        .badge-stock {
+            position: absolute; top: 12px; left: 14px; font-size: 0.7rem;
+            background: rgba(92, 158, 173, 0.15); color: var(--accent);
+            padding: 3px 8px; border-radius: 4px; font-weight: 500;
+        }
+        .clothing-img { width: 85px; height: 105px; border-radius: 8px; object-fit: cover; background: #141416; }
         
         .clothing-details { flex: 1; margin-right: 15px; text-align: right; }
-        .clothing-details h3 { margin: 0 0 4px 0; font-size: 1.05rem; font-weight: 600; color: #fff; }
-        .clothing-details p { margin: 0 0 6px 0; color: var(--text-muted); font-size: 0.85rem; }
-        .rating-stars { color: var(--accent); font-size: 0.75rem; letter-spacing: 1px; }
+        .clothing-details h3 { margin: 0 0 4px 0; font-size: 1.05rem; font-weight: 600; }
+        .clothing-details p { margin: 0 0 8px 0; color: var(--text-muted); font-size: 0.85rem; }
+        
+        /* أزرار المقاسات الرايقة */
+        .size-selector { display: flex; gap: 6px; margin-bottom: 8px; }
+        .size-btn {
+            background: none; border: 1px solid var(--border-color); color: var(--text-main);
+            width: 26px; height: 26px; border-radius: 50%; font-size: 0.75rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .size-btn.selected { background: var(--text-main); color: var(--bg-dark); border-color: var(--text-main); }
 
-        /* السعر والزر */
-        .action-side { text-align: left; min-width: 85px; }
-        .item-price { color: #fff; font-weight: 700; display: block; margin-bottom: 10px; font-size: 1.05rem; }
+        .rating-stars { color: var(--accent); font-size: 0.75rem; }
+
+        .action-side { text-align: left; min-width: 85px; margin-top: auto; }
+        .item-price { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 10px; font-size: 1.05rem; }
         .add-to-bag-btn { 
-            background: #27272a; color: #fff; border: 1px solid #3f3f46; 
+            background: var(--border-color); color: var(--text-main); border: 1px solid var(--border-color); 
             padding: 6px 16px; border-radius: 8px; font-weight: 500; font-size: 0.85rem; cursor: pointer; width: 100%;
-            transition: all 0.2s;
         }
-        .add-to-bag-btn:active { background: #3f3f46; }
 
-        /* لوحة التحكم الهادية في الأسفل */
+        /* لوحة التحكم الإدارية */
         .admin-panel {
-            background: #19191c; padding: 22px; margin: 40px 20px 100px; border-radius: 16px;
-            border: 1px solid #27272a; max-width: 550px; margin-left: auto; margin-right: auto;
+            background: var(--panel-bg); padding: 22px; margin: 40px 20px 100px; border-radius: 16px;
+            border: 1px solid var(--border-color); max-width: 550px; margin-left: auto; margin-right: auto;
         }
-        .admin-panel h2 { margin-top: 0; color: #fff; font-size: 1.2rem; font-weight: 600; text-align: center; margin-bottom: 20px; }
+        .admin-panel h2 { margin-top: 0; font-size: 1.2rem; font-weight: 600; text-align: center; margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; text-align: right; }
         .form-group label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.85rem; }
         .form-group input, .form-group select {
-            width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #27272a;
-            background: #121214; color: #fff; box-sizing: border-box; font-size: 0.95rem;
+            width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--border-color);
+            background: var(--card-bg); color: var(--text-main); box-sizing: border-box; font-size: 0.95rem;
         }
-        .form-group input:focus, .form-group select:focus { border-color: var(--accent); outline: none; }
-        
         .add-product-btn {
             width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px;
             border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px;
         }
 
-        /* شاشة التأكيد البسيطة */
+        /* شاشة التأكيد */
         .confirmation-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #121214; z-index: 2000; flex-direction: column; 
+            background: var(--bg-dark); z-index: 2000; flex-direction: column; 
             justify-content: center; align-items: center; text-align: center;
         }
-        .success-text { font-size: 1.8rem; font-weight: 600; color: #fff; margin-bottom: 10px; }
+        .success-text { font-size: 1.8rem; font-weight: 600; margin-bottom: 10px; }
         .close-overlay-btn { 
-            margin-top: 30px; background: #27272a; color: #fff; border: none; 
+            margin-top: 30px; background: var(--border-color); color: var(--text-main); border: none; 
             padding: 10px 30px; border-radius: 8px; font-weight: 500; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="floating-cart-bag" onclick="showSuccessScreen()">
+    <div class="drawer-overlay" id="overlay" onclick="toggleCart(false)"></div>
+
+    <div class="floating-cart-bag" onclick="toggleCart(true)">
         <span id="bag-count">0</span>
     </div>
 
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="drawer-header">
+            <h3 style="margin:0;">حقيبة المشتريات</h3>
+            <button class="close-drawer" onclick="toggleCart(false)">×</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            </div>
+        <div class="drawer-footer">
+            <div style="display:flex; justify-content:space-between; font-weight:600;">
+                <span>المجموع النهائي:</span>
+                <span><span id="total-price">0</span> RS</span>
+            </div>
+            <button class="checkout-btn" onclick="showSuccessScreen()">تأكيد الطلب الفوري</button>
+        </div>
+    </div>
+
     <div class="top-navbar">
-        <div class="brand-name">ASC<span>STORES</span></div>
-        <button class="checkout-top-btn" onclick="showSuccessScreen()">تأكيد (<span id="total-price">0</span> RS)</button>
+        <div class="brand-name">ASC<span>STUDIO</span></div>
+        <div class="nav-actions">
+            <button class="mode-toggle" onclick="toggleMode()">الوضع الفاتح/الداكن</button>
+        </div>
     </div>
 
     <div class="store-container">
@@ -136,18 +210,30 @@
     </div>
 
     <div class="admin-panel">
-        <h2>🛠️ إضافة قطعة جديدة</h2>
+        <h2>🛠️ إضافة صنف جديد (لوحة التحكم)</h2>
         <div class="form-group">
             <label>اسم المنتج:</label>
-            <input type="text" id="prod-name" placeholder="مثال: تيشرت قطن أساسي">
+            <input type="text" id="prod-name" placeholder="مثال: قميص أوفرسايز بيج">
         </div>
         <div class="form-group">
             <label>وصف قصير:</label>
-            <input type="text" id="prod-desc" placeholder="مثال: قصة مريحة وألوان هادية">
+            <input type="text" id="prod-desc" placeholder="مثال: كتان بارد ومناسب للصيف">
+        </div>
+        <div class="form-group">
+            <label>رابط صورة مخصصة (اختياري - اترك فارغاً للافتراضي):</label>
+            <input type="text" id="prod-img" placeholder="ضع رابط الصورة هنا">
         </div>
         <div class="form-group">
             <label>السعر (RS):</label>
-            <input type="number" id="prod-price" placeholder="مثال: 90">
+            <input type="number" id="prod-price" placeholder="مثال: 130">
+        </div>
+        <div class="form-group">
+            <label>حالة التوفر (المخزون):</label>
+            <select id="prod-stock">
+                <option value="متوفر فوراً">متوفر فوراً</option>
+                <option value="قطعة واحدة متبقية">قطعة واحدة متبقية</option>
+                <option value="طلب مسبق">طلب مسبق</option>
+            </select>
         </div>
         <div class="form-group">
             <label>القسم:</label>
@@ -157,81 +243,148 @@
                 <option value="accessories">إكسسوارات</option>
             </select>
         </div>
-        <button class="add-product-btn" onclick="addNewProduct()">إضافة للمتجر</button>
+        <button class="add-product-btn" onclick="addNewProduct()">إضافة للمتجر الآن</button>
     </div>
 
     <div class="confirmation-overlay" id="success-screen">
-        <div class="success-text">تم تأكيد طلبك بنجاح</div>
-        <p style="color: var(--text-muted); font-size: 1rem;">شكراً لتسوقك معنا.</p>
+        <div class="success-text">تم تأكيد طلبك بنجاح الفخم</div>
+        <p style="color: var(--text-muted); font-size: 1rem;">سيتواصل معك فريق الدعم لتجهيز الشحن.</p>
         <button class="close-overlay-btn" onclick="closeSuccessScreen()">العودة للمتجر</button>
     </div>
 
     <script>
-        let totalPrice = 0;
-        let totalItems = 0;
+        let cart = [];
+        let productCounter = 0;
 
-        // مكتبة صور رايقة وهادية تناسب الستايل الجديد
-        const defaultImages = [
+        const fallbackImages = [
             "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400",
             "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400",
-            "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400",
-            "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
+            "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400"
         ];
-        let imgIndex = 0;
+
+        function toggleMode() {
+            document.body.classList.toggle('light-mode');
+        }
+
+        function toggleCart(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('overlay');
+            if(open) {
+                drawer.classList.add('open');
+                overlay.style.display = 'block';
+            } else {
+                drawer.classList.remove('open');
+                overlay.style.display = 'none';
+            }
+        }
+
+        function selectSize(btn, id, size) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            btn.setAttribute('data-chosen-size', size);
+        }
 
         function addNewProduct() {
             const name = document.getElementById('prod-name').value;
             const desc = document.getElementById('prod-desc').value;
+            let img = document.getElementById('prod-img').value;
             const price = parseInt(document.getElementById('prod-price').value);
+            const stock = document.getElementById('prod-stock').value;
             const category = document.getElementById('prod-category').value;
 
             if(!name || !desc || !price) {
-                alert("يرجى ملء جميع الحقول لإضافة المنتج.");
+                alert("يرجى إكمال الحقول الأساسية (الاسم، الوصف، السعر).");
                 return;
             }
 
+            if(!img) {
+                img = fallbackImages[productCounter % fallbackImages.length];
+            }
+            productCounter++;
+
             document.getElementById(`section-${category}`).style.display = "block";
 
-            const currentImg = defaultImages[imgIndex % defaultImages.length];
-            imgIndex++;
+            const productId = 'prod_' + productCounter;
 
             const cardHTML = `
-                <div class="clothing-card">
-                    <img src="${currentImg}" class="clothing-img">
+                <div class="clothing-card" id="${productId}">
+                    <span class="badge-stock">${stock}</span>
+                    <img src="${img}" class="clothing-img">
                     <div class="clothing-details">
                         <h3>${name}</h3>
                         <p>${desc}</p>
+                        <div class="size-selector">
+                            <button class="size-btn selected" onclick="selectSize(this, '${productId}', 'S')">S</button>
+                            <button class="size-btn" onclick="selectSize(this, '${productId}', 'M')">M</button>
+                            <button class="size-btn" onclick="selectSize(this, '${productId}', 'L')">L</button>
+                            <button class="size-btn" onclick="selectSize(this, '${productId}', 'XL')">XL</button>
+                        </div>
                         <div class="rating-stars">★★★★★</div>
                     </div>
                     <div class="action-side">
                         <span class="item-price">${price} RS</span>
-                        <button class="add-to-bag-btn" onclick="buyItem(${price})">إضافة</button>
+                        <button class="add-to-bag-btn" onclick="addToCart('${name}', ${price}, '${productId}')">إضافة</button>
                     </div>
                 </div>
             `;
 
             document.getElementById(`container-${category}`).insertAdjacentHTML('beforeend', cardHTML);
 
-            // تصفية الحقول
+            // تصفية حقول التحكم
             document.getElementById('prod-name').value = '';
             document.getElementById('prod-desc').value = '';
+            document.getElementById('prod-img').value = '';
             document.getElementById('prod-price').value = '';
         }
 
-        function buyItem(price) {
-            totalPrice += price;
-            totalItems += 1;
-            document.getElementById('total-price').innerText = totalPrice;
-            document.getElementById('bag-count').innerText = totalItems;
+        function addToCart(name, price, productId) {
+            const card = document.getElementById(productId);
+            const selectedSizeBtn = card.querySelector('.size-btn.selected');
+            const size = selectedSizeBtn ? selectedSizeBtn.innerText : 'M';
+
+            cart.push({ name: name, price: price, size: size });
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('bag-count').innerText = cart.length;
+            
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            let tempTotal = 0;
+            cart.forEach((item, index) => {
+                tempTotal += item.price;
+                const itemHTML = `
+                    <div class="cart-drawer-item">
+                        <div>
+                            <strong>${item.name}</strong> <small style="color:var(--accent);">(${item.size})</small>
+                            <div style="font-size:0.85rem; color:var(--text-muted);">${item.price} RS</div>
+                        </div>
+                        <button class="remove-item-btn" onclick="removeFromCart(${index})">حذف</button>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+            
+            document.getElementById('total-price').innerText = tempTotal;
         }
 
         function showSuccessScreen() {
-            if(totalPrice === 0) return;
+            if(cart.length === 0) return;
+            toggleCart(false);
             document.getElementById('success-screen').style.display = 'flex';
         }
 
         function closeSuccessScreen() {
+            cart = [];
+            updateCartUI();
             document.getElementById('success-screen').style.display = 'none';
         }
     </script>
