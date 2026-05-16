@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASC | Luxury Store</title>
+    <title>ASC | Casual Store</title>
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
@@ -16,37 +17,29 @@
             --text-muted: #a0a0ab;
             --border-color: #27272a;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background: var(--bg-dark); 
-            color: var(--text-main); 
+            background: var(--bg-dark); color: var(--text-main); 
             font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            margin: 0; padding: 0; 
-            direction: rtl; text-align: right;
+            direction: rtl; text-align: right; padding-bottom: 50px;
         }
         .top-navbar { 
-            position: sticky; top: 0; z-index: 99; 
-            background: var(--bg-dark); padding: 15px 20px; 
+            position: sticky; top: 0; z-index: 999; 
+            background: #141416; padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             border-bottom: 1px solid var(--border-color); 
         }
-        .brand-name { font-weight: 700; font-size: 1.4rem; letter-spacing: 1px; }
+        .brand-name { font-weight: 700; font-size: 1.4rem; color: #fff; }
         .brand-name span { color: var(--accent); }
-        
-        .admin-toggle-btn { 
+        .admin-btn { 
             background: none; border: 1px solid var(--accent); 
-            color: var(--accent); padding: 6px 14px; border-radius: 6px; 
-            cursor: pointer; font-size: 0.85rem; 
+            color: var(--accent); padding: 6px 14px; border-radius: 6px; cursor: pointer;
         }
         
         .store-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        .category-title { margin: 25px 0 15px; font-size: 1.2rem; font-weight: 700; color: #fff; }
         
-        .category-title { 
-            margin: 25px 0 15px; font-size: 1.2rem; font-weight: 700; 
-            display: flex; align-items: center; gap: 12px; 
-        }
-        .category-title::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
-        
-        /* كروت المنتجات الفخمة */
+        /* كروت المنتجات الفخمة المضمونة */
         .clothing-card { 
             background: var(--card-bg); border-radius: 14px; 
             display: flex; align-items: center; padding: 14px; 
@@ -54,30 +47,22 @@
         }
         .clothing-img { width: 80px; height: 100px; border-radius: 8px; object-fit: cover; background: #141416; }
         .clothing-details { flex: 1; margin-right: 15px; }
-        .clothing-details h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .clothing-details h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #fff; }
         .clothing-details p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+        .item-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
         
-        .action-side { text-align: left; min-width: 80px; }
-        .item-price { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 8px; font-size: 1.1rem; }
-        
-        /* لوحة التحكم الأسفل */
+        /* لوحة التحكم */
         .admin-panel { 
-            background: #19191c; padding: 20px; 
-            margin: 40px auto 60px; border-radius: 16px; 
-            border: 1px solid var(--border-color); max-width: 550px; 
+            background: #19191c; padding: 20px; margin-top: 30px; border-radius: 16px; border: 1px solid var(--border-color);
         }
-        .admin-panel h2 { margin-top: 0; font-size: 1.1rem; text-align: center; margin-bottom: 15px; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--text-muted); font-size: 0.85rem; }
         .form-group input, .form-group select { 
             width: 100%; padding: 10px; border-radius: 8px; 
-            border: 1px solid var(--border-color); background: var(--card-bg); 
-            color: var(--text-main); box-sizing: border-box; 
+            border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); 
         }
         .add-product-btn { 
-            width: 100%; background: var(--accent); color: #fff; 
-            border: none; padding: 12px; border-radius: 8px; 
-            font-weight: 600; cursor: pointer; margin-top: 5px; 
+            width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;
         }
     </style>
 </head>
@@ -85,106 +70,96 @@
 
     <div class="top-navbar">
         <div class="brand-name">ASC<span>STUDIO</span></div>
-        <button class="admin-toggle-btn" onclick="document.getElementById('admin-section').scrollIntoView({behavior: 'smooth'})">🛠️ إضافة منتج</button>
+        <button class="admin-btn" onclick="document.getElementById('admin-section').scrollIntoView({behavior: 'smooth'})">🛠️ إدارة المتجر</button>
     </div>
 
     <div class="store-container">
-        <div id="section-apparel" style="display:none;"><div class="category-title">قسم الملابس</div></div>
-        <div id="container-apparel"></div>
-        
-        <div id="section-footwear" style="display:none;"><div class="category-title">قسم الأحذية</div></div>
-        <div id="container-footwear"></div>
+        <div class="category-title">المنتجات المتوفرة في المتجر</div>
+        <div id="products-list">
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;" id="no-items">في انتظار إضافة أول منتج حقيقي...</p>
+        </div>
     </div>
 
     <div class="store-container" id="admin-section">
         <div class="admin-panel">
-            <h2>🛠️ لوحة إضافة المنتجات السريعة</h2>
-            <div class="form-group"><label>اسم المنتج:</label><input type="text" id="prod-name" placeholder="مثال: تيشيرت أبيض فاخر"></div>
-            <div class="form-group"><label>الوصف / المقاس:</label><input type="text" id="prod-desc" placeholder="مثال: مقاس M قطن ناعم"></div>
-            <div class="form-group"><label>رابط الصورة (اختياري):</label><input type="text" id="prod-img" placeholder="رابط صورة المنتج من الإنترنت"></div>
-            <div class="form-group"><label>السعر (RS):</label><input type="number" id="prod-price" placeholder="مثال: 120"></div>
-            <div class="form-group">
-                <label>القسم:</label>
-                <select id="prod-category">
-                    <option value="apparel">ملابس</option>
-                    <option value="footwear">أحذية</option>
-                </select>
-            </div>
-            <button class="add-product-btn" onclick="saveProductToFirebase()">حفظ ونشر في المتجر فوراً ✨</button>
+            <h2 style="text-align:center; margin-bottom:15px; font-size:1.1rem;">🛠️ إضافة منتج إلى السيرفر مباشرة</h2>
+            <div class="form-group"><label>اسم المنتج:</label><input type="text" id="p-name" placeholder="مثال: تيشيرت أبيض فاخر"></div>
+            <div class="form-group"><label>الوصف / المقاس:</label><input type="text" id="p-desc" placeholder="مثال: مقاس M قطن ناعم"></div>
+            <div class="form-group"><label>رابط الصورة (اختياري):</label><input type="text" id="p-img" placeholder="ضع رابط الصورة هنا"></div>
+            <div class="form-group"><label>السعر (RS):</label><input type="number" id="p-price" placeholder="مثال: 120"></div>
+            <button class="add-product-btn" onclick="uploadToFirebase()">حفظ ونشر في المتجر فوراً ✨</button>
         </div>
     </div>
 
     <script>
-        // إعدادات قاعدة البيانات الخاصة بـ أنور المضمونة
+        // إعدادات مشروعك المأخوذة من لقطة الشاشة 100%
         const firebaseConfig = {
-            apiKey: "AIzaSyCdDzXJ-Qvbj2IoCWLQfaMK5IR6Q_gVdpY",
+            apiKey: "AIzaSyCddZxJ-Qvbj2IoCWLQfaMK5IR6Q_gVdpY",
             authDomain: "asc-studio-5272d.firebaseapp.com",
             databaseURL: "https://asc-studio-5272d-default-rtdb.firebaseio.com",
             projectId: "asc-studio-5272d",
             storageBucket: "asc-studio-5272d.firebasestorage.app",
             messagingSenderId: "809855684821",
-            appId: "1:809855684821:web:dd6bc79fa69be290de25ca"
+            appId: "1:809855684821:web:9f6a5eecf3e273947f125c"
         };
         
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const database = firebase.database();
 
-        // قراءة وعرض المنتجات مباشرة بدون أي تأخير
-        database.ref('products').on('value', (snapshot) => {
-            document.getElementById('container-apparel').innerHTML = '';
-            document.getElementById('container-footwear').innerHTML = '';
-            document.getElementById('section-apparel').style.display = 'none';
-            document.getElementById('section-footwear').style.display = 'none';
+        // جلب البيانات من الجذر مباشرة لحل مشكلة الـ null
+        database.ref('/').on('value', (snapshot) => {
+            const listContainer = document.getElementById('products-list');
+            if(!listContainer) return;
+            
+            listContainer.innerHTML = '';
+            let hasData = false;
 
-            const products = snapshot.val();
-            if (products) {
-                Object.keys(products).forEach((key) => {
-                    const prod = products[key];
-                    
-                    // إظهار عنوان القسم إذا كان يحتوي على منتجات
-                    if(document.getElementById(`section-${prod.category}`)) {
-                        document.getElementById(`section-${prod.category}`).style.display = "block";
-                    }
-                    
-                    const cardHTML = `
-                        <div class="clothing-card">
-                            <img src="${prod.img || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400'}" class="clothing-img">
-                            <div class="clothing-details">
-                                <h3>${prod.name}</h3>
-                                <p>${prod.desc}</p>
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach((key) => {
+                    const item = data[key];
+                    // نتأكد أن الكائن يحتوي على بيانات منتج فعلي وليس قيمة عشوائية
+                    if(item && item.name) {
+                        hasData = true;
+                        const cardHTML = `
+                            <div class="clothing-card">
+                                <img src="${item.img || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400'}" class="clothing-img">
+                                <div class="clothing-details">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.desc || ''}</p>
+                                </div>
+                                <div class="item-price">${item.price} RS</div>
                             </div>
-                            <div class="action-side">
-                                <span class="item-price">${prod.price} RS</span>
-                            </div>
-                        </div>
-                    `;
-                    
-                    const container = document.getElementById(`container-${prod.category}`);
-                    if(container) {
-                        container.insertAdjacentHTML('beforeend', cardHTML);
+                        `;
+                        listContainer.insertAdjacentHTML('beforeend', cardHTML);
                     }
                 });
             }
+            
+            if(!hasData) {
+                listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">المتجر جاهز ومربوط! ضف منتجاً بالأسفل لتبدأ العرض ✨</p>';
+            }
         });
 
-        // دالة حفظ المنتج الجديد
-        function saveProductToFirebase() {
-            const name = document.getElementById('prod-name').value;
-            const desc = document.getElementById('prod-desc').value;
-            const img = document.getElementById('prod-img').value;
-            const price = parseInt(document.getElementById('prod-price').value);
-            const category = document.getElementById('prod-category').value;
+        // دالة الرفع المباشرة للجذر لضمان نزول البيانات في السيرفر فوراً
+        function uploadToFirebase() {
+            const name = document.getElementById('p-name').value;
+            const desc = document.getElementById('p-desc').value;
+            const img = document.getElementById('p-img').value;
+            const price = document.getElementById('p-price').value;
 
-            if(!name || !price) { alert("يرجى تعبئة الاسم والسعر كحد أدنى."); return; }
+            if(!name || !price) { alert("يرجى كتابة الاسم والسعر أولاً!"); return; }
 
-            database.ref('products').push({
-                name: name, desc: desc, img: img, price: price, category: category
+            database.ref('/').push({
+                name: name, desc: desc, img: img, price: price
             }).then(() => {
-                alert("تم الحفظ بنجاح وظهوره بالمتجر! 🎉");
-                document.getElementById('prod-name').value = '';
-                document.getElementById('prod-desc').value = '';
-                document.getElementById('prod-img').value = '';
-                document.getElementById('prod-price').value = '';
+                alert("تم الرفع بنجاح وحفظه في السيرفر! 🎉");
+                document.getElementById('p-name').value = '';
+                document.getElementById('p-desc').value = '';
+                document.getElementById('p-img').value = '';
+                document.getElementById('p-price').value = '';
+            }).catch((err) => {
+                alert("خطأ بالرفع: " + err.message);
             });
         }
     </script>
