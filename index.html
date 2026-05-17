@@ -16,97 +16,71 @@
             --text-main: #ffffff;
             --text-muted: #a0a0ab;
             --border-color: #27272a;
+            --danger: #ff4d4d;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            direction: rtl; 
-            text-align: right;
-            padding-bottom: 100px;
-        }
-
-        .top-navbar { 
-            position: sticky; top: 0; z-index: 999; 
-            background: #141416; padding: 15px 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid var(--border-color); 
-        }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, sans-serif; direction: rtl; text-align: right; padding-bottom: 100px; }
+        
+        /* البار العلوي */
+        .top-navbar { position: sticky; top: 0; z-index: 999; background: #141416; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
         .brand-name { font-weight: 700; font-size: 1.4rem; color: #fff; }
         .brand-name span { color: var(--accent); }
-        
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
         
-        .admin-toggle-btn { 
-            background: none; border: 1px solid var(--border-color); 
-            color: var(--text-muted); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
-        }
+        .admin-toggle-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
+        .admin-toggle-btn.active { background: #27272a; color: #fff; border-color: var(--accent); }
         
-        .cart-btn {
-            background: var(--accent); color: white; border: none;
-            padding: 8px 16px; border-radius: 8px; cursor: pointer;
-            font-weight: 600; display: flex; align-items: center; gap: 8px; position: relative;
-        }
-        .cart-badge {
-            background: #ff4d4d; color: white; font-size: 0.75rem;
-            padding: 2px 6px; border-radius: 50%; position: absolute; top: -5px; right: -5px;
-            transition: 0.2s;
-        }
+        .cart-btn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; position: relative; }
+        .cart-badge { background: var(--danger); color: white; font-size: 0.75rem; padding: 2px 7px; border-radius: 50%; position: absolute; top: -5px; right: -5px; transition: 0.3s; }
         
+        /* الحاويات والكروت */
         .store-container { padding: 20px; max-width: 600px; margin: 0 auto; }
-        .category-title { margin: 25px 0 15px; font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .category-title { margin: 25px 0 15px; font-size: 1.2rem; font-weight: 700; color: #fff; border-right: 3px solid var(--accent); padding-right: 10px; }
         
-        /* كروت المنتجات المحسنة */
-        .clothing-card { 
-            background: var(--card-bg); border-radius: 14px; 
-            display: flex; align-items: center; padding: 14px; 
-            margin-bottom: 15px; border: 1px solid var(--border-color); 
-        }
-        .clothing-img { 
-            width: 85px; height: 105px; border-radius: 8px; 
-            object-fit: cover; background: #141416; 
-            border: 1px solid #2cf2ff1a;
-        }
+        .clothing-card { background: var(--card-bg); border-radius: 14px; display: flex; align-items: center; padding: 14px; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative; overflow: hidden; }
+        .clothing-img { width: 85px; height: 105px; border-radius: 8px; object-fit: cover; background: #141416; }
         .clothing-details { flex: 1; margin-right: 15px; }
         .clothing-details h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #fff; }
         .clothing-details p { margin: 0; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; }
         
-        .buy-btn {
-            background: none; border: 1px solid var(--accent); color: var(--accent);
-            padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600;
-            transition: 0.2s;
-        }
+        /* الأزرار داخل الكرت */
+        .action-area { text-align: left; min-width: 95px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; height: 100%; gap: 10px; }
+        .item-price { color: #fff; font-weight: 700; font-size: 1.1rem; display: block; }
+        .buy-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; width: 100%; text-align: center; }
         .buy-btn:hover { background: var(--accent); color: white; }
         
-        .item-price { color: #fff; font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; display: block; }
-        .action-area { text-align: left; min-width: 90px; }
+        /* زر الحذف السريع للمشرف */
+        .delete-product-btn { background: none; border: none; color: #71717a; cursor: pointer; font-size: 0.8rem; transition: 0.2s; padding: 2px 5px; }
+        .delete-product-btn:hover { color: var(--danger); }
 
-        /* سلة المشتريات الجانبية */
-        .cart-sidebar {
-            position: fixed; top: 0; left: -100%; width: 100%; max-width: 400px; height: 100%;
-            background: #16161a; z-index: 1000; box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-            transition: 0.3s ease; padding: 20px; display: flex; flex-direction: column;
-        }
+        /* السلة الجانبية الفخمة */
+        .cart-sidebar { position: fixed; top: 0; left: -100%; width: 100%; max-width: 400px; height: 100%; background: #16161a; z-index: 1000; box-shadow: 5px 0 15px rgba(0,0,0,0.5); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); }
         .cart-sidebar.open { left: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
         .close-cart { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
         
         .cart-items-list { flex: 1; overflow-y: auto; margin-bottom: 20px; }
-        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #222; }
-        
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #222; }
+        .cart-item-info h4 { font-size: 0.95rem; color: #fff; margin-bottom: 20px; }
         .cart-footer { border-top: 1px solid var(--border-color); padding-top: 15px; }
         .total-price-box { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; font-size: 1.1rem; }
-        .checkout-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .checkout-btn { width: 100%; background: #25d366; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.2s; }
+        .checkout-btn:hover { background: #20ba59; }
 
-        /* لوحة التحكم أسفل الموقع */
-        .admin-panel { background: #19191c; padding: 20px; margin: 40px auto; border-radius: 16px; border: 1px solid var(--border-color); }
+        /* لوحة التحكم المخفية تلقائياً */
+        .admin-panel { background: #19191c; padding: 20px; margin: 20px auto; border-radius: 16px; border: 1px solid var(--border-color); display: none; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; margin-bottom: 5px; color: var(--text-muted); font-size: 0.85rem; }
-        .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); }
-        .add-product-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); outline: none; }
+        .form-group input:focus { border-color: var(--accent); }
+        .add-product-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 5px; }
+        
+        /* التنبيهات العائمة السريعة */
+        .toast-notification { position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); border-left: 4px solid var(--accent); padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1001; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.2s forwards; color: #fff; font-size: 0.9rem; }
+        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(10px); } }
     </style>
 </head>
 <body>
@@ -114,18 +88,28 @@
     <div class="top-navbar">
         <div class="brand-name">ASC<span>STUDIO</span></div>
         <div class="nav-buttons">
-            <button class="admin-toggle-btn" onclick="document.getElementById('admin-section').scrollIntoView({behavior: 'smooth'})">🛠️ اللوحة</button>
+            <button class="admin-toggle-btn" id="toggle-admin-btn" onclick="toggleAdminPanel()">🛠️ لوحة التحكم</button>
             <button class="cart-btn" onclick="toggleCart(true)">
-                🛒 السلة
-                <span class="cart-badge" id="cart-count">0</span>
+                🛒 السلة <span class="cart-badge" id="cart-count">0</span>
             </button>
         </div>
     </div>
 
     <div class="store-container">
-        <div class="category-title">المنتجات المتوفرة</div>
+        <div class="category-title">المنتجات المتوفرة في المتجر</div>
         <div id="products-list">
-            <p style="color: var(--text-muted); text-align: center; padding: 20px;">في انتظار تحميل المنتجات...</p>
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">جاري تحديث صالة العرض... ✨</p>
+        </div>
+    </div>
+
+    <div class="store-container" id="admin-section">
+        <div class="admin-panel" id="real-admin-panel">
+            <h2 style="text-align:center; margin-bottom: 15px; font-size:1.1rem; color: var(--accent);">🛠️ لوحة إدارة متجر ASC STUDIO</h2>
+            <div class="form-group"><label>اسم المنتج الفعلي:</label><input type="text" id="p-name" placeholder="مثال: سليبر نايك"></div>
+            <div class="form-group"><label>المقاس / الوصف:</label><input type="text" id="p-desc" placeholder="مثال: مقاس 41 مريح جداً"></div>
+            <div class="form-group"><label>رابط الصورة المباشر (اختياري):</label><input type="text" id="p-img" placeholder="اتركه فارغاً للاعتماد على ذكاء الصورة التلقائي"></div>
+            <div class="form-group"><label>السعر بالريال (RS):</label><input type="number" id="p-price" placeholder="مثال: 230"></div>
+            <button class="add-product-btn" onclick="uploadToFirebase()">✨ نشر المنتج في المتجر فوراً</button>
         </div>
     </div>
 
@@ -135,30 +119,19 @@
             <button class="close-cart" onclick="toggleCart(false)">&times;</button>
         </div>
         <div class="cart-items-list" id="cart-items-container">
-            <p style="color: var(--text-muted); text-align: center; padding: 20px;">السلة فارغة حالياً...</p>
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">حقيبتك فارغة، ابدأ بالتسوق الآن!</p>
         </div>
         <div class="cart-footer">
             <div class="total-price-box">
-                <span>المجموع النهائي:</span>
+                <span>المجموع الإجمالي:</span>
                 <span id="cart-total-price">0 RS</span>
             </div>
-            <button class="checkout-btn" onclick="processCheckout()">الانتقال للدفع 💳</button>
-        </div>
-    </div>
-
-    <div class="store-container" id="admin-section">
-        <div class="admin-panel">
-            <h2 style="text-align:center; margin-bottom: 15px; font-size:1.1rem;">🛠️ لوحة إضافة المنتجات السريعة</h2>
-            <div class="form-group"><label>اسم المنتج:</label><input type="text" id="p-name" placeholder="مثال: شوز رياضي فخم"></div>
-            <div class="form-group"><label>الوصف / المقاس:</label><input type="text" id="p-desc" placeholder="مثال: مقاس 41 مريح جداً"></div>
-            <div class="form-group"><label>رابط الصورة (اختياري):</label><input type="text" id="p-img" placeholder="ضع رابط الصورة هنا"></div>
-            <div class="form-group"><label>السعر (RS):</label><input type="number" id="p-price" placeholder="مثال: 160"></div>
-            <button class="add-product-btn" onclick="uploadToFirebase()">حفظ ونشر في المتجر فوراً ✨</button>
+            <button class="checkout-btn" onclick="sendOrderWhatsApp()">اطلب الآن عبر واتساب 💬</button>
         </div>
     </div>
 
     <script>
-        // إعدادات السيرفر الثابتة والمجربة عندك
+        // إعدادات الـ Firebase حقتك الثابتة والمجربة
         const firebaseConfig = {
             apiKey: "AIzaSyCddZxJ-Qvbj2IoCWLQfaMK5IR6Q_gVdpY",
             authDomain: "asc-studio-5272d.firebaseapp.com",
@@ -171,38 +144,66 @@
         
         if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const database = firebase.database();
-
         let cart = [];
-        // رابط صورة لوجو بديلة واحترافية وثابتة في حال فشل أي رابط خارجي
-        const defaultPlaceholderImg = "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&q=80";
 
-        // جلب وعرض البيانات من السيرفر مباشرة
+        // رقم الواتساب الخاص بك للتواصل (عدله برقمك الحقيقي بدون أصفار ومفتاح الدولة، مثلاً: 9665xxxxxxxx)
+        const myWhatsAppNumber = "966500000000"; 
+
+        // مكتبة الصور الذكية والتلقائية الفخمة
+        const fallbackImages = {
+            slipper: "https://i.ibb.co/VWVgGzV/nike-sliper.jpg",
+            shoe: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400",
+            shirt: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400",
+            default: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400"
+        };
+
+        function getSmartImage(url, name) {
+            if (url && url.trim() !== "" && !url.includes("image not found")) { return url; }
+            const pName = name.toLowerCase();
+            if (pName.includes("سليبر") || pName.includes("slipper") || pName.includes("نعال")) return fallbackImages.slipper;
+            if (pName.includes("شوز") || pName.includes("جزمة") || pName.includes("shoe")) return fallbackImages.shoe;
+            if (pName.includes("تيشيرت") || pName.includes("shirt") || pName.includes("ملابس")) return fallbackImages.shirt;
+            return fallbackImages.default;
+        }
+
+        // إظهار وإخفاء لوحة التحكم بشكل سليم
+        function toggleAdminPanel() {
+            const panel = document.getElementById('real-admin-panel');
+            const btn = document.getElementById('toggle-admin-btn');
+            if(panel.style.display === "block") {
+                panel.style.display = "none";
+                btn.classList.remove('active');
+            } else {
+                panel.style.display = "block";
+                panel.scrollIntoView({behavior: 'smooth'});
+                btn.classList.add('active');
+            }
+        }
+
+        // مستمع البيانات الحية والعرض الذكي للمنتجات مع خاصية الحذف الإداري
         database.ref('/').on('value', (snapshot) => {
             const listContainer = document.getElementById('products-list');
             if(!listContainer) return;
-            
             listContainer.innerHTML = '';
             let hasData = false;
-
             const data = snapshot.val();
+
             if (data) {
                 Object.keys(data).forEach((key) => {
                     const item = data[key];
                     if(item && item.name) {
                         hasData = true;
-                        
                         const safeName = item.name.replace(/'/g, "\\'");
                         const safePrice = parseInt(item.price) || 0;
-                        
-                        // فحص ذكي للرابط وإجبار استخدام الصورة الافتراضية الأنيقة لو كان فارغاً
-                        const finalImg = (item.img && item.img.trim() !== "") ? item.img : defaultPlaceholderImg;
+                        const finalImg = getSmartImage(item.img, item.name);
 
                         const cardHTML = `
                             <div class="clothing-card">
-                                <img src="${finalImg}" class="clothing-img" onerror="this.onerror=null; this.src='${defaultPlaceholderImg}';">
+                                <img src="${finalImg}" class="clothing-img" onerror="this.onerror=null; this.src='${fallbackImages.default}';">
                                 <div class="clothing-details">
                                     <h3>${item.name}</h3>
                                     <p>${item.desc || ''}</p>
+                                    <button class="delete-product-btn" onclick="deleteProductFromFirebase('${key}')">🗑️ حذف المنتج</button>
                                 </div>
                                 <div class="action-area">
                                     <span class="item-price">${safePrice} RS</span>
@@ -214,11 +215,19 @@
                     }
                 });
             }
-            
             if(!hasData) {
-                listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">المتجر جاهز ومربوط! ضف منتجاً بالأسفل لتبدأ العرض ✨</p>';
+                listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">المتجر جاهز ونظيف تماماً! افتح لوحة التحكم لتبدأ عرض كولكشن المنتجات الجديدة الفخمة ✨</p>';
             }
         });
+
+        // التنبيه العائم عند الشراء
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
 
         function toggleCart(show) {
             const sidebar = document.getElementById('cart-sidebar');
@@ -228,10 +237,7 @@
         function addToCart(name, price) {
             cart.push({ name: name, price: price });
             updateCartUI();
-            
-            const badge = document.getElementById('cart-count');
-            badge.style.transform = 'scale(1.3)';
-            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+            showToast(`🛒 تمت إضافة ${name} إلى الحقيبة!`);
         }
 
         function updateCartUI() {
@@ -240,27 +246,25 @@
             const totalElement = document.getElementById('cart-total-price');
             
             if(cart.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">السلة فارغة حالياً...</p>';
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">حقيبتك فارغة، ابدأ بالتسوق الآن!</p>';
                 totalElement.innerText = '0 RS';
                 return;
             }
             
             container.innerHTML = '';
             let total = 0;
-            
             cart.forEach((item, index) => {
                 total += item.price;
                 container.innerHTML += `
                     <div class="cart-item-row">
-                        <div>
+                        <div class="cart-item-info">
                             <h4>${item.name}</h4>
-                            <span style="color: var(--accent); font-size:0.85rem;">${item.price} RS</span>
+                            <span style="color: var(--accent); font-weight:700;">${item.price} RS</span>
                         </div>
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer; font-size:0.85rem;">حذف</button>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:0.85rem;">حذف</button>
                     </div>
                 `;
             });
-            
             totalElement.innerText = `${total} RS`;
         }
 
@@ -269,35 +273,58 @@
             updateCartUI();
         }
 
-        function processCheckout() {
+        // الإضافة الأسطورية: توليد طلب الواتساب الذكي وإرساله لك مباشرة
+        function sendOrderWhatsApp() {
             if(cart.length === 0) { alert("سلتك فارغة حالياً!"); return; }
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
             
-            alert(`🎉 جاري تحويلك لبوابة الدفع الآمنة...\nالمجموع المطلوب سداده: ${total} RS\nشكراً لتسوقك من ASC STUDIO!`);
+            let messageText = `مرحباً ASC STUDIO 👋\nأود طلب المنتجات التالية من المتجر:\n\n`;
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                messageText += `${index + 1}. 📦 *${item.name}* - السعر: ${item.price} RS\n`;
+                total += item.price;
+            });
+            
+            messageText += `\n💰 *المجموع الإجمالي النهائي:* ${total} RS\n\nيرجى تأكيد الطلب وتحديد موعد التوصيل والشحن 🚀`;
+            
+            const encodedText = encodeURIComponent(messageText);
+            const whatsappURL = `https://wa.me/${myWhatsAppNumber}?text=${encodedText}`;
+            
+            window.open(whatsappURL, '_blank');
             
             cart = [];
             updateCartUI();
             toggleCart(false);
         }
 
+        // حذف منتج مباشر من الشاشة والسيرفر فوراً
+        function deleteProductFromFirebase(key) {
+            if(confirm("هل أنت متأكد من رغبتك في حذف هذا المنتج نهائياً من المتجر؟")) {
+                database.ref('/' + key).remove().then(() => {
+                    showToast("🗑️ تم حذف المنتج من المتجر بنجاح.");
+                });
+            }
+        }
+
+        // إضافة ونشر المنتجات بالسيرفر
         function uploadToFirebase() {
             const name = document.getElementById('p-name').value;
             const desc = document.getElementById('p-desc').value;
             const img = document.getElementById('p-img').value;
             const price = document.getElementById('p-price').value;
 
-            if(!name || !price) { alert("يرجى كتابة الاسم والسعر أولاً!"); return; }
+            if(!name || !price) { alert("يرجى كتابة الاسم والسعر أولاً لإطلاق المنتج!"); return; }
 
             database.ref('/').push({
                 name: name, desc: desc, img: img, price: price
             }).then(() => {
-                alert("تم الرفع بنجاح وحفظه في السيرفر! 🎉");
+                showToast("🎉 تم رفع ونشر منتجك الفخم في المتجر!");
                 document.getElementById('p-name').value = '';
                 document.getElementById('p-desc').value = '';
                 document.getElementById('p-img').value = '';
                 document.getElementById('p-price').value = '';
             }).catch((err) => {
-                alert("خطأ بالرفع: " + err.message);
+                alert("خطأ أثناء النشر: " + err.message);
             });
         }
     </script>
