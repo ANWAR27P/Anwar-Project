@@ -6,16 +6,18 @@
     <title>تطبيق أنور الإسلامي الفاخر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #07080a;        /* أسود ملكي غامق جداً */
-            --panel-bg: #11141a;      /* رمادي داكن فخم للواجهات */
-            --gold-premium: #d4af37;  /* ذهبي ملكي متوهج */
-            --gold-glow: rgba(212, 175, 55, 0.25);
-            --text-main: #f5f6fa;     /* أبيض عاجي */
-            --text-muted: #7f8c8d;    /* رمادي للنصوص الفرعية */
+            --bg-dark: #07080a;        
+            --panel-bg: rgba(17, 20, 26, 0.85); /* لوحات شبه شفافة فخمة */
+            --gold-premium: #d4af37;  
+            --gold-glow: rgba(212, 175, 55, 0.35);
+            --text-main: #f5f6fa;     
+            --text-muted: #bdc3c7;    
+            --emerald-green: #0a5c36; /* أخضر إسلامي فخم */
+            --ruby-red: #8b1e1e;      /* أحمر ياقوتي داكن */
         }
 
         * {
@@ -35,28 +37,30 @@
             min-height: 100vh;
         }
 
-        /* حاوية التطبيق الرئيسية */
+        /* حاوية التطبيق الرئيسية مع صورة الكعبة في الخلفية طبقة معتمة */
         .app-window {
             width: 100%;
             max-width: 460px;
             height: 100vh;
-            background-color: var(--bg-dark);
+            background-image: linear-gradient(to bottom, rgba(7, 8, 10, 0.85), rgba(7, 8, 10, 0.93)), 
+                              url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
 
         @media (min-width: 480px) {
             .app-window {
                 height: 880px;
                 border-radius: 32px;
-                border: 1px solid rgba(212, 175, 55, 0.2);
+                border: 1px solid rgba(212, 175, 55, 0.3);
             }
         }
 
-        /* الشاشات الرئيسية */
         .screen {
             flex-grow: 1;
             display: none;
@@ -70,13 +74,12 @@
             display: flex;
         }
 
-        /* عناوين الفخامة */
         .screen-title {
             font-family: 'Amiri', serif;
             color: var(--gold-premium);
             font-size: 2.2rem;
             margin: 0 0 5px 0;
-            text-shadow: 0 0 10px var(--gold-glow);
+            text-shadow: 0 0 12px var(--gold-glow);
             text-align: center;
         }
 
@@ -107,6 +110,10 @@
             margin: 0;
             max-height: 280px;
             overflow-y: auto;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
         }
 
         .counter-section {
@@ -117,10 +124,10 @@
         }
 
         .counter-ring {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 2px dashed var(--gold-premium);
+            border: 3px solid var(--gold-premium);
             background: radial-gradient(circle, #1a1e24 0%, #0f1115 100%);
             display: flex;
             justify-content: center;
@@ -134,7 +141,7 @@
         .counter-ring:active { transform: scale(0.95); }
 
         .counter-val {
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: var(--gold-premium);
             font-weight: bold;
         }
@@ -149,7 +156,7 @@
 
         .surah-card {
             background-color: var(--panel-bg);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.15);
             padding: 15px 20px;
             border-radius: 12px;
             display: flex;
@@ -157,6 +164,7 @@
             align-items: center;
             cursor: pointer;
             transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
 
         .surah-card:hover { border-color: var(--gold-premium); }
@@ -188,12 +196,13 @@
             background-color: var(--panel-bg);
             padding: 25px;
             border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            max-height: 600px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            max-height: 580px;
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
 
-        /* --- 3. شاشة القبلة الملكية المحدثة --- */
+        /* --- 3. شاشة القبلة (الأخضر والأحمر الفخم) --- */
         .compass-container {
             position: relative;
             width: 260px;
@@ -205,32 +214,45 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 3px solid var(--gold-premium);
-            background: radial-gradient(circle, #13161b 60%, #0a0b0d 100%);
+            border: 4px solid var(--gold-premium);
+            /* انقسام فخم بين الأخضر والأحمر */
+            background: linear-gradient(to left, var(--emerald-green) 50%, var(--ruby-red) 50%);
             position: absolute;
             transition: transform 0.1s linear;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        /* خط منصف جمالي داخل البوصلة */
+        .compass-rose::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            width: 2px; height: 100%;
+            background: rgba(212, 175, 55, 0.3);
+            transform: translateX(-50%);
         }
 
         .compass-pointer {
             position: absolute;
-            top: 10px;
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 4px;
-            height: 40px;
-            background-color: #e74c3c;
-            border-radius: 2px;
+            width: 6px;
+            height: 45px;
+            background: linear-gradient(to bottom, #fff 0%, var(--gold-premium) 100%);
+            border-radius: 3px;
             z-index: 5;
+            box-shadow: 0 0 8px #fff;
         }
 
         .kaaba-icon {
             position: absolute;
-            top: 25px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 1.8rem;
-            color: var(--gold-premium);
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px rgba(212,175,55,1));
+            z-index: 4;
         }
 
         .activate-btn {
@@ -242,10 +264,12 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.95rem;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            margin-top: 35px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             font-family: 'Tajawal', sans-serif;
+            transition: 0.2s;
         }
+        .activate-btn:active { transform: scale(0.97); }
 
         /* --- شريط التنقل السفلي الفخم (Bottom Nav) --- */
         .bottom-nav {
@@ -254,8 +278,8 @@
             left: 0;
             width: 100%;
             height: 75px;
-            background-color: var(--panel-bg);
-            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            background-color: #11141a;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -280,19 +304,20 @@
         .nav-item.active {
             color: var(--gold-premium);
             font-weight: bold;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
         }
 
         .nav-icon { font-size: 1.3rem; }
 
         .skip-btn {
-            background: transparent;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--text-main);
-            padding: 8px 18px;
+            padding: 8px 22px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.8rem;
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -342,7 +367,7 @@
                 </div>
             </div>
             <button class="activate-btn" onclick="requestCompassPermission()">تفعيل واستشعار البوصلة 🧭</button>
-            <p style="margin-top: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem; max-width: 280px;" id="qiblaStatus">
+            <p style="margin-top: 25px; text-align: center; color: var(--text-muted); font-size: 0.9rem; max-width: 280px;" id="qiblaStatus">
                 اضغط على الزر بالأعلى، واقبل الصلاحية لتشغيل البوصلة التفاعلية.
             </p>
         </div>
@@ -365,8 +390,8 @@
         // --- مصفوفة الأذكار والأدعية الشاملة والموسعة بالكامل ---
         const combinedData = [
             // أذكار الصباح
-            { category: "أذكار الصباح", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ Lَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}.", count: 1 },
-            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * Lَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ}.", count: 3 },
+            { category: "أذكار الصباح", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}.", count: 1 },
+            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ}.", count: 3 },
             { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ}.", count: 3 },
             { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَٰهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ}.", count: 3 },
             { category: "أذكار الصباح", text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
@@ -402,7 +427,6 @@
         let azkarIndex = 0;
         let currentCount = 0;
 
-        // --- التبديل بين الشاشات ---
         function switchScreen(screenName, btnElement) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
@@ -413,7 +437,6 @@
             if(screenName === 'quran') loadQuranIndex();
         }
 
-        // --- تشغيل الأذكار والعداد ---
         function initAzkar() {
             if (azkarIndex >= combinedData.length) {
                 document.getElementById('screenTitle').innerText = "تم بحمد الله";
@@ -447,7 +470,6 @@
             initAzkar();
         }
 
-        // --- تشغيل المصحف (API) ---
         async function loadQuranIndex() {
             const container = document.getElementById('quranContainer');
             if (container.children.length > 1) return;
@@ -512,9 +534,7 @@
             document.getElementById('surahListView').style.display = 'block';
         }
 
-        // --- نظام تشغيل البوصلة المطور بالأذونات ---
         function requestCompassPermission() {
-            // التحقق من أن المتصفح يدعم طلب الصلاحية (أنظمة iOS والأجهزة الحديثة)
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
@@ -526,7 +546,6 @@
                     })
                     .catch(console.error);
             } else {
-                // للأجهزة العادية والأندرويد التي لا تطلب إذناً صريحاً عبر الأزرار
                 startCompass();
             }
         }
@@ -534,15 +553,14 @@
         function startCompass() {
             if (window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function(event) {
-                    // نستخدم webkitCompassHeading للأيفون إذا توفر، وإلا نستخدم الـ alpha للأندرويد
                     let heading = event.webkitCompassHeading || event.alpha;
                     
                     if (heading !== null && heading !== undefined) {
-                        let qiblaDirection = 185; // متوسط زاوية القبلة التقريبية
+                        let qiblaDirection = 185; 
                         let totalRotate = heading - qiblaDirection;
                         
                         document.getElementById('compassRose').style.transform = `rotate(${-totalRotate}deg)`;
-                        document.getElementById('qiblaStatus').innerText = "البوصلة الفاخرة تعمل بنجاح! وجه الهاتف لتطابق الكعبة مع الإبرة الحمراء.";
+                        document.getElementById('qiblaStatus').innerText = "البوصلة الفاخرة تعمل بنجاح! وجه الهاتف لتطابق الكعبة مع الإبرة الذهبية.";
                     }
                 }, true);
             } else {
@@ -550,7 +568,6 @@
             }
         }
 
-        // تشغيل فوري وسليم عند تحميل التطبيق
         window.addEventListener('DOMContentLoaded', () => {
             currentCount = combinedData[0].count;
             initAzkar();
