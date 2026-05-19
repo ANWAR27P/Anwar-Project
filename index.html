@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الأذكار الفاخر</title>
+    <title>تطبيق أنور الإسلامي الفاخر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0f1013;       /* أسود ملكي عميق للغرقة الخلفية */
-            --card-bg: #191c21;       /* رمادي داكن فاخر للكروت */
-            --gold-primary: #d4af37;  /* ذهبي فاخر */
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --text-white: #f5f6fa;    /* أبيض ناصع ومريح للعين */
-            --text-muted: #8a8f99;    /* رمادي للنصوص الثانوية */
+            --bg-dark: #07080a;        /* أسود ملكي غامق جداً */
+            --panel-bg: #11141a;      /* رمادي داكن فخم للواجهات */
+            --gold-premium: #d4af37;  /* ذهبي ملكي متوهج */
+            --gold-glow: rgba(212, 175, 55, 0.25);
+            --text-main: #f5f6fa;     /* أبيض عاجي */
+            --text-muted: #7f8c8d;    /* رمادي للنصوص الفرعية */
         }
 
         * {
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* إلغاء الوميض الأزرق عند الضغط في الجوال */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-dark);
-            color: var(--text-white);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
             display: flex;
@@ -35,285 +35,316 @@
             min-height: 100vh;
         }
 
-        /* حاوية التطبيق لمحاكاة شكل الجوال أو الكرت المركزي */
-        .app-container {
+        /* حاوية التطبيق الرئيسية */
+        .app-window {
             width: 100%;
-            max-width: 450px;
+            max-width: 460px;
             height: 100vh;
             background-color: var(--bg-dark);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 20px;
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
         @media (min-width: 480px) {
-            .app-container {
-                height: 850px;
-                border-radius: 40px;
-                border: 1px solid rgba(212, 175, 55, 0.15);
-                box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            .app-window {
+                height: 880px;
+                border-radius: 32px;
+                border: 1px solid rgba(212, 175, 55, 0.2);
             }
         }
 
-        /* ترويسة التطبيق */
-        .app-header {
+        /* الشاشات الرئيسية */
+        .screen {
+            flex-grow: 1;
+            display: none;
+            flex-direction: column;
+            padding: 30px 20px 90px 20px;
+            overflow-y: auto;
+            align-items: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* عناوين الفخامة */
+        .screen-title {
+            font-family: 'Amiri', serif;
+            color: var(--gold-premium);
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            text-shadow: 0 0 10px var(--gold-glow);
             text-align: center;
-            width: 100%;
         }
 
-        .category-title {
-            color: var(--gold-primary);
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .progress-text {
+        .screen-subtitle {
             color: var(--text-muted);
             font-size: 0.85rem;
-            margin-top: 5px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
-        /* منطقة عرض نص الذكر */
-        .main-content {
+        /* --- 1. شاشة الأذكار والأدعية --- */
+        .azkar-display {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
             flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            padding: 20px 10px;
-        }
-
-        .azkar-card {
-            width: 100%;
-            text-align: center;
-            transition: all 0.3s ease;
         }
 
         .azkar-text {
             font-family: 'Amiri', serif;
             font-size: 1.8rem;
-            line-height: 2.6rem;
-            color: var(--text-white);
-            margin: 0 auto;
-            max-height: 280px;
-            overflow-y: auto;
-            padding: 0 10px;
-        }
-
-        /* تخصيص السكرول بار لنص الذكر */
-        .azkar-text::-webkit-scrollbar {
-            width: 4px;
-        }
-        .azkar-text::-webkit-scrollbar-thumb {
-            background: var(--gold-primary);
-            border-radius: 2px;
-        }
-
-        /* العداد الدائري الفخم */
-        .counter-section {
+            line-height: 2.8rem;
+            color: var(--text-main);
             width: 100%;
+            margin: 0;
+        }
+
+        .counter-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
-        .counter-outer-ring {
-            width: 160px;
-            height: 160px;
+        .counter-ring {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            background: var(--card-bg);
-            border: 2px dashed var(--gold-primary);
+            border: 2px dashed var(--gold-premium);
+            background: radial-gradient(circle, #1a1e24 0%, #0f1115 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 20px var(--gold-glow);
+            box-shadow: 0 0 25px var(--gold-glow);
             cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
+            margin-bottom: 15px;
+            transition: transform 0.1s;
         }
 
-        .counter-outer-ring:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 35px var(--gold-primary);
-        }
+        .counter-ring:active { transform: scale(0.95); }
 
-        .counter-inner-circle {
-            width: 135px;
-            height: 135px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #252a32 0%, #13161a 100%);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        .counter-number {
+        .counter-val {
             font-size: 3.2rem;
-            font-weight: 700;
-            color: var(--gold-primary);
-            font-family: 'Tajawal', sans-serif;
+            color: var(--gold-premium);
+            font-weight: bold;
         }
 
-        /* أزرار التحكم السفلية */
-        .footer-controls {
+        /* --- 2. شاشة المصحف الشريف --- */
+        .quran-list {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .surah-card {
+            background-color: var(--panel-bg);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 15px 20px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
-            width: 100%;
-            max-width: 280px;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .control-btn {
+        .surah-card:hover { border-color: var(--gold-premium); }
+        .surah-name { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--text-main); }
+        .surah-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* شاشة عرض آيات السورة (Popup أو لوحة ممتدة) */
+        .surah-view {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+        }
+        .back-btn {
+            align-self: flex-start;
             background: none;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--text-white);
-            padding: 10px 20px;
+            border: 1px solid var(--gold-premium);
+            color: var(--gold-premium);
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .quran-text-display {
+            font-family: 'Amiri', serif;
+            font-size: 1.9rem;
+            line-height: 3.4rem;
+            text-align: justify;
+            color: var(--text-main);
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* --- 3. شاشة القبلة الملكية --- */
+        .compass-container {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            margin-top: 50px;
+        }
+
+        .compass-rose {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--gold-premium);
+            background: radial-gradient(circle, #13161b 60%, #0a0b0d 100%);
+            position: absolute;
+            transition: transform 0.2s ease-out;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .compass-pointer {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 40px;
+            background-color: #e74c3c;
+            border-radius: 2px;
+            z-index: 5;
+        }
+
+        .kaaba-icon {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--gold-premium);
+        }
+
+        /* --- شريط التنقل السفلي الفخم (Bottom Nav) --- */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            background-color: var(--panel-bg);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 10;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-muted);
             font-family: 'Tajawal', sans-serif;
             font-size: 0.85rem;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: 0.3s;
         }
 
-        .control-btn:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
+        .nav-item.active {
+            color: var(--gold-premium);
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
         }
 
-        /* حركات الأنيميشن عند التغيير */
-        .fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
+        .nav-icon { font-size: 1.3rem; }
+
+        .skip-btn {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="app-window">
         
-        <div class="app-header">
-            <h2 class="category-title" id="categoryTitle">أذكار الصباح</h2>
-            <div class="progress-text" id="progressText">باقي: 0 / 0</div>
-        </div>
-
-        <div class="main-content">
-            <div class="azkar-card" id="azkarCard">
-                <p class="azkar-text" id="azkarText">جاري تحميل الذكر الفاخر...</p>
+        <div id="azkarScreen" class="screen active">
+            <h1 class="screen-title" id="screenTitle">أذكار الصباح</h1>
+            <div class="screen-subtitle" id="screenSubtitle">الذكر الحالي</div>
+            <div class="azkar-display">
+                <p class="azkar-text" id="azkarText">جاري تحميل الذكر الفخم...</p>
+            </div>
+            <div class="counter-section">
+                <div class="counter-ring" onclick="countClick()">
+                    <span class="counter-val" id="counterVal">0</span>
+                </div>
+                <button class="skip-btn" onclick="nextItem()">الذكر التالي ❯</button>
             </div>
         </div>
 
-        <div class="counter-section">
-            <div class="counter-outer-ring" onclick="handleCounterClick()">
-                <div class="counter-inner-circle">
-                    <span class="counter-number" id="counterNumber">0</span>
+        <div id="quranScreen" class="screen">
+            <div id="surahListView" style="width: 100%;">
+                <h1 class="screen-title">المصحف الشريف</h1>
+                <div class="screen-subtitle">اختر سورة لقراءتها بالرسم العثماني كاملاً</div>
+                <div class="quran-list" id="quranContainer">
+                    <div class="surah-card"><span class="surah-name">جاري تحميل الفهرس الفاخر...</span></div>
+                </div>
+            </div>
+            
+            <div id="surahAyaView" class="surah-view">
+                <button class="back-btn" onclick="showSurahList()">❮ العودة للفهرس</button>
+                <h1 class="screen-title" id="selectedSurahName">اسم السورة</h1>
+                <div class="quran-text-display" id="surahTextContainer">
+                    جاري جلب الآيات الكريمة...
                 </div>
             </div>
         </div>
 
-        <div class="footer-controls">
-            <button class="control-btn" onclick="nextAzkar()">تخطي ❯</button>
-            <button class="control-btn" onclick="resetApp()">إعادة البدء ↺</button>
+        <div id="qiblaScreen" class="screen">
+            <h1 class="screen-title">اتجاه القِبلة</h1>
+            <div class="screen-subtitle">بوصلة رقمية لتحديد اتجاه مكة المكرمة</div>
+            <div class="compass-container">
+                <div class="compass-pointer"></div>
+                <div class="compass-rose" id="compassRose">
+                    <div class="kaaba-icon">🕋</div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.9rem; max-width: 280px;" id="qiblaStatus">
+                يرجى تفعيل الـ GPS وإمساك الجوال بشكل مسطح لتشغيل البوصلة.
+            </p>
         </div>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchScreen('azkar', this)">
+                <span class="nav-icon">📿</span><span>الأذكار</span>
+            </button>
+            <button class="nav-item" onclick="switchScreen('quran', this)">
+                <span class="nav-icon">📖</span><span>المصحف</span>
+            </button>
+            <button class="nav-item" onclick="switchScreen('qibla', this)">
+                <span class="nav-icon">🧭</span><span>القبلة</span>
+            </button>
+        </nav>
 
     </div>
 
     <script>
-        // مصفوفة الأذكار الكاملة والمنظمة جاهزة للعرض داخل العداد
-        const azkarData = [
-            { category: "أذكار الصباح", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...} (آية الكرسي)", count: 1 },
-            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ...} كاملة", count: 3 },
-            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ...} كاملة", count: 3 },
-            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ النَّاسِ...} كاملة", count: 3 },
-            { category: "أذكار الصباح", text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
-            { category: "أذكار الصباح", text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", count: 1 },
-            { category: "أذكار الصباح", text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", count: 3 },
-            { category: "أذكار الصباح", text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.", count: 3 },
-            { category: "أذكار الصباح", text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", count: 100 },
-            
-            { category: "أذكار المساء", text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", count: 1 },
-            { category: "أذكار المساء", text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", count: 1 },
-            { category: "أذكار المساء", text: "أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", count: 3 },
-            
-            { category: "أدعية مأثورة", text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.", count: 1 },
-            { category: "أدعية مأثورة", text: "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ.", count: 1 }
-        ];
-
-        let currentIndex = 0;
-        let remainingCount = 0;
-
-        function updateUI() {
-            if (currentIndex >= azkarData.length) {
-                // شاشة النهاية عند اكتمال الأذكار
-                document.getElementById('categoryTitle').innerText = "تم بحمد الله";
-                document.getElementById('progressText').innerText = "أذكار مكتملة";
-                document.getElementById('azkarText').innerText = "قَضَيْتَ ذِكْرَكَ، طَابَ يَوْمُكَ وَحُفِظْتَ بِحِفْظِ اللهِ.";
-                document.getElementById('counterNumber').innerText = "✓";
-                return;
-            }
-
-            const currentItem = azkarData[currentIndex];
-            
-            // تحديث العناوين والنصوص
-            document.getElementById('categoryTitle').innerText = currentItem.category;
-            document.getElementById('progressText').innerText = `باقي أذكار: ${azkarData.length - currentIndex} ذكر`;
-            document.getElementById('azkarText').innerText = currentItem.text;
-            document.getElementById('counterNumber').innerText = remainingCount;
-        }
-
-        function handleCounterClick() {
-            if (currentIndex >= azkarData.length) return;
-
-            // اهتزاز الجوال عند اللمس لإعطاء شعور السبحة الحقيقية
-            if (navigator.vibrate) navigator.vibrate(40);
-
-            remainingCount--;
-
-            if (remainingCount <= 0) {
-                // تأثير تلاشي واختفاء ناعم قبل الانتقال للذكر القادم
-                const card = document.getElementById('azkarCard');
-                card.classList.add('fade-out');
-
-                setTimeout(() => {
-                    currentIndex++;
-                    if (currentIndex < azkarData.length) {
-                        remainingCount = azkarData[currentIndex].count;
-                    }
-                    updateUI();
-                    card.classList.remove('fade-out');
-                }, 250);
-            } else {
-                document.getElementById('counterNumber').innerText = remainingCount;
-            }
-        }
-
-        function nextAzkar() {
-            if (currentIndex < azkarData.length) {
-                currentIndex++;
-                if (currentIndex < azkarData.length) {
-                    remainingCount = azkarData[currentIndex].count;
-                }
-                updateUI();
-            }
-        }
-
-        function resetApp() {
-            currentIndex = 0;
-            remainingCount = azkarData[0].count;
-            updateUI();
-        }
-
-        // إطلاق التطبيق وضبط العداد الأول عند فتح الصفحة
-        window.onload = () => {
-            remainingCount = azkarData[0].count;
-            updateUI();
-        };
-    </script>
-</body>
-</html>
+        // --- مصفوفة الأذكار والأدعية الشاملة الكاملة ---
+        const combinedData =
