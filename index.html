@@ -3,47 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق اطمئن - أذكار وأدعية</title>
+    <title>أذكار وأدعية المسلم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Tajawal', sans-serif; background: #07080a; color: #f5f6fa; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .app-window { width: 100%; max-width: 400px; padding: 20px; text-align: center; }
-        .azkar-text { font-size: 1.3rem; line-height: 2; margin-bottom: 30px; min-height: 220px; color: #fff; }
-        .counter-ring { width: 120px; height: 120px; border: 3px dashed #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 2rem; color: #d4af37; cursor: pointer; }
-        .btn { background: #d4af37; color: #000; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .app-window { width: 100%; max-width: 420px; padding: 25px; text-align: center; }
+        .azkar-text { font-size: 1.4rem; line-height: 2.2; margin-bottom: 30px; min-height: 280px; color: #fff; overflow-y: auto; }
+        .counter-ring { width: 130px; height: 130px; border: 3px dashed #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 2.5rem; color: #d4af37; cursor: pointer; }
+        .btn { background: #d4af37; color: #000; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
     </style>
 </head>
 <body>
     <div class="app-window">
-        <h1 style="color: #d4af37; font-size: 1.4rem;">الأذكار والأدعية</h1>
-        <div id="azkarText" class="azkar-text">جاري التحميل...</div>
+        <h1 style="color: #d4af37; font-size: 1.6rem; margin-bottom: 20px;">الورد الشامل</h1>
+        <div id="azkarText" class="azkar-text">جاري تحميل الورد كاملاً...</div>
         <div class="counter-ring" id="counterVal" onclick="countClick()">0</div>
-        <button class="btn" onclick="nextItem()">الذكر/الدعاء التالي ❯</button>
+        <button class="btn" onclick="nextItem()">التالي ❯</button>
     </div>
 
     <script>
-        const allItems = [
-            // الأذكار
-            { text: "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", count: 1 },
-            { text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم.", count: 3 },
-            { text: "رضيت بالله رباً، وبالإسلام ديناً، وبمحمد صلى الله عليه وسلم نبياً.", count: 3 },
-            // الأدعية
-            { text: "الدعاء: اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً.", count: 1 },
-            { text: "الدعاء: اللهم اغفر لي ولوالدي وللمؤمنين والمؤمنات يوم يقوم الحساب.", count: 1 },
-            { text: "الدعاء: ربنا آتنا في الدنيا حسنة، وفي الآخرة حسنة، وقنا عذاب النار.", count: 1 },
-            { text: "الدعاء: اللهم أعني على ذكرك وشكرك وحسن عبادتك.", count: 1 },
-            { text: "الدعاء: اللهم إني أعوذ بك من الهم والحزن، وأعوذ بك من العجز والكسل.", count: 1 }
+        const fullList = [
+            // أذكار الصباح والمساء
+            { text: "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ..", count: 1 },
+            { text: "سورة الإخلاص (3 مرات)", count: 3 },
+            { text: "سورة الفلق (3 مرات)", count: 3 },
+            { text: "سورة الناس (3 مرات)", count: 3 },
+            { text: "أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.", count: 1 },
+            { text: "اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور.", count: 1 },
+            { text: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت..", count: 1 },
+            { text: "اللهم إني أصبحت أشهدك وأشهد حملة عرشك وملائكتك وجميع خلقك أنك أنت الله لا إله إلا أنت وحدك لا شريك لك..", count: 4 },
+            { text: "يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.", count: 1 },
+            { text: "بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم (3 مرات).", count: 3 },
+            { text: "رضيت بالله رباً، وبالإسلام ديناً، وبمحمد صلى الله عليه وسلم نبياً (3 مرات).", count: 3 },
+            { text: "سبحان الله وبحمده عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته (3 مرات).", count: 3 },
+            { text: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير (10 مرات).", count: 10 },
+            // أدعية مختارة شاملة
+            { text: "دعاء: اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً.", count: 1 },
+            { text: "دعاء: اللهم اغفر لي ولوالدي وللمؤمنين والمؤمنات يوم يقوم الحساب.", count: 1 },
+            { text: "دعاء: ربنا آتنا في الدنيا حسنة، وفي الآخرة حسنة، وقنا عذاب النار.", count: 1 },
+            { text: "دعاء: اللهم أعني على ذكرك وشكرك وحسن عبادتك.", count: 1 },
+            { text: "دعاء: اللهم إني أعوذ بك من الهم والحزن، وأعوذ بك من العجز والكسل، وأعوذ بك من الجبن والبخل.", count: 1 }
         ];
 
         let index = 0;
-        let currentCount = allItems[0].count;
+        let currentCount = fullList[0].count;
 
         function updateDisplay() {
-            if (index < allItems.length) {
-                document.getElementById('azkarText').innerText = allItems[index].text;
+            if (index < fullList.length) {
+                document.getElementById('azkarText').innerText = fullList[index].text;
                 document.getElementById('counterVal').innerText = currentCount;
             } else {
-                document.getElementById('azkarText').innerText = "تمت الأذكار والأدعية، بارك الله في يومك.";
+                document.getElementById('azkarText').innerText = "تمت الأذكار والأدعية بحمد الله. تقبل الله طاعتك.";
                 document.getElementById('counterVal').innerText = "✓";
             }
         }
@@ -58,8 +68,8 @@
 
         function nextItem() {
             index++;
-            if (index < allItems.length) {
-                currentCount = allItems[index].count;
+            if (index < fullList.length) {
+                currentCount = fullList[index].count;
                 updateDisplay();
             } else {
                 updateDisplay();
