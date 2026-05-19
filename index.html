@@ -10,12 +10,12 @@
     
     <style>
         :root {
-            --bg-dark: #07080a;
-            --panel-bg: #11141a;
-            --gold-premium: #d4af37;
+            --bg-dark: #07080a;        /* أسود ملكي غامق جداً ومريح */
+            --panel-bg: #11141a;      /* رمادي داكن فخم للواجهات */
+            --gold-premium: #d4af37;  /* ذهبي ملكي متوهج */
             --gold-glow: rgba(212, 175, 55, 0.25);
-            --text-main: #f5f6fa;
-            --text-muted: #7f8c8d;
+            --text-main: #f5f6fa;     /* أبيض عاجي */
+            --text-muted: #7f8c8d;    /* رمادي للنصوص الفرعية */
         }
 
         * {
@@ -35,6 +35,7 @@
             min-height: 100vh;
         }
 
+        /* حاوية التطبيق الرئيسية */
         .app-window {
             width: 100%;
             max-width: 460px;
@@ -55,6 +56,7 @@
             }
         }
 
+        /* الشاشات الرئيسية */
         .screen {
             flex-grow: 1;
             display: none;
@@ -68,6 +70,7 @@
             display: flex;
         }
 
+        /* عناوين الفخامة */
         .screen-title {
             font-family: 'Amiri', serif;
             color: var(--gold-premium);
@@ -84,6 +87,7 @@
             text-align: center;
         }
 
+        /* --- 1. شاشة الأذكار والأدعية --- */
         .azkar-display {
             width: 100%;
             text-align: center;
@@ -135,6 +139,7 @@
             font-weight: bold;
         }
 
+        /* --- 2. شاشة المصحف الشريف --- */
         .quran-list {
             width: 100%;
             display: grid;
@@ -163,14 +168,8 @@
             width: 100%;
             flex-direction: column;
         }
-        .quran-header-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 15px;
-        }
         .back-btn {
+            align-self: flex-start;
             background: none;
             border: 1px solid var(--gold-premium);
             color: var(--gold-premium);
@@ -178,8 +177,8 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.85rem;
+            margin-bottom: 20px;
         }
-
         .quran-text-display {
             font-family: 'Amiri', serif;
             font-size: 1.9rem;
@@ -190,10 +189,11 @@
             padding: 25px;
             border-radius: 16px;
             border: 1px solid rgba(212, 175, 55, 0.15);
-            max-height: 520px;
+            max-height: 600px;
             overflow-y: auto;
         }
 
+        /* --- 3. شاشة القبلة --- */
         .compass-container {
             position: relative;
             width: 260px;
@@ -247,6 +247,7 @@
             font-family: 'Tajawal', sans-serif;
         }
 
+        /* --- شريط التنقل السفلي --- */
         .bottom-nav {
             position: absolute;
             bottom: 0;
@@ -300,10 +301,10 @@
     <div class="app-window">
         
         <div id="azkarScreen" class="screen active">
-            <h1 class="screen-title" id="screenTitle">أذكار المسلم</h1>
-            <div class="screen-subtitle" id="screenSubtitle">الورد الحالي</div>
+            <h1 class="screen-title" id="screenTitle">أذكار الصباح</h1>
+            <div class="screen-subtitle" id="screenSubtitle">الذكر الحالي</div>
             <div class="azkar-display">
-                <p class="azkar-text" id="azkarText">جاري تحميل الذكر...</p>
+                <p class="azkar-text" id="azkarText">جاري تحميل الذكر المناسب لوقتك الحاضر...</p>
             </div>
             <div class="counter-section">
                 <div class="counter-ring" onclick="countClick()">
@@ -316,18 +317,15 @@
         <div id="quranScreen" class="screen">
             <div id="surahListView" style="width: 100%;">
                 <h1 class="screen-title">المصحف الشريف</h1>
-                <div class="screen-subtitle">اختر سورة لقراءتها بالرسم العثماني</div>
+                <div class="screen-subtitle">اختر سورة لقراءتها بالرسم العثماني كاملاً</div>
                 <div class="quran-list" id="quranContainer">
                     <div class="surah-card"><span class="surah-name">جاري تحميل الفهرس...</span></div>
                 </div>
             </div>
             
             <div id="surahAyaView" class="surah-view">
-                <div class="quran-header-nav">
-                    <button class="back-btn" onclick="showSurahList()">❮ الفهرس</button>
-                    <h1 class="screen-title" id="selectedSurahName" style="font-size: 1.8rem; margin:0;">اسم السورة</h1>
-                </div>
-
+                <button class="back-btn" onclick="showSurahList()">❮ العودة للفهرس</button>
+                <h1 class="screen-title" id="selectedSurahName">اسم السورة</h1>
                 <div class="quran-text-display" id="surahTextContainer">
                     جاري جلب الآيات الكريمة...
                 </div>
@@ -364,53 +362,78 @@
     </div>
 
     <script>
-        // قاعدة البيانات المستقرة والنظيفة بالكامل
-        const azkarData = [
-            { id: 1, category: "أذكار الصباح", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}.", count: 1 },
-            { id: 2, category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ}.", count: 3 },
-            { id: 3, category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ}.", count: 3 },
-            { id: 4, category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَٰهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ}.", count: 3 },
-            { id: 5, category: "أذكار الصباح", text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
-            { id: 6, category: "أذكار المساء", text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
-            { id: 7, category: "أذكار المساء", text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ.", count: 1 }
+        // --- مصفوفة الأذكار المصنفة ذكياً ---
+        const morningData = [
+            { category: "أذكار الصباح", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}.", count: 1 },
+            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ}.", count: 3 },
+            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ}.", count: 3 },
+            { category: "أذكار الصباح", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَٰهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ}.", count: 3 },
+            { category: "أذكار الصباح", text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
+            { category: "أذكار الصباح", text: "اللَّهُمَّ بكَ أصْبَحْنَا، وبكَ أمْسَيْنَا، وبكَ نَحْيَا، وبكَ نَمُوتُ، وإلَيْكَ النُّشُورُ.", count: 1 },
+            { category: "أذكار الصباح", text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", count: 1 },
+            { category: "أذكار الصباح", text: "اللَّهُمَّ إنِّي أَصْبَحْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.", count: 4 },
+            { category: "أذكار الصباح", text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", count: 3 },
+            { category: "أذكار الصباح", text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.", count: 3 },
+            { category: "أذكار الصباح", text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.", count: 3 },
+            { category: "أذكار الصباح", text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", count: 100 },
+            { category: "أذكار الصباح", text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ.", count: 100 }
         ];
 
-        let filteredAzkar = [];
+        const eveningData = [
+            { category: "أذكار المساء", text: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ: {اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}.", count: 1 },
+            { category: "أذكار المساء", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ}.", count: 3 },
+            { category: "أذكار المساء", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ}.", count: 3 },
+            { category: "أذكار المساء", text: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ: {قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَٰهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ}.", count: 3 },
+            { category: "أذكار المساء", text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1 },
+            { category: "أذكار المساء", text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", count: 1 },
+            { category: "أذكار المساء", text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", count: 1 },
+            { category: "أذكار المساء", text: "أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", count: 3 },
+            { category: "أذكار المساء", text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", count: 3 },
+            { category: "أذكار المساء", text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.", count: 3 },
+            { category: "أذكار المساء", text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", count: 100 },
+            { category: "أذكار المساء", text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ.", count: 100 }
+        ];
+
+        let activeAzkarList = [];
         let azkarIndex = 0;
         let currentCount = 0;
 
-        function filterAzkarByTime() {
+        // دالة فحص الوقت واختيار القائمة المناسبة تلقائياً
+        function determineAzkarByTime() {
             const currentHour = new Date().getHours();
-            if (currentHour >= 5 && currentHour < 15) {
-                filteredAzkar = azkarData.filter(item => item.category === "أذكار الصباح");
+            // إذا كانت الساعة بين 1 صباحاً وحتى 11 صباحاً يعرض الصباح، غير ذلك يعرض المساء
+            if (currentHour >= 1 && currentHour < 12) {
+                activeAzkarList = morningData;
             } else {
-                filteredAzkar = azkarData.filter(item => item.category === "أذكار المساء");
+                activeAzkarList = eveningData;
             }
+        }
+
+        function switchScreen(screenName, btnElement) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
             
-            if (!filteredAzkar || filteredAzkar.length === 0) {
-                filteredAzkar = azkarData;
-            }
-            
-            azkarIndex = 0;
-            currentCount = filteredAzkar[0].count;
+            btnElement.classList.add('active');
+            document.getElementById(`${screenName}Screen`).classList.add('active');
+
+            if(screenName === 'quran') loadQuranIndex();
         }
 
         function initAzkar() {
-            if (azkarIndex >= filteredAzkar.length) {
+            if (azkarIndex >= activeAzkarList.length) {
                 document.getElementById('screenTitle').innerText = "تم بحمد الله";
-                document.getElementById('azkarText').innerText = "قَضَيْتَ وِرْدَكَ كاملاً اليوم، حُفِظْتَ بِحِفْظِ اللهِ.";
+                document.getElementById('azkarText').innerText = "قَضَيْتَ وِرْدَكَ كاملاً، طَابَ يَوْمُكَ وَحُفِظْتَ بِحِفْظِ اللهِ.";
                 document.getElementById('counterVal').innerText = "✓";
                 return;
             }
-
-            const item = filteredAzkar[azkarIndex];
+            const item = activeAzkarList[azkarIndex];
             document.getElementById('screenTitle').innerText = item.category;
             document.getElementById('azkarText').innerText = item.text;
             document.getElementById('counterVal').innerText = currentCount;
         }
 
         function countClick() {
-            if (azkarIndex >= filteredAzkar.length) return;
+            if (azkarIndex >= activeAzkarList.length) return;
             if (navigator.vibrate) navigator.vibrate(45);
             
             currentCount--;
@@ -423,20 +446,10 @@
 
         function nextItem() {
             azkarIndex++;
-            if (azkarIndex < filteredAzkar.length) {
-                currentCount = filteredAzkar[azkarIndex].count;
+            if (azkarIndex < activeAzkarList.length) {
+                currentCount = activeAzkarList[azkarIndex].count;
             }
             initAzkar();
-        }
-
-        function switchScreen(screenName, btnElement) {
-            document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            
-            btnElement.classList.add('active');
-            document.getElementById(`${screenName}Screen`).style.display = 'flex';
-
-            if(screenName === 'quran') loadQuranIndex();
         }
 
         async function loadQuranIndex() {
@@ -455,7 +468,7 @@
                     card.onclick = () => loadSurahVerses(surah.number, surah.name);
                     card.innerHTML = `
                         <span class="surah-name">${surah.number}. ${surah.name}</span>
-                        <span class="surah-meta">${surah.numberOfAyahs} آية</span>
+                        <span class="surah-meta">${surah.numberOfAyahs} آية - ${surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'}</span>
                     `;
                     container.appendChild(card);
                 });
@@ -466,11 +479,12 @@
 
         async function loadSurahVerses(surahNumber, surahName) {
             document.getElementById('surahListView').style.display = 'none';
-            document.getElementById('surahAyaView').style.display = 'flex';
-            document.getElementById('selectedSurahName').innerText = surahName;
+            const view = document.getElementById('surahAyaView');
+            view.style.display = 'flex';
             
+            document.getElementById('selectedSurahName').innerText = surahName;
             const textContainer = document.getElementById('surahTextContainer');
-            textContainer.innerHTML = 'جاري جلب الآيات الكريمة...';
+            textContainer.innerHTML = 'جاري ترتيل الآيات الكريمة...';
 
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`);
@@ -484,14 +498,16 @@
                 data.data.ayahs.forEach(ayah => {
                     let text = ayah.text;
                     if (surahNumber !== 1 && surahNumber !== 9 && ayah.numberInSurah === 1) {
-                        text = text.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ", "").replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ", "");
+                        text = text.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ", "");
+                        text = text.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ", "");
                     }
-                    surahText += `${text} <span style="color: var(--gold-premium); font-size: 1.2rem;">﴿${ayah.numberInSurah}﴾</span> `;
+                    surahText += `${text} <span style="color: var(--gold-premium); font-family: 'Tajawal'; font-size: 1.2rem; font-weight: bold;">﴿${ayah.numberInSurah}﴾</span> `;
                 });
 
                 textContainer.innerHTML = surahText;
+                textContainer.scrollTop = 0;
             } catch (err) {
-                textContainer.innerHTML = `<div style="color:red; text-align:center;">فشل تحميل السورة.</div>`;
+                textContainer.innerHTML = `<div style="color:red; text-align:center;">فشل تحميل السورة. يرجى المحاولة مرة أخرى.</div>`;
             }
         }
 
@@ -503,7 +519,13 @@
         function requestCompassPermission() {
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
-                    .then(state => { if (state === 'granted') startCompass(); })
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            startCompass();
+                        } else {
+                            document.getElementById('qiblaStatus').innerText = "تم رفض صلاحية الوصول للمستشعر.";
+                        }
+                    })
                     .catch(console.error);
             } else {
                 startCompass();
@@ -514,18 +536,27 @@
             if (window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function(event) {
                     let heading = event.webkitCompassHeading || event.alpha;
-                    if (heading) {
-                        let totalRotate = heading - 185;
+                    
+                    if (heading !== null && heading !== undefined) {
+                        let qiblaDirection = 185; 
+                        let totalRotate = heading - qiblaDirection;
+                        
                         document.getElementById('compassRose').style.transform = `rotate(${-totalRotate}deg)`;
-                        document.getElementById('qiblaStatus').innerText = "البوصلة تعمل بنجاح!";
+                        document.getElementById('qiblaStatus').innerText = "البوصلة تعمل بنجاح! وجه الهاتف لتطابق الكعبة مع المؤشر.";
                     }
                 }, true);
+            } else {
+                document.getElementById('qiblaStatus').innerText = "المستشعر المغناطيسي غير مدعوم على هذا الجهاز.";
             }
         }
 
-        // تشغيل مباشر وبدون تأخير عند تحميل الملف
-        filterAzkarByTime();
-        initAzkar();
+        window.addEventListener('DOMContentLoaded', () => {
+            determineAzkarByTime(); // تحديد الأذكار حسب وقت الساعة الحالية تلقائياً
+            if(activeAzkarList.length > 0) {
+                currentCount = activeAzkarList[0].count;
+            }
+            initAzkar();
+        });
     </script>
 </body>
 </html>
