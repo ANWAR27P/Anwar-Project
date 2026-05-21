@@ -115,10 +115,10 @@
         .skip-btn { background: transparent; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--text-main); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
 
         /* التنبيهات */
-        .custom-toast { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background-color: var(--panel-bg); border: 1px solid var(--gold-premium); border-radius: 16px; padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: top 0.5s ease-in-out; z-index: 999; }
+        .custom-toast { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background-color: var(--panel-bg); border: 2px solid var(--gold-premium); border-radius: 16px; padding: 18px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         .custom-toast.show { top: 20px; }
-        .toast-title { color: var(--gold-premium); font-weight: bold; font-size: 1rem; }
-        .toast-body { color: var(--text-main); font-family: 'Amiri', serif; font-size: 1.3rem; text-align: center; }
+        .toast-title { color: var(--gold-premium); font-weight: bold; font-size: 1.05rem; }
+        .toast-body { color: var(--text-main); font-family: 'Amiri', serif; font-size: 1.35rem; text-align: center; line-height: 2rem; }
 
         /* المصحف */
         .quran-tabs { display: flex; width: 100%; background-color: var(--panel-bg); border-radius: 12px; padding: 4px; margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.1); }
@@ -138,7 +138,7 @@
         .page-btn:active { background-color: var(--gold-premium); color: #000; }
         .page-number-lbl { font-size: 0.95rem; color: var(--text-muted); font-weight: bold; }
 
-        /* شاشة قصص الأنبياء (الجديدة) */
+        /* شاشة قصص الأنبياء */
         .story-text-display { font-family: 'Amiri', serif; font-size: 1.45rem; line-height: 2.8rem; text-align: justify; color: var(--text-main); background-color: #141820; padding: 25px 20px; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.2); box-shadow: inset 0 0 20px rgba(0,0,0,0.6); max-height: 520px; overflow-y: auto; }
 
         /* القبلة */
@@ -148,7 +148,7 @@
         .kaaba-icon { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); font-size: 1.8rem; color: var(--gold-premium); }
         .activate-btn { background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%); color: #000; border: none; padding: 12px 28px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 0.95rem; margin-top: 20px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-family: 'Tajawal', sans-serif; }
         
-        /* شريط التنقل السفلي الاحترافي الخماسي */
+        /* شريط التنقل السفلي */
         .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 75px; background-color: var(--panel-bg); border-top: 1px solid rgba(212, 175, 55, 0.15); display: flex; justify-content: space-around; align-items: center; padding-bottom: env(safe-area-inset-bottom); z-index: 10; }
         .nav-item { background: none; border: none; color: var(--text-muted); font-family: 'Tajawal', sans-serif; font-size: 0.75rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: 0.3s; flex: 1; }
         .nav-item.active { color: var(--gold-premium); font-weight: bold; text-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
@@ -160,7 +160,7 @@
     <div class="app-window">
         
         <div id="customToast" class="custom-toast">
-            <span class="toast-title">🔔 تذكير بالذكر</span>
+            <span class="toast-title" id="toastTitle">🔔 تذكير بالذكر</span>
             <span id="toastBody" class="toast-body">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</span>
         </div>
         
@@ -169,7 +169,7 @@
             <div class="screen-subtitle" id="screenSubtitle">الورد الحالي</div>
             <button id="notifyBtn" class="notification-toggle-btn" onclick="toggleMinuteReminders()">⏰ تفعيل التذكير التلقائي (كل دقيقة)</button>
             <div class="azkar-display">
-                <p class="azkar-text" id="azkarText">جاري تحميل الذكر...</p>
+                <p class="azkar-text" id="azkarText">جاري تحميل الورد المناسب...</p>
             </div>
             <div class="counter-section">
                 <div class="counter-ring" onclick="countClick()">
@@ -228,8 +228,7 @@
             <div id="storiesListView" style="width: 100%;">
                 <h1 class="screen-title">قصص الأنبياء</h1>
                 <div class="screen-subtitle">العبر والدروس من سير ورسائل المرسلين</div>
-                <div class="quran-list" id="storiesContainer">
-                    </div>
+                <div class="quran-list" id="storiesContainer"></div>
             </div>
             <div id="storyDetailView" class="surah-view">
                 <div class="quran-header-nav">
@@ -295,14 +294,23 @@
             { id: 42, category: "أذكار المساء", text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", count: 100 }
         ];
 
+        // مصفوفة بيانات قصص الأنبياء المحلية (Offline) لحل مشكلة الـ API نهائياً
+        const localStoriesData = [
+            { title: "آدم عليه السلام", story: "خلق الله سبحانه وتعالى سيدنا آدم بيده من طين، ونفخ فيه من روحه، وعلمه الأسماء كلها لتكريم شأنه. أمر الله الملائكة بالسجود له سجود تحية وتقدير، فاستجابوا جميعاً إلا إبليس أَبى واستكبر وكان من الكافرين. عاش آدم وزوجته حواء في الجنة في رغد ونعيم، حتى وسوس لهما الشيطان ليأكلا من الشجرة المحرمة، فأكلا منها فبدت لهما سوآتهما. ندم آدم وحواء واستغفرا ربهما، فتاب الله عليهما واصطفاهما، وأهبطهما إلى الأرض لتبدأ رحلة الخلافة البشرية وبناء الأرض بالخير والتوحيد." },
+            { title: "نوح عليه السلام", story: "بُعث سيدنا نوح عليه السلام إلى قوم يعبدون الأصنام والأوثان. ظل يدعوهم إلى عبادة الله وحده لا شريك له ليلاً ونهاراً، سراً وجهاراً، متبعاُ كل أساليب اللين والوعظ لمدة 950 سنة! لم يزدهم ذلك إلا نفوراً واستكباراً، وسخروا منه وآذوه. أوحى الله إليه أن يصنع الفلك (السفينة) بأعين الله ووحي الله، وجعل قومه يمرون عليه ويسخرون من بنائها في مكان صحراوي لا ماء فيه. وحين جاء أمر الله وفار التنور، أمره الله أن يحمل فيها من كل زوجين اثنين ومن آمن معه، فانهمرت السماء بماء منهمر وتفجرت الأرض عيوناً فنجت سفينة التوحيد وغرق المكذبون." },
+            { title: "إبراهيم عليه السلام", story: "هو خليل الرحمن، وُلد في قوم يعبدون الكواكب والأصنام، وكان والده آزر يصنعها بيديه. أوتي إبراهيم رشده منذ صغره، وحارب الشرك بالحجة والمنطق، فكسر أصنامهم وعلق الفأس في عنق كبيرهم ليثبت لهم عجزها. غضب قومه وقرروا الانتقام لآلهتهم بإلقائه في نار عظيمة، فجاء الأمر الإلهي الحاسم للنار: 'يا نار كوني برداً وسلاماً على إبراهيم' فخرج منها سالماً. هاجر في سبيل الله وبنى البيت الحرام مع ابنه إسماعيل، وجعله الله أباً للأنبياء ورمزاً للحنيفية السمحاء." },
+            { title: "موسى عليه السلام", story: "كليم الله موسى عليه السلام، ولد في مصر في زمن فرعون الطاغية الذي كان يذبح الأطفال. ألقت أمه به في اليم داخل تابوت بأمر الله، ليلتقطه آل فرعون ويربى في قصر عدوه! كبر موسى وفر إلى مدين ثم عاد بالرسالة مؤيداً بالمعجزات الباهرة كالعصا واليد البيضاء وفلق البحر. واجه جبروت فرعون بالحق ونصر المستضعفين من بني إسرائيل." },
+            { title: "عيسى عليه السلام", story: "رسول الله وكلمته ألقاها إلى مريم البتول، وُلد بمعجزة إلهية من غير أب. تكلم في المهد صبياً لتبرئة أمه الطاهرة، وجاء بمصحف الإنجيل مصدقاً ومبشراً بالنبي محمد. أيده الله بمعجزات عظيمة كإبراء الأكمه والأبرص وإحياء الموتى بإذن الله. حاربه بنو إسرائيل وحاولوا قتله، لكن الله عصمه ورفعه إليه إلى السماء طاهراً." },
+            { title: "محمد صلى الله عليه وسلم", story: "خاتم الأنبياء والمرسلين، وُلد في مكة يتيماً، وعُرف بالأمين لصدقه ونزاهته. نزل عليه الوحي في غار حراء وهو في الأربعين من عمره، فدعا إلى الإسلام والتوحيد صابراً على أذى قريش. هاجر إلى المدينة المنورة فأسس الدولة الإسلامية العادلة. فتح مكة ونشر النور والرحمة في آفاق الأرض، تاركاً للأمة القرآن والسنة الشريفة." }
+        ];
+
         const shortReminders = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ"];
 
         let filteredAzkar = [], azkarIndex = 0, currentCount = 0, reminderInterval = null;
         let currentQuranTab = 'surah', currentPageNumber = 1;
         let prayerTimes = {}, countdownInterval = null;
-        let cachedStories = [];
 
-        // إدارة الأذكار حسب التوقيت
+        // إدارة وتصفية الأذكار حسب التوقيت الحالي
         function filterAzkarByTime() {
             const currentHour = new Date().getHours();
             if (currentHour >= 5 && currentHour < 15) {
@@ -318,6 +326,11 @@
             const titleEl = document.getElementById('screenTitle');
             const textEl = document.getElementById('azkarText');
             const countEl = document.getElementById('counterVal');
+            
+            if (!filteredAzkar || filteredAzkar.length === 0) {
+                filterAzkarByTime();
+            }
+
             if (azkarIndex >= filteredAzkar.length) {
                 titleEl.innerText = "تم بحمد الله";
                 textEl.innerText = "قَضَيْتَ وِرْدَكَ كاملاً اليوم بفضل الله.";
@@ -344,7 +357,7 @@
             initAzkar();
         }
 
-        // جلب مواقيت الصلاة عبر الـ API والموقع الجغرافي
+        // جلب مواقيت الصلاة
         function fetchPrayerTimes() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
@@ -410,39 +423,24 @@
             }, 1000);
         }
 
-        // جلب وبناء شاشة قصص الأنبياء (الميزة الجديدة)
-        async function loadStoriesIndex() {
+        // عرض قائمة قصص الأنبياء الفورية محلياً 100%
+        function loadStoriesIndex() {
             const container = document.getElementById('storiesContainer');
-            if (cachedStories.length > 0) return; // تم جلب البيانات مسبقاً لمنع التكرار
-            container.innerHTML = `<div style="text-align:center; color:var(--gold-premium);">جاري جلب قائمة الأنبياء...</div>`;
-            try {
-                const response = await fetch('https://raw.githubusercontent.com/islamic-network/quran-api/master/data/prophets.json');
-                // في حال تعذر المصدر، نستخدم API محلي احتياطي متكامل لتجنب أي توقف
-                const backupUrl = 'https://api.npoint.io/4119da0e7f717cfcd091'; 
-                const res = await fetch(backupUrl);
-                const data = await res.json();
-                cachedStories = data;
-                
-                container.innerHTML = '';
-                cachedStories.forEach((prophet, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'surah-card';
-                    card.onclick = () => viewStoryDetail(index);
-                    card.innerHTML = `<span class="surah-name">✨ قصة ${prophet.title}</span><span class="surah-meta">اقرأ ❯</span>`;
-                    container.appendChild(card);
-                });
-            } catch (err) {
-                container.innerHTML = `<div style="color:red; text-align:center;">تعذر تحميل القصص، تحقق من الاتصال.</div>`;
-            }
+            container.innerHTML = '';
+            localStoriesData.forEach((prophet, index) => {
+                const card = document.createElement('div');
+                card.className = 'surah-card';
+                card.onclick = () => viewStoryDetail(index);
+                card.innerHTML = `<span class="surah-name">✨ قصة ${prophet.title}</span><span class="surah-meta">اقرأ ❯</span>`;
+                container.appendChild(card);
+            });
         }
 
         function viewStoryDetail(index) {
-            const prophet = cachedStories[index];
+            const prophet = localStoriesData[index];
             document.getElementById('storiesListView').style.display = 'none';
             document.getElementById('storyDetailView').style.display = 'flex';
             document.getElementById('selectedStoryName').innerText = `قصة ${prophet.title}`;
-            
-            // تهيئة وتجميل النص والفقرات
             let formattedStory = prophet.story.replace(/\n/g, '<br><br>');
             document.getElementById('storyContentContainer').innerHTML = `<div style="padding-bottom:15px; font-weight:bold; color:var(--gold-premium); text-align:center;">عليه أفضل الصلاة وأتم التسليم</div>${formattedStory}`;
         }
@@ -452,7 +450,7 @@
             document.getElementById('storiesListView').style.display = 'block';
         }
 
-        // تصفح شاشات التطبيق الخمسة الموحدة
+        // تصفح شاشات التطبيق
         function switchScreen(screenName, btnElement) {
             document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
             document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
@@ -465,7 +463,7 @@
             if(screenName === 'stories') loadStoriesIndex();
         }
 
-        // تصفح وقراءة المصحف الشريف التقدمي
+        // تصفح وقراءة المصحف الشريف
         function switchQuranTab(tab) {
             currentQuranTab = tab;
             document.getElementById('tabSurah').classList.toggle('active', tab === 'surah');
@@ -549,7 +547,7 @@
             document.getElementById('surahListView').style.display = 'block';
         }
 
-        // إدارة الحساسات والقبلة
+        // إدارة حساسات القبلة
         function requestCompassPermission() {
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission().then(state => { if (state === 'granted') startCompass(); });
@@ -569,7 +567,7 @@
             }
         }
 
-        // التذكير الدقيق الداخلي التلقائي
+        // نظام التنبيه الداخلي الفاخر البديل للـ Alerts المزعجة
         function toggleMinuteReminders() {
             const btn = document.getElementById('notifyBtn');
             if (reminderInterval) {
@@ -578,20 +576,22 @@
                 return;
             }
             btn.classList.add('active'); btn.innerText = "✓ التذكير التلقائي نشط (كل دقيقة)";
-            showInternalToast("تم تفعيل التذكير بنجاح!");
+            showInternalToast("تنبيه نظامي", "تم تفعيل التذكير بنجاح! سيظهر ذكر عشوائي هنا كل دقيقة.");
             reminderInterval = setInterval(() => {
-                showInternalToast(shortReminders[Math.floor(Math.random() * shortReminders.length)]);
+                showInternalToast("🔔 تذكير بالذكر", shortReminders[Math.floor(Math.random() * shortReminders.length)]);
             }, 60000);
         }
 
-        function showInternalToast(text) {
+        function showInternalToast(title, text) {
             const toast = document.getElementById('customToast');
+            document.getElementById('toastTitle').innerText = title;
             document.getElementById('toastBody').innerText = text;
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 6000);
         }
 
-        window.addEventListener('load', () => {
+        // تشغيل فوري وآمن عند تحميل الصفحة بالكامل لمنع تعليق الواجهات
+        document.addEventListener('DOMContentLoaded', () => {
             filterAzkarByTime();
             initAzkar();
         });
