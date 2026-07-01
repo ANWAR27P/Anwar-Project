@@ -8,7 +8,7 @@
         body {
             background-color: #0d0d0d;
             color: #f5f0eb;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -26,13 +26,13 @@
             align-items: center;
         }
 
-        /* شاشة الدخول الترحيبية */
+        /* شاشة الدخول الفخمة لربط تفعيل الصوت */
         .welcome-card {
             background-color: #141414;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            border: 1px solid #c9a0dc;
+            border: 1px solid #d4af37;
             text-align: center;
             width: 100%;
             box-sizing: border-box;
@@ -61,7 +61,7 @@
             background-color: #e5dfda;
         }
 
-        /* اللوحة الرئيسية للعداد */
+        /* اللوحة الرئيسية */
         #mainDashboard {
             width: 100%;
         }
@@ -71,11 +71,10 @@
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 30px;
-            letter-spacing: 0.5px;
             text-align: center;
         }
 
-        /* العداد التنازلي المطابق للصورة */
+        /* العداد التنازلي المطابق تماماً للصورة */
         .countdown-board {
             display: flex;
             justify-content: space-around;
@@ -86,6 +85,7 @@
             border: 1px solid #222222;
             width: 100%;
             box-sizing: border-box;
+            gap: 10px;
         }
 
         .countdown-block {
@@ -161,39 +161,39 @@
 <body>
 
     <div class="container">
-        <!-- ملف الصوت الخفي للقصيدة الفخمة -->
-        <audio id="z विवाहAudio" src="https://archive.org/download/entazartak-badr/entazartak.mp3" loop></audio>
+        <!-- مشغل الصوت للقصيدة (انتظرتك عمري كله) -->
+        <audio id="bgAudio" src="https://archive.org/download/entazartak-badr/entazartak.mp3" loop></audio>
 
-        <!-- 1. الشاشة الترحيبية لتفعيل الصوت بمتصفحات الجوال -->
+        <!-- 1. الشاشة الترحيبية لتشغيل الصوت على الجوال -->
         <div id="welcomeScreen" class="welcome-card">
-            <h2>مرحباً بك في لوحة المناسبة الفخمة</h2>
-            <button class="start-btn" onclick="activateDashboard()">دخول اللوحة وتشغيل الصوت</button>
+            <h2>لوحة أنور وريناد الفخمة</h2>
+            <button class="start-btn" onclick="activateDashboard()">دخول اللوحة وتشغيل القصيدة</button>
         </div>
 
-        <!-- 2. اللوحة الفخمة والعداد (المطابقة للصورة) -->
+        <!-- 2. اللوحة الرئيسية (المطابقة للصورة 100%) -->
         <div id="mainDashboard" style="display: none;">
             <div class="title">المتبقي على المناسبة السعيدة</div>
             
             <div class="countdown-board">
                 <div class="countdown-block">
-                    <span class="countdown-number" id="days">44</span>
+                    <span class="countdown-number" id="days">00</span>
                     <span class="countdown-label">أيام</span>
                 </div>
                 <div class="countdown-block">
-                    <span class="countdown-number" id="hours">14</span>
+                    <span class="countdown-number" id="hours">00</span>
                     <span class="countdown-label">ساعات</span>
                 </div>
                 <div class="countdown-block">
-                    <span class="countdown-number" id="minutes">14</span>
+                    <span class="countdown-number" id="minutes">00</span>
                     <span class="countdown-label">دقائق</span>
                 </div>
                 <div class="countdown-block">
-                    <span class="countdown-number" id="seconds">54</span>
+                    <span class="countdown-number" id="seconds">00</span>
                     <span class="countdown-label">ثواني</span>
                 </div>
             </div>
 
-            <div class="section-title">📝 جدول المهام والمتابعة:</div>
+            <div class="section-title">📋 جدول المهام والمتابعة:</div>
             
             <div class="task-board">
                 <div class="task-row">
@@ -209,19 +209,18 @@
     </div>
 
     <script>
-        // دالة تفعيل اللوحة وتشغيل القصيدة فوراً
         function activateDashboard() {
             document.getElementById('welcomeScreen').style.display = 'none';
             document.getElementById('mainDashboard').style.display = 'block';
             
-            const audio = document.getElementById('z विवाहAudio');
-            audio.play().catch(error => console.log("Audio block bypass:", error));
+            const audio = document.getElementById('bgAudio');
+            audio.play().catch(error => console.log("Audio play allowed:", error));
         }
 
-        // توقيت المناسبة الحي (15 أغسطس 2026)
+        // موعد المناسبة (15 أغسطس 2026)
         const targetEventTime = new Date("2026-08-15T00:00:00").getTime();
 
-        setInterval(function() {
+        function updateCountdown() {
             const currentTime = new Date().getTime();
             const timeDiff = targetEventTime - currentTime;
 
@@ -231,4 +230,4 @@
                 const m = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-                document.getElementById("days").Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+                document.getElementById("days").innerText = d;Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
