@@ -1,167 +1,161 @@
-import React, { useState, useEffect, useRef } from 'react';
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المناسبة الفخمة</title>
+    <style>
+        body {
+            background-color: '#0d0d0d';
+            background: radial-gradient(circle, #1a1a1a 0%, #0d0d0d 100%);
+            color: #f5f0eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+        }
+        .card {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid #d4af37;
+        }
+        h1, h2, h3 {
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #f5f0eb;
+            color: #0d0d0d;
+            border: none;
+            padding: 12px 35px;
+            fontSize: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(245,240,235,0.2);
+        }
+        button:hover {
+            transform: scale(1.05);
+            background-color: #e5dfda;
+        }
+        .countdown {
+            display: flex;
+            justify-content: space-around;
+            background-color: #161616;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 1px solid #2a2a2a;
+        }
+        .countdown-item {
+            font-size: 14px;
+            color: #f5f0eb;
+        }
+        .countdown-item span {
+            font-size: 32px;
+            display: block;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        .task-list {
+            background-color: #161616;
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #2a2a2a;
+            text-align: right;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        .status-working { color: #f1c40f; font-weight: bold; }
+        .status-done { color: #2ecc71; font-weight: bold; }
+    </style>
+</head>
+<body>
 
-function App() {
-  const [loading, setLoading] = useState(true);
-  const audioRef = useRef(null);
-  
-  const [tasks, setTasks] = useState([
-    { TaskID: 1, TaskName: 'تجهيز ديكور قاعة التهاني', Status: 'جاري العمل', DueDate: '2026-07-05' },
-    { TaskID: 2, TaskName: 'حجز فرقة الزفة والصوت', Status: 'مكتمل', DueDate: '2026-06-30' }
-  ]);
+    <div class="container">
+        <audio id="bgAudio" src="https://archive.org/download/entazartak-badr/entazartak.mp3" loop></audio>
 
-  const calculateTimeLeft = () => {
-    const difference = +new Date("2026-08-15T00:00:00") - +new Date();
-    let timeLeft = {};
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-      };
-    } else {
-      timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-    return () => clearTimeout(timer);
-  });
-
-  // دالة تشغيل الصوت ودخول الصفحة عند الضغط
-  const handleStart = () => {
-    setLoading(false);
-    if (audioRef.current) {
-      audioRef.current.play().catch(error => {
-        console.log("المتصفح منع التشغيل التلقائي حتى الآن:", error);
-      });
-    }
-  };
-
-  return (
-    <div style={{ backgroundColor: '#FDFBF7', color: '#5A4A42', minHeight: '100vh', fontFamily: 'serif', padding: '20px', direction: 'rtl', position: 'relative' }}>
-      
-      {/* مشغل الصوت الخفي - ضع رابط الـ MP3 في الـ src */}
-      <audio ref={audioRef} src="/music.mp3" loop />
-
-      {/* 1. شاشة الدخول الترحيبية التفاعلية */}
-      {loading && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-          backgroundColor: '#FDFBF7', display: 'flex', flexDirection: 'column',
-          justifyContent: 'center', alignItems: 'center', zIndex: 9999,
-          textAlign: 'center', padding: '20px'
-        }}>
-          <h1 style={{ fontSize: '2.5rem', color: '#8E7368', fontFamily: 'Georgia, serif', letterSpacing: '2px', margin: '0 0 15px 0' }}>
-            ANWAR & RENAD
-          </h1>
-          <div style={{ width: '40px', height: '1px', backgroundColor: '#D1C7BD', marginBottom: '15px' }}></div>
-          <p style={{ color: '#A39284', fontStyle: 'italic', fontSize: '1rem', letterSpacing: '1px', margin: '0 0 30px 0' }}>
-            Our beautiful journey begins here
-          </p>
-          
-          {/* زر فخم للدخول وتشغيل الصوت */}
-          <button 
-            onClick={handleStart}
-            style={{
-              backgroundColor: '#8E7368', color: '#FFFFFF', border: 'none',
-              padding: '12px 35px', borderRadius: '25px', fontSize: '1rem',
-              cursor: 'pointer', boxShadow: '0 4px 15px rgba(142, 115, 104, 0.2)',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            اضغط هنا لفتح اللوحة الفخمة 🎵
-          </button>
+        <div id="welcomeScreen" class="card">
+            <h2>مرحباً بك في لوحة المناسبة الفخمة</h2>
+            <p style="color: #a0a0a0; margin-bottom: 30px;">اضغط على زر الدخول للاستماع للقصيدة وعرض العداد</p>
+            <button onclick="startDashboard()">دخول اللوحة وتشغيل الصوت</button>
         </div>
-      )}
 
-      {/* 2. محتوى التطبيق الأساسي */}
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <header style={{ borderBottom: '1px solid #E6DFD5', paddingBottom: '30px', marginBottom: '30px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '2.5rem', color: '#8E7368', margin: '10px 0 5px 0', fontFamily: 'Georgia, serif', letterSpacing: '1px', fontWeight: 'normal' }}>
-            ANWAR & RENAD
-          </h1>
-          <p style={{ color: '#A39284', fontStyle: 'italic', fontSize: '0.85rem', margin: '0 0 25px 0', letterSpacing: '2px' }}>
-            FAZAA SOFT LIGHT DASHBOARD
-          </p>
-
-          <div style={{ 
-            maxWidth: '100%', margin: '0 auto 25px auto', color: '#7A685D', fontSize: '1.1rem', 
-            fontFamily: 'serif', fontStyle: 'italic', lineHeight: '1.8', backgroundColor: '#F8F4EE',
-            padding: '15px 20px', borderRadius: '15px', border: '1px solid #EAE1DC',
-          }}>
-            <p style={{ margin: '0 0 8px 0' }}>انتظرتك عمري كله.. وانتي حلم</p>
-            <p style={{ margin: '0 0 8px 0' }}>ومرت الأيام والله.. وانتي حلم</p>
-            <p style={{ margin: '0 0 8px 0' }}>ليه تأخرتي علي؟ توهي مرة واسألي</p>
-            <p style={{ margin: '0 0 8px 0' }}>كوني في غير الزمان.. والا في غير المكان</p>
-            <p style={{ margin: '0', fontWeight: '500' }}>كوني عمري.. عمري كله اللي باقي واللي كان</p>
-          </div>
-          
-          <div style={{ display: 'inline-block', backgroundColor: '#F4EFEA', border: '1px solid #D1C7BD', padding: '8px 25px', borderRadius: '25px', color: '#6E5D53', fontSize: '0.95rem', fontWeight: 'bold' }}>
-            🤍 ليلة العمر المنتظرة: 15 / 08 / 2026 🤍
-          </div>
-        </header>
-
-        {/* العداد التنازلي */}
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '30px', textAlign: 'center' }}>
-          {[
-            { label: 'يوم', value: timeLeft.days, bg: '#F2E8E4' },
-            { label: 'ساعة', value: timeLeft.hours, bg: '#ECF1EB' },
-            { label: 'دقيقة', value: timeLeft.minutes, bg: '#F2E8E4' },
-            { label: 'ثانية', value: timeLeft.seconds, bg: '#ECF1EB' }
-          ].map((item, index) => (
-            <div key={index} style={{ backgroundColor: item.bg, borderRadius: '12px', padding: '10px 5px' }}>
-              <div style={{ fontSize: '1.6rem', color: '#5A4A42' }}>{item.value}</div>
-              <div style={{ color: '#7A685D', fontSize: '0.75rem', marginTop: '2px' }}>{item.label}</div>
+        <div id="mainDashboard" style="display: none;">
+            <h1>المتبقي على المناسبة السعيدة</h1>
+            
+            <div class="countdown">
+                <div class="countdown-item"><span id="days">0</span>أيام</div>
+                <div class="countdown-item"><span id="hours">0</span>ساعات</div>
+                <div class="countdown-item"><span id="minutes">0</span>دقائق</div>
+                <div class="countdown-item"><span id="seconds">0</span>ثواني</div>
             </div>
-          ))}
-        </section>
 
-        {/* كروت الإحصائيات وجدول المهام يظلان كما هما */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', marginBottom: '30px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F0EEEA', padding: '15px', borderRadius: '12px' }}>
-            <h3 style={{ color: '#A39284', margin: '0 0 5px 0', fontSize: '0.8rem' }}>إجمالي الترتيبات</h3>
-            <p style={{ fontSize: '1.8rem', color: '#8E7368', margin: '0' }}>{tasks.length}</p>
-          </div>
-          <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F0EEEA', padding: '15px', borderRadius: '12px' }}>
-            <h3 style={{ color: '#A39284', margin: '0 0 5px 0', fontSize: '0.8rem' }}>المناسبات</h3>
-            <p style={{ fontSize: '1.8rem', color: '#8E7368', margin: '0' }}>1</p>
-          </div>
+            <h3>📋 جدول المهام والمتابعة:</h3>
+            <div class="task-list">
+                <div class="task-item">
+                    <span>تجهيز ديكور قاعة التهاني</span>
+                    <span class="status-working">جاري العمل</span>
+                </div>
+                <div class="task-item">
+                    <span>حجز فرقة الزفة والصوت</span>
+                    <span class="status-done">مكتمل</span>
+                </div>
+            </div>
         </div>
-
-        <section style={{ backgroundColor: '#FFFFFF', border: '1px solid #F0EEEA', borderRadius: '12px', padding: '15px', overflowX: 'auto' }}>
-          <h2 style={{ color: '#8E7368', marginTop: '0', marginBottom: '15px', fontSize: '1.1rem', fontWeight: 'normal' }}>📋 جدول تحضيرات الحفل</h2>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right', fontSize: '0.9rem' }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #F7F3F0', color: '#A39284' }}>
-                <th style={{ padding: '8px' }}>المهمة</th>
-                <th style={{ padding: '8px' }}>الحالة</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.map(task => (
-                <tr key={task.TaskID} style={{ borderBottom: '1px solid #FDFBF7' }}>
-                  <td style={{ padding: '8px', color: '#4A3E38' }}>{task.TaskName}</td>
-                  <td style={{ padding: '8px' }}>
-                    <span style={{ backgroundColor: task.Status === 'مكتمل' ? '#ECF1EB' : '#F9F2ED', color: task.Status === 'مكتمل' ? '#5A6E58' : '#A8846F', padding: '2px 8px', borderRadius: '20px', fontSize: '0.75rem' }}>
-                      {task.Status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-      </div>
     </div>
-  );
-}
 
-export default App;
+    <script>
+        // دالة الدخول وتشغيل الصوت
+        function startDashboard() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('mainDashboard').style.display = 'block';
+            
+            var audio = document.getElementById('bgAudio');
+            audio.play().catch(function(error) {
+                console.log("Audio play blocked:", error);
+            });
+        }
+
+        // حساب العداد التنازلي لموعد المناسبة (15 أغسطس 2026)
+        const targetDate = new Date("2026-08-15T00:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+            } else {
+                clearInterval(timerInterval);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
