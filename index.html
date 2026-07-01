@@ -26,46 +26,6 @@
             align-items: center;
         }
 
-        /* شاشة الدخول الفخمة لربط تفعيل الصوت */
-        .welcome-card {
-            background-color: #141414;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            border: 1px solid #d4af37;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .welcome-card h2 {
-            color: #d4af37;
-            margin-bottom: 25px;
-            font-size: 24px;
-        }
-
-        .start-btn {
-            background-color: #f5f0eb;
-            color: #0d0d0d;
-            border: none;
-            padding: 14px 35px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .start-btn:hover {
-            transform: scale(1.03);
-            background-color: #e5dfda;
-        }
-
-        /* اللوحة الرئيسية */
-        #mainDashboard {
-            width: 100%;
-        }
-
         .title {
             color: #d4af37;
             font-size: 28px;
@@ -74,7 +34,7 @@
             text-align: center;
         }
 
-        /* العداد التنازلي المطابق تماماً للصورة */
+        /* العداد التنازلي المطابق تماماً لتصميمك الأصلي */
         .countdown-board {
             display: flex;
             justify-content: space-around;
@@ -161,17 +121,11 @@
 <body>
 
     <div class="container">
-        <!-- مشغل الصوت للقصيدة (انتظرتك عمري كله) -->
-        <audio id="bgAudio" src="https://archive.org/download/entazartak-badr/entazartak.mp3" loop></audio>
+        <!-- مشغل الصوت للقصيدة الفخمة -->
+        <audio id="bgAudio" src="https://archive.org/download/entazartak-badr/entazartak.mp3" loop autoplay></audio>
 
-        <!-- 1. الشاشة الترحيبية لتشغيل الصوت على الجوال -->
-        <div id="welcomeScreen" class="welcome-card">
-            <h2>لوحة أنور وريناد الفخمة</h2>
-            <button class="start-btn" onclick="activateDashboard()">دخول اللوحة وتشغيل القصيدة</button>
-        </div>
-
-        <!-- 2. اللوحة الرئيسية (المطابقة للصورة 100%) -->
-        <div id="mainDashboard" style="display: none;">
+        <!-- اللوحة الفخمة تظهر مباشرة الآن -->
+        <div id="mainDashboard" style="width: 100%;">
             <div class="title">المتبقي على المناسبة السعيدة</div>
             
             <div class="countdown-board">
@@ -209,15 +163,7 @@
     </div>
 
     <script>
-        function activateDashboard() {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('mainDashboard').style.display = 'block';
-            
-            const audio = document.getElementById('bgAudio');
-            audio.play().catch(error => console.log("Audio play allowed:", error));
-        }
-
-        // موعد المناسبة (15 أغسطس 2026)
+        // موعد المناسبة الحي (15 أغسطس 2026)
         const targetEventTime = new Date("2026-08-15T00:00:00").getTime();
 
         function updateCountdown() {
@@ -230,4 +176,5 @@
                 const m = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-                document.getElementById("days").innerText = d;Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+                document.getElementById("days").innerText = d;
+                document.getElementByIdNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
