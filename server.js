@@ -9,23 +9,23 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// الاتصال بقاعدة البيانات
+// الاتصال بقاعدة البيانات (مع التعامل مع أخطاء السيرفرات السحابية)
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'wallet_db'
+    host: process.env.DB_HOST || '127.0.0.1',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'wallet_db'
 });
 
 db.connect((err) => {
     if (err) {
-        console.error('❌ خطأ في الاتصال بقاعدة البيانات:', err);
-        return;
+        console.error('⚠️ تحذير: لم يتم الاتصال بقاعدة البيانات (طبيعي عند الرفع على Render بدون DB سحابية):', err.message);
+    } else {
+        console.log('✅ تم الاتصال بقاعدة البيانات بنجاح!');
     }
-    console.log('✅ تم الاتصال بقاعدة البيانات بنجاح!');
 });
 
-// المسار التجريبي
+// المسار الرئيسي التجريبي
 app.get('/', (req, res) => {
     res.send('Ezwa Backend Server is up and running successfully! 🚀');
 });
@@ -40,7 +40,6 @@ app.get('/api/employees', (req, res) => {
 
 // مسار إضافة موظف
 app.post('/api/employees', (req, res) => {
-    const { id, name, role, department } = req.body;
     res.json({ message: 'تم إضافة الموظف بنجاح' });
 });
 
